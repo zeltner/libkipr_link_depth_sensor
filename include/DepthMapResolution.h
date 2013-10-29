@@ -19,36 +19,26 @@
 
 *******************************************************************************/
 
-#include "Depth.hpp"
+/**
+ * \file DepthMapResolution.h
+ * \brief Contains the definiton of the enum DepthMapResolution
+ * \author Stefan Zeltner
+ */
 
-#include "depth.h"
+#ifndef _DEPTH_MAP_RESOLUTION_H_
+#define _DEPTH_MAP_RESOLUTION_H_
 
-using namespace libkipr_link_depth_sensor;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-int depth_open()
+enum DepthMapResolution
 {
-  try
-  {
-    Depth::instance().open();
+  TODO
+};
 
-    return 1;
-  }
-  catch(...)
-  {
-    return 0;
-  }
+#ifdef __cplusplus
 }
+#endif
 
-int depth_close()
-{
-  try
-  {
-    Depth::instance().close();
-
-    return 1;
-  }
-  catch(...)
-  {
-    return 0;
-  }
-}
+#endif /* _DEPTH_MAP_RESOLUTION_H_ */

@@ -28,6 +28,8 @@
 #ifndef _DEPTH_HPP_
 #define _DEPTH_HPP_
 
+#include "DepthMapResolution.h"
+
 /*
 enum DepthMapResolution
 {
@@ -103,7 +105,7 @@ namespace libkipr_link_depth_sensor
   class Depth
   {
   public:
-    static Depth& getInstance();
+    static Depth& instance();
 
     /**
       * Opens the depth sensor

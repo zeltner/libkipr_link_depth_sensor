@@ -34,16 +34,11 @@
 #ifndef _DEPTH_H_
 #define _DEPTH_H_
 
+#include "DepthMapResolution.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-enum DepthMapResolution
-{
-  TODO
-};
-
-
 
 /** \name Open/Close
  * Use these functions to open / close the depth sensor library in a clean way.
@@ -65,7 +60,6 @@ int depth_open();
 int depth_close();
 
 /** \} */
-
 
 
 /** \name Depth map resolution
