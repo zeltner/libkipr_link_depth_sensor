@@ -23,6 +23,8 @@
 
 #include "depth.h"
 
+using namespace libkipr_link_depth_sensor;
+
 int depth_open()
 {
   try

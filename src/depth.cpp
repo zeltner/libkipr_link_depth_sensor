@@ -21,6 +21,8 @@
 
 #include "depth.hpp"
 
+using namespace libkipr_link_depth_sensor;
+
 Depth& Depth::getInstance()
 {
   static Depth instance;
