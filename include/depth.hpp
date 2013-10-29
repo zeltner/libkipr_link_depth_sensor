@@ -28,6 +28,7 @@
 #ifndef _DEPTH_HPP_
 #define _DEPTH_HPP_
 
+/*
 enum DepthMapResolution
 {
 
@@ -61,20 +62,20 @@ public:
     /**
      * Get the width of this depth map
      * \return The resolution of this depth map
-     */
+     *
     unsigned int getWidth() const;
 
     /**
      * Get the width of this depth map
      * \return The resolution of this depth map
-     */
+     *
     unsigned int getHeight() const;
 
     /**
      * Returns a DepthMap object containing a subregion of the current map
      * \param subRegion Selected subregion
      * \return A DepthMap opject containing the subregion
-     */
+     *
     const DepthMap getSubRegion(Region subRegion) const;
 
     /**
@@ -84,7 +85,7 @@ public:
      * \see depth_map_select_subregion
      * \see depth_map_select_row
      * \see depth_get_closest_point_distance
-     */
+     *
     const Point depth_get_closest_point() const;
 
     /**
@@ -93,9 +94,9 @@ public:
      * \see depth_map_select_subregion
      * \see depth_map_select_row
      * \see depth_get_closest_point
-     */
+     *
     int depth_get_closest_point_distance();
-};
+};*/
 
 class Depth
 {
@@ -109,12 +110,12 @@ public:
      * Destructor which closes the depth sensor
      */
     ~Depth();
-
+/*
     /**
      * Get the current depth map resolution
      * \return The current depth map resolution
      * \see Depth::setResolution
-     */
+     *
     DepthMapResolution getResolution() const;
 
     /**
@@ -126,13 +127,13 @@ public:
      * \return 1 on success, 0 otherwise
      * \see Depth::getDepthMap
      * \see Depth::getResolution
-     */
+     *
     void setResolution(DepthMapResolution resolution);
 
     /**
      * Returns an object containing the current depth map for future processing
-     */
-    DepthMap getDepthMap();
+     *
+    DepthMap getDepthMap(); */
 };
 
 #endif /* _DEPTH_HPP_ */

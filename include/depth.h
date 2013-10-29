@@ -40,7 +40,7 @@ extern "C" {
 
 enum DepthMapResolution
 {
-
+  TODO
 };
 
 
