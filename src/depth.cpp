@@ -21,32 +21,24 @@
 
 #include "depth.hpp"
 
-#include "depth.h"
-
-int depth_open()
+Depth& Depth::getInstance()
 {
-  try
-  {
-    Depth::getInstance().open();
+  static Depth instance;
 
-    return 1;
-  }
-  catch(...)
-  {
-    return 0;
-  }
+  return instance;
 }
 
-int depth_close()
+Depth::Depth()
 {
-  try
-  {
-    Depth::getInstance().close();
+  
+}
 
-    return 1;
-  }
-  catch(...)
-  {
-    return 0;
-  }
+void Depth::open()
+{
+  
+}
+
+void Depth::close()
+{
+  
 }

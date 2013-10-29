@@ -101,15 +101,17 @@ public:
 class Depth
 {
 public:
-    /**
-     * Constructor which implicitly opens the depth sensor
-     */
-    Depth();
+  static Depth& getInstance();
 
-    /**
-     * Destructor which closes the depth sensor
-     */
-    ~Depth();
+  /**
+    * Opens the depth sensor
+    */
+  void open();
+
+  /**
+    * Closes the depth sensor
+    */
+  void close();
 /*
     /**
      * Get the current depth map resolution
@@ -134,6 +136,12 @@ public:
      * Returns an object containing the current depth map for future processing
      *
     DepthMap getDepthMap(); */
+
+private:
+  // Depth is a singleton
+  Depth();
+  Depth(Depth const&);
+  void operator=(Depth const&);
 };
 
 #endif /* _DEPTH_HPP_ */
