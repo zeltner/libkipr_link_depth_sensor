@@ -19,30 +19,28 @@
 
 *******************************************************************************/
 
-#include "Depth.hpp"
 #include "AsusXtionDepthDriver.hpp"
 
 using namespace libkipr_link_depth_sensor;
 
-Depth& Depth::instance()
+AsusXtionDepthDriver& AsusXtionDepthDriver::instance()
 {
-  static Depth _instance;
+  static AsusXtionDepthDriver _instance;
 
   return _instance;
 }
 
-Depth::Depth()
-  : depth_driver_(AsusXtionDepthDriver::instance()) // currently we have only one driver --> no need for more complex things
+AsusXtionDepthDriver::AsusXtionDepthDriver()
 {
   
 }
 
-void Depth::open()
+void AsusXtionDepthDriver::open()
 {
-  depth_driver_.open();
+  
 }
 
-void Depth::close()
+void AsusXtionDepthDriver::close()
 {
-  depth_driver_.close();
+  
 }

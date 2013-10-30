@@ -19,30 +19,40 @@
 
 *******************************************************************************/
 
-#include "Depth.hpp"
-#include "AsusXtionDepthDriver.hpp"
+/**
+ * \file DepthDriver.hpp
+ * \brief C++ interface for depth driver used by libkipr_link_depth_sensor
+ * \author Stefan Zeltner
+ */
 
-using namespace libkipr_link_depth_sensor;
+#ifndef _ASUS_XTION_DEPTH_DRIVER_HPP_
+#define _ASUS_XTION_DEPTH_DRIVER_HPP_
 
-Depth& Depth::instance()
+#include "DepthDriver.hpp"
+
+namespace libkipr_link_depth_sensor
 {
-  static Depth _instance;
+  class AsusXtionDepthDriver : public DepthDriver
+  {
+  public:
+    static AsusXtionDepthDriver& instance();
 
-  return _instance;
+    /**
+      * Opens the ASUS Xtion depth driver
+      */
+    void open();
+
+    /**
+      * Closes the ASUS Xtion depth driver
+      */
+    void close();
+
+  private:
+    // AsusXtionDepthDriver is a singleton
+    AsusXtionDepthDriver();
+    AsusXtionDepthDriver(AsusXtionDepthDriver const&);
+    void operator=(AsusXtionDepthDriver const&);
+  };
 }
 
-Depth::Depth()
-  : depth_driver_(AsusXtionDepthDriver::instance()) // currently we have only one driver --> no need for more complex things
-{
-  
-}
-
-void Depth::open()
-{
-  depth_driver_.open();
-}
-
-void Depth::close()
-{
-  depth_driver_.close();
-}
+#endif /* _ASUS_XTION_DEPTH_DRIVER_HPP_ */

@@ -20,7 +20,7 @@
 *******************************************************************************/
 
 /**
- * \file depth.hpp
+ * \file Depth.hpp
  * \brief C++ API of the KIPR Link depth sensor interface
  * \author Stefan Zeltner
  */
@@ -29,6 +29,8 @@
 #define _DEPTH_HPP_
 
 #include "DepthMapResolution.h"
+
+#include "DepthDriver.hpp"
 
 /*
 enum DepthMapResolution
@@ -146,6 +148,8 @@ namespace libkipr_link_depth_sensor
     Depth();
     Depth(Depth const&);
     void operator=(Depth const&);
+
+    DepthDriver& depth_driver_;
   };
 }
 
