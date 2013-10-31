@@ -28,6 +28,7 @@
 #ifndef _DEPTH_DRIVER_HPP_
 #define _DEPTH_DRIVER_HPP_
 
+#include "DepthMap.hpp"
 #include "DepthMapResolution.h"
 
 namespace libkipr_link_depth_sensor
@@ -52,14 +53,14 @@ namespace libkipr_link_depth_sensor
       *
       * \return The default resolution
       */
-    virtual DepthMapResolution getDefaultDepthMapResolution() = 0;
+    virtual DepthMapResolution getDefaultDepthMapResolution() const = 0;
 
     /**
       * Returns the current depth map resolution
       *
       * \return The current resolution
       */
-    virtual DepthMapResolution getDepthMapResolution() = 0;
+    virtual DepthMapResolution getDepthMapResolution() const = 0;
 
     /**
       * Sets the DepthMap resolution of new captured depth maps
@@ -67,6 +68,13 @@ namespace libkipr_link_depth_sensor
       * \param resolution The new resolution
       */
     virtual void setDepthMapResolution(DepthMapResolution resolution) = 0;
+
+    /**
+      * Returns a Dept Map object containing the current depth values
+      *
+      * \return DepthMap object
+      */
+    virtual DepthMap getDepthMap() = 0;
   };
 }
 

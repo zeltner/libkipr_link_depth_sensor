@@ -45,17 +45,22 @@ void AsusXtionDepthDriver::close()
   throw "Not Implemented!!";
 }
 
-DepthMapResolution AsusXtionDepthDriver::getDefaultDepthMapResolution()
+DepthMapResolution AsusXtionDepthDriver::getDefaultDepthMapResolution() const
 {
   throw "Not Implemented!!";
 }
 
-DepthMapResolution AsusXtionDepthDriver::getDepthMapResolution()
+DepthMapResolution AsusXtionDepthDriver::getDepthMapResolution() const
 {
   throw "Not Implemented!!";
 }
 
 void AsusXtionDepthDriver::setDepthMapResolution(DepthMapResolution resolution)
+{
+  throw "Not Implemented!!";
+}
+
+DepthMap AsusXtionDepthDriver::getDepthMap()
 {
   throw "Not Implemented!!";
 }

@@ -28,4 +28,9 @@
 #ifndef _DEPTH_MAP_HPP_
 #define _DEPTH_MAP_HPP_
 
+class DepthMap
+{
+  
+};
+
 #endif /* _DEPTH_MAP_HPP_ */

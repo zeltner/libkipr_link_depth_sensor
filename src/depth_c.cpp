@@ -99,3 +99,17 @@ int set_depth_map_resolution(DepthMapResolution resolution)
     return 0;
   }
 }
+
+int depth_update()
+{
+  try
+  {
+    DepthDriver::instance().getDepthMap();
+
+    return 1;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}

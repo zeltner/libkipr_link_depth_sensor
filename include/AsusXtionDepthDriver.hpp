@@ -52,14 +52,14 @@ namespace libkipr_link_depth_sensor
       *
       * \return The default resolution
       */
-    DepthMapResolution getDefaultDepthMapResolution();
+    DepthMapResolution getDefaultDepthMapResolution() const;
 
     /**
       * Returns the current depth map resolution
       *
       * \return The current resolution
       */
-    DepthMapResolution getDepthMapResolution();
+    DepthMapResolution getDepthMapResolution() const;
 
     /**
       * Sets the DepthMap resolution of new captured depth maps
@@ -67,6 +67,13 @@ namespace libkipr_link_depth_sensor
       * \param resolution The new resolution
       */
     void setDepthMapResolution(DepthMapResolution resolution);
+
+    /**
+      * Returns a Dept Map object containing the current depth values
+      *
+      * \return DepthMap object
+      */
+    DepthMap getDepthMap();
 
   private:
     // AsusXtionDepthDriver is a singleton
