@@ -28,6 +28,8 @@
 #ifndef _DEPTH_MAP_HPP_
 #define _DEPTH_MAP_HPP_
 
+#include <stdint.h>
+
 namespace libkipr_link_depth_sensor
 {
   class DepthMap
@@ -41,7 +43,7 @@ namespace libkipr_link_depth_sensor
     * \param row Row number
     * \return The distance value
     */
-    unsigned int getDistanceAt(unsigned int column, unsigned int row);
+    uint32_t getDistanceAt(uint32_t column, uint32_t row);
   };
 }
 

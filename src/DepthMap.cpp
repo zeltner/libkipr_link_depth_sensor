@@ -23,7 +23,7 @@
 
 using namespace libkipr_link_depth_sensor;
 
-unsigned int DepthMap::getDistanceAt(unsigned int column, unsigned int row)
+uint32_t DepthMap::getDistanceAt(uint32_t column, uint32_t row)
 {
   
 }
