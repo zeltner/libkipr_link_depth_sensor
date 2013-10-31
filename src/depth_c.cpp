@@ -125,3 +125,32 @@ int depth_map_get_distance_at(int column, int row)
     return 0;
   }
 }
+
+int depth_map_select_row(int index)
+{
+  try
+  {
+    return depth_map_select_subregion(0, _depthMap.nColumns() - 1, index, index);
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int depth_map_select_subregion(int leftmostColumn,
+                               int rightmostColumn,
+                               int uppermostRow,
+                               int lowermostRow)
+{
+  try
+  {
+    _depthMap.select(leftmostColumn, rightmostColumn, uppermostRow, lowermostRow);
+
+    return 1;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}

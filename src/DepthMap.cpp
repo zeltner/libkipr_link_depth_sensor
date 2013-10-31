@@ -25,5 +25,22 @@ using namespace libkipr_link_depth_sensor;
 
 uint32_t DepthMap::getDistanceAt(uint32_t column, uint32_t row)
 {
-  
+  throw "Not Implemented!!";
+}
+
+uint32_t DepthMap::nColumns()
+{
+  throw "Not Implemented!!";
+}
+
+uint32_t DepthMap::nRows()
+{
+  throw "Not Implemented!!";
+}
+
+
+void DepthMap::select(uint32_t leftmostColumn, uint32_t rightmostColumn,
+                     uint32_t uppermostRow, uint32_t lowermostRow)
+{
+  throw "Not Implemented!!";
 }

@@ -35,6 +35,19 @@ namespace libkipr_link_depth_sensor
   class DepthMap
   {
   public:
+    /**
+    * Returns the number of rows
+    *
+    * \return The number of rows
+    */
+    uint32_t nRows();
+
+    /**
+    * Returns the number of columns
+    *
+    * \return The number of columns
+    */
+    uint32_t nColumns();
 
     /**
     * Returns the distance value of the specified point.
@@ -44,6 +57,18 @@ namespace libkipr_link_depth_sensor
     * \return The distance value
     */
     uint32_t getDistanceAt(uint32_t column, uint32_t row);
+
+    /**
+    * Select a subregion of the current depth map to restrict future processing to
+    * that region.
+    *
+    * \param leftmostColumn Leftmost column of the subregion
+    * \param rightmostColumn Rightmost column of the subregion
+    * \param uppermostRow Uppermost row of the subregion
+    * \param lowermostRow Lowermost row of the subregion
+    */
+    void select(uint32_t leftmostColumn, uint32_t rightmostColumn,
+                uint32_t uppermostRow, uint32_t lowermostRow);
   };
 }
 
