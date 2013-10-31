@@ -19,30 +19,11 @@
 
 *******************************************************************************/
 
-/**
- * \file DepthMap.hpp
- * \brief This file describes the class DepthMap
- * \author Stefan Zeltner
- */
+#include "DepthMap.hpp"
 
-#ifndef _DEPTH_MAP_HPP_
-#define _DEPTH_MAP_HPP_
+using namespace libkipr_link_depth_sensor;
 
-namespace libkipr_link_depth_sensor
+unsigned int DepthMap::getDistanceAt(unsigned int column, unsigned int row)
 {
-  class DepthMap
-  {
-  public:
-
-    /**
-    * Returns the distance value of the specified point.
-    *
-    * \param column Column number
-    * \param row Row number
-    * \return The distance value
-    */
-    unsigned int getDistanceAt(unsigned int column, unsigned int row);
-  };
+  
 }
-
-#endif /* _DEPTH_MAP_HPP_ */

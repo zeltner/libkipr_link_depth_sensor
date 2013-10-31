@@ -113,3 +113,15 @@ int depth_update()
     return 0;
   }
 }
+
+int depth_map_get_distance_at(int column, int row)
+{
+  try
+  {
+    return _depthMap.getDistanceAt(column, row);
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
