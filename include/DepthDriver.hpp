@@ -72,6 +72,7 @@ namespace libkipr_link_depth_sensor
     /**
       * Returns a Dept Map object containing the current depth values
       *
+      * \note The ownership of the returned object is transferred to the caller.
       * \return DepthMap object
       */
     virtual DepthMap getDepthMap() = 0;

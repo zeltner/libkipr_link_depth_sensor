@@ -27,7 +27,7 @@ namespace libkipr_link_depth_sensor
 {
   namespace c_api
   {
-    
+    DepthMap _depthMap;
   }
 }
 
@@ -104,7 +104,7 @@ int depth_update()
 {
   try
   {
-    DepthDriver::instance().getDepthMap();
+    _depthMap = DepthDriver::instance().getDepthMap();
 
     return 1;
   }
