@@ -32,10 +32,10 @@
 extern "C" {
 #endif
 
-enum DepthMapResolution
+typedef enum DepthMapResolution_
 {
-  TODO
-};
+  DEPTH_MAP_INVALID_RESOLUTION = 0
+} DepthMapResolution;
 
 #ifdef __cplusplus
 }

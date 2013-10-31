@@ -28,11 +28,15 @@
 #ifndef _DEPTH_DRIVER_HPP_
 #define _DEPTH_DRIVER_HPP_
 
+#include "DepthMapResolution.h"
+
 namespace libkipr_link_depth_sensor
 {
   class DepthDriver
   {
   public:
+    static DepthDriver& instance();
+
     /**
       * Opens the depth driver
       */
@@ -42,6 +46,27 @@ namespace libkipr_link_depth_sensor
       * Closes the depth driver
       */
     virtual void close() = 0;
+
+    /**
+      * Returns the default depth map resolution
+      *
+      * \return The default resolution
+      */
+    virtual DepthMapResolution getDefaultDepthMapResolution() = 0;
+
+    /**
+      * Returns the current depth map resolution
+      *
+      * \return The current resolution
+      */
+    virtual DepthMapResolution getDepthMapResolution() = 0;
+
+    /**
+      * Sets the DepthMap resolution of new captured depth maps
+      *
+      * \param resolution The new resolution
+      */
+    virtual void setDepthMapResolution(DepthMapResolution resolution) = 0;
   };
 }
 

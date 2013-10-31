@@ -19,30 +19,13 @@
 
 *******************************************************************************/
 
-#include "Depth.hpp"
-#include "AsusXtionDepthDriver.hpp"
+/**
+ * \file DepthMap.hpp
+ * \brief This file describes the class DepthMap
+ * \author Stefan Zeltner
+ */
 
-using namespace libkipr_link_depth_sensor;
+#ifndef _DEPTH_MAP_HPP_
+#define _DEPTH_MAP_HPP_
 
-Depth& Depth::instance()
-{
-  static Depth _instance;
-
-  return _instance;
-}
-
-Depth::Depth()
-  : depth_driver_(AsusXtionDepthDriver::instance()) // currently we have only one driver --> no need for more complex things
-{
-  
-}
-
-void Depth::open()
-{
-  depth_driver_.open();
-}
-
-void Depth::close()
-{
-  depth_driver_.close();
-}
+#endif /* _DEPTH_MAP_HPP_ */

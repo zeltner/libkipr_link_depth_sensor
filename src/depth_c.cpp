@@ -19,17 +19,26 @@
 
 *******************************************************************************/
 
-#include "Depth.hpp"
+#include "DepthDriver.hpp"
 
 #include "depth.h"
 
+namespace libkipr_link_depth_sensor
+{
+  namespace c_api
+  {
+    
+  }
+}
+
 using namespace libkipr_link_depth_sensor;
+using namespace libkipr_link_depth_sensor::c_api;
 
 int depth_open()
 {
   try
   {
-    Depth::instance().open();
+    DepthDriver::instance().open();
 
     return 1;
   }
@@ -43,7 +52,45 @@ int depth_close()
 {
   try
   {
-    Depth::instance().close();
+    DepthDriver::instance().close();
+
+    return 1;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+DepthMapResolution get_default_depth_map_resolution()
+{
+  try
+  {
+    return DepthDriver::instance().getDefaultDepthMapResolution();
+  }
+  catch(...)
+  {
+    return DEPTH_MAP_INVALID_RESOLUTION;
+  }
+}
+
+DepthMapResolution get_depth_map_resolution()
+{
+  try
+  {
+    return DepthDriver::instance().getDepthMapResolution();
+  }
+  catch(...)
+  {
+    return DEPTH_MAP_INVALID_RESOLUTION;
+  }
+}
+
+int set_depth_map_resolution(DepthMapResolution resolution)
+{
+  try
+  {
+    DepthDriver::instance().setDepthMapResolution(resolution);
 
     return 1;
   }

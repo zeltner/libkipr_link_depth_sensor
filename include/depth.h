@@ -71,12 +71,19 @@ int depth_close();
 /** \{ */
 
 /**
+ * Get the default resolution.
+ *
+ * \return The default depth map resolution
+ */
+DepthMapResolution get_default_depth_map_resolution();
+
+/**
  * Get the current depth map resolution.
  *
  * \return The current depth map resolution
  * \see set_depth_map_resolution
  */
-enum DepthMapResolution get_depth_map_resolution();
+DepthMapResolution get_depth_map_resolution();
 
 /**
  * Set the current depth map resolution.
@@ -87,8 +94,9 @@ enum DepthMapResolution get_depth_map_resolution();
  * \return 1 on success, 0 otherwise
  * \see depth_update
  * \see get_depth_map_resolution
+ * \see get_default_depth_map_resolution
  */
-int set_depth_map_resolution(enum DepthMapResolution resolution);
+int set_depth_map_resolution(DepthMapResolution resolution);
 
 /** \} */
 
