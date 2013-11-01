@@ -19,9 +19,13 @@
 
 *******************************************************************************/
 
+#include <OpenNI.h>
+
+#include "Exception.hpp"
 #include "AsusXtionDepthDriver.hpp"
 
 using namespace libkipr_link_depth_sensor;
+using namespace openni;
 
 AsusXtionDepthDriver& AsusXtionDepthDriver::instance()
 {
@@ -37,7 +41,11 @@ AsusXtionDepthDriver::AsusXtionDepthDriver()
 
 void AsusXtionDepthDriver::open()
 {
-  throw "Not Implemented!!";
+  Status rc = OpenNI::initialize();
+  if (rc != STATUS_OK)
+  {
+    throw Exception(std::string("Initialize failed with ") + OpenNI::getExtendedError());
+  }
 }
 
 void AsusXtionDepthDriver::close()
