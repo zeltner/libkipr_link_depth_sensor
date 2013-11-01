@@ -19,8 +19,8 @@
 
 *******************************************************************************/
 
-#include "DepthDriver.hpp"
-#include "AsusXtionDepthDriver.hpp"
+#include "libkipr_link_depth_sensor/DepthDriver.hpp"
+#include "libkipr_link_depth_sensor/AsusXtionDepthDriver.hpp"
 
 using namespace libkipr_link_depth_sensor;
 

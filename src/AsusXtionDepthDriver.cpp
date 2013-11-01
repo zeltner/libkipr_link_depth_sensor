@@ -21,8 +21,8 @@
 
 #include <OpenNI.h>
 
-#include "Exception.hpp"
-#include "AsusXtionDepthDriver.hpp"
+#include "libkipr_link_depth_sensor/Exception.hpp"
+#include "libkipr_link_depth_sensor/AsusXtionDepthDriver.hpp"
 
 using namespace libkipr_link_depth_sensor;
 using namespace openni;

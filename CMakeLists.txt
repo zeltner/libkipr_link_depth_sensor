@@ -7,6 +7,7 @@ set(OpenNI_LIBRARY_DIRS ${PROJECT_SOURCE_DIR}/../OpenNI-Linux-x86-2.2/Redist)
 
 set(BUILD_SHARED_LIBS ON)
 
+# Build kipr_link_depth_sensor
 include_directories(include
                     ${OpenNI_INCLUDE_DIR})
 
@@ -17,6 +18,10 @@ add_library(kipr_link_depth_sensor src/depth_c.cpp
                                    src/AsusXtionDepthDriver.cpp
                                    src/DepthMap.cpp)
 target_link_libraries(kipr_link_depth_sensor ${OpenNI_LIBRARIES})
+
+
+# Buld the examples
+include_directories(include/libkipr_link_depth_sensor)
 
 add_executable(display_center_distance examples/display_center_distance)
 target_link_libraries(display_center_distance kipr_link_depth_sensor)

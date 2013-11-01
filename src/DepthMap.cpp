@@ -19,7 +19,7 @@
 
 *******************************************************************************/
 
-#include "DepthMap.hpp"
+#include "libkipr_link_depth_sensor/DepthMap.hpp"
 
 using namespace libkipr_link_depth_sensor;
 

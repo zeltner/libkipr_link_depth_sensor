@@ -19,9 +19,8 @@
 
 *******************************************************************************/
 
-#include "DepthDriver.hpp"
-
-#include "depth.h"
+#include "libkipr_link_depth_sensor/DepthDriver.hpp"
+#include "libkipr_link_depth_sensor/depth.h"
 
 namespace libkipr_link_depth_sensor
 {
