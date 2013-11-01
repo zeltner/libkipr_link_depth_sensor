@@ -29,6 +29,9 @@
 #define _DEPTH_MAP_HPP_
 
 #include <stdint.h>
+#include <vector>
+
+#include "Point.hpp"
 
 namespace libkipr_link_depth_sensor
 {
@@ -67,8 +70,38 @@ namespace libkipr_link_depth_sensor
     * \param uppermostRow Uppermost row of the subregion
     * \param lowermostRow Lowermost row of the subregion
     */
-    void select(uint32_t leftmostColumn, uint32_t rightmostColumn,
-                uint32_t uppermostRow, uint32_t lowermostRow);
+    void selectSubregion(uint32_t leftmostColumn, uint32_t rightmostColumn,
+                         uint32_t uppermostRow, uint32_t lowermostRow);
+
+    /**
+     * Select only distances which are equal or bigger than the specified distance
+     *
+     * \param max_distance The minimum distance
+     */
+    int selectMinDistance(int max_distance);
+
+    /**
+     * Select only distances which are equal or smaller than the specified distance
+     *
+     * \param min_distance The maximum distance
+     */
+    void selectMaxDistance(uint32_t min_distance);
+
+    /**
+    * Resets the selection.
+    */
+    void resetSelection();
+
+    /**
+     * Returns a vector of all points within the currently selected region
+     *
+     * \see DepthMap::selectSubregion
+     * \see DepthMap::selectMinDistance
+     * \see DepthMap::selectMaxDistance
+     * \see DepthMap::resetSelection
+     * \param min_distance The maximum distance
+     */
+    std::vector<Point<uint32_t> > getPoints();
   };
 }
 

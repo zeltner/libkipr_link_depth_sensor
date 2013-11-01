@@ -191,8 +191,9 @@ int depth_map_select_max_distance(int distance);
 
 /**
  * Resets the selection.
+ * \return 1 on success, 0 otherwise
  */
-void depth_map_reset_selection();
+int depth_map_reset_selection();
 
 /** \} */
 
@@ -222,22 +223,31 @@ int number_selected_points();
 int distance_of_point(int index);
 
 /**
- * Returns the column index of the spicified point
+ * Returns the x coordinate of the spicified point
  *
  * \param index The index of the point
- * \return The column index of this point
+ * \return The x coordinate of this point
  * \see number_selected_points
  */
-int column_of_point(int index);
+int get_x_of_point(int index);
 
 /**
- * Returns the row index of the spicified point
+ * Returns the y coordinate of the spicified point
  *
  * \param index The index of the point
- * \return The row index of this point
+ * \return The y coordinate of this point
  * \see number_selected_points
  */
-int row_of_point(int index);
+int get_y_of_point(int index);
+
+/**
+ * Returns the z coordinate of the spicified point
+ *
+ * \param index The index of the point
+ * \return The z coordinate of this point
+ * \see number_selected_points
+ */
+int get_z_of_point(int index);
 
 /** \} */
 

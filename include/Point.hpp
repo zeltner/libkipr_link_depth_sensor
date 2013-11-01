@@ -19,47 +19,28 @@
 
 *******************************************************************************/
 
-#include "DepthMap.hpp"
+/**
+ * \file Point.hpp
+ * \brief This file describes the struct Point
+ * \author Stefan Zeltner
+ */
 
-using namespace libkipr_link_depth_sensor;
+#ifndef _POINT_HPP_
+#define _POINT_HPP_
 
-uint32_t DepthMap::getDistanceAt(uint32_t column, uint32_t row)
+namespace libkipr_link_depth_sensor
 {
-  throw "Not Implemented!!";
+  template <typename T>
+  struct Point
+  {
+    T x;
+    T y;
+    T z;
+    T distance;
+
+    Point(const T& x, const T& y, const T& z, const T& distance)
+      : x(x), y(y), z(z), distance(distance) {}
+  };
 }
 
-uint32_t DepthMap::nColumns()
-{
-  throw "Not Implemented!!";
-}
-
-uint32_t DepthMap::nRows()
-{
-  throw "Not Implemented!!";
-}
-
-void DepthMap::selectSubregion(uint32_t leftmostColumn, uint32_t rightmostColumn,
-                               uint32_t uppermostRow, uint32_t lowermostRow)
-{
-  throw "Not Implemented!!";
-}
-
-int DepthMap::selectMinDistance(int max_distance)
-{
-  throw "Not Implemented!!";
-}
-
-void DepthMap::selectMaxDistance(uint32_t min_distance)
-{
-  throw "Not Implemented!!";
-}
-
-void DepthMap::resetSelection()
-{
-  throw "Not Implemented!!";
-}
-
-std::vector<Point<uint32_t> > DepthMap::getPoints()
-{
-  throw "Not Implemented!!";
-}
+#endif /* _POINT_HPP_ */

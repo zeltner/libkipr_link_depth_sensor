@@ -28,6 +28,8 @@ namespace libkipr_link_depth_sensor
   namespace c_api
   {
     DepthMap _depthMap;
+
+    std::vector<Point<uint32_t> > _points;
   }
 }
 
@@ -145,9 +147,113 @@ int depth_map_select_subregion(int leftmostColumn,
 {
   try
   {
-    _depthMap.select(leftmostColumn, rightmostColumn, uppermostRow, lowermostRow);
+    _depthMap.selectSubregion(leftmostColumn, rightmostColumn, uppermostRow, lowermostRow);
 
     return 1;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int depth_map_select_min_distance(int distance)
+{
+  try
+  {
+    _depthMap.selectMaxDistance(distance);
+
+    return 1;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int depth_map_select_max_distance(int distance)
+{
+  try
+  {
+    _depthMap.selectMinDistance(distance);
+
+    return 1;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int depth_map_reset_selection()
+{
+  try
+  {
+    _depthMap.resetSelection();
+
+    return 1;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int number_selected_points()
+{
+  try
+  {
+    _points = _depthMap.getPoints();
+
+    return _points.size();
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int distance_of_point(int index)
+{
+  try
+  {
+    return _points[index].distance;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int get_x_of_point(int index)
+{
+  try
+  {
+    return _points[index].x;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int get_y_of_point(int index)
+{
+  try
+  {
+    return _points[index].y;
+  }
+  catch(...)
+  {
+    return 0;
+  }
+}
+
+int get_z_of_point(int index)
+{
+  try
+  {
+    return _points[index].z;
   }
   catch(...)
   {
