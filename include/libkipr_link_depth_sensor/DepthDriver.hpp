@@ -49,13 +49,6 @@ namespace libkipr_link_depth_sensor
     virtual void close() = 0;
 
     /**
-      * Returns the default depth map resolution
-      *
-      * \return The default resolution
-      */
-    virtual DepthMapResolution getDefaultDepthMapResolution() const = 0;
-
-    /**
       * Returns the current depth map resolution
       *
       * \return The current resolution

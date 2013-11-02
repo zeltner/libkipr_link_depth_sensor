@@ -34,7 +34,9 @@ extern "C" {
 
 typedef enum DepthMapResolution_
 {
-  DEPTH_MAP_INVALID_RESOLUTION = 0
+  DEPTH_MAP_INVALID_RESOLUTION,
+  DEPTH_MAP_RESOLUTION_320_240,
+  DEPTH_MAP_RESOLUTION_640_480
 } DepthMapResolution;
 
 #ifdef __cplusplus

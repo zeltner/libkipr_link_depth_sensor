@@ -63,18 +63,6 @@ int depth_close()
   }
 }
 
-DepthMapResolution get_default_depth_map_resolution()
-{
-  try
-  {
-    return DepthDriver::instance().getDefaultDepthMapResolution();
-  }
-  catch(...)
-  {
-    return DEPTH_MAP_INVALID_RESOLUTION;
-  }
-}
-
 DepthMapResolution get_depth_map_resolution()
 {
   try

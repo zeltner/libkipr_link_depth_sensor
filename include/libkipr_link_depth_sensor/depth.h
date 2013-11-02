@@ -71,13 +71,6 @@ int depth_close();
 /** \{ */
 
 /**
- * Get the default resolution.
- *
- * \return The default depth map resolution
- */
-DepthMapResolution get_default_depth_map_resolution();
-
-/**
  * Get the current depth map resolution.
  *
  * \return The current depth map resolution

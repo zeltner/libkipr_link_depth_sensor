@@ -19,6 +19,8 @@
 
 *******************************************************************************/
 
+#include <OpenNI.h>
+
 /**
  * \file DepthDriver.hpp
  * \brief C++ interface for depth driver used by libkipr_link_depth_sensor
@@ -32,7 +34,10 @@
 
 namespace libkipr_link_depth_sensor
 {
-  class AsusXtionDepthDriver : public DepthDriver
+  class AsusXtionDepthDriver : public DepthDriver,
+                               public openni::OpenNI::DeviceConnectedListener,
+                               public openni::OpenNI::DeviceDisconnectedListener,
+                               public openni::OpenNI::DeviceStateChangedListener
   {
   public:
     static AsusXtionDepthDriver& instance();
@@ -46,13 +51,6 @@ namespace libkipr_link_depth_sensor
       * Closes the ASUS Xtion depth driver
       */
     void close();
-
-    /**
-      * Returns the default depth map resolution
-      *
-      * \return The default resolution
-      */
-    DepthMapResolution getDefaultDepthMapResolution() const;
 
     /**
       * Returns the current depth map resolution
@@ -75,11 +73,25 @@ namespace libkipr_link_depth_sensor
       */
     DepthMap getDepthMap();
 
+    ~AsusXtionDepthDriver();
+
   private:
+    openni::Device device_;
+    openni::VideoStream depth_stream_;
+
     // AsusXtionDepthDriver is a singleton
     AsusXtionDepthDriver();
     AsusXtionDepthDriver(AsusXtionDepthDriver const&);
     void operator=(AsusXtionDepthDriver const&);
+
+    // Implement OpenNI::DeviceConnectedListener::onDeviceConnected()
+    virtual void onDeviceConnected(const openni::DeviceInfo* pInfo);
+
+    // Implement OpenNI::DeviceDisconnectedListener::onDeviceDisconnected()
+    virtual void onDeviceDisconnected(const openni::DeviceInfo* pInfo);
+
+    // Implement OpenNI::DeviceStateChangedListener::onDeviceStateChanged()
+    virtual void onDeviceStateChanged(const openni::DeviceInfo* pInfo, openni::DeviceState state);
   };
 }
 
