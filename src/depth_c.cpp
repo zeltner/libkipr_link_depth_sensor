@@ -19,6 +19,9 @@
 
 *******************************************************************************/
 
+#include <iostream>
+#include <exception>
+
 #include "libkipr_link_depth_sensor/DepthDriver.hpp"
 #include "libkipr_link_depth_sensor/depth.h"
 
@@ -35,6 +38,11 @@ namespace libkipr_link_depth_sensor
 using namespace libkipr_link_depth_sensor;
 using namespace libkipr_link_depth_sensor::c_api;
 
+#define catchAllAndReturnOnError(return_value) \
+  catch(std::exception& e) { std::cerr << e.what() << std::endl; } \
+  catch(...) {} \
+  return (return_value)
+
 int depth_open()
 {
   try
@@ -43,10 +51,7 @@ int depth_open()
 
     return 1;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int depth_close()
@@ -57,10 +62,7 @@ int depth_close()
 
     return 1;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 DepthMapResolution get_depth_map_resolution()
@@ -69,10 +71,7 @@ DepthMapResolution get_depth_map_resolution()
   {
     return DepthDriver::instance().getDepthMapResolution();
   }
-  catch(...)
-  {
-    return DEPTH_MAP_INVALID_RESOLUTION;
-  }
+  catchAllAndReturnOnError(DEPTH_MAP_INVALID_RESOLUTION);
 }
 
 int set_depth_map_resolution(DepthMapResolution resolution)
@@ -83,10 +82,7 @@ int set_depth_map_resolution(DepthMapResolution resolution)
 
     return 1;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int depth_update()
@@ -97,10 +93,7 @@ int depth_update()
 
     return 1;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int depth_map_get_distance_at(int column, int row)
@@ -109,10 +102,7 @@ int depth_map_get_distance_at(int column, int row)
   {
     return _depthMap.getDistanceAt(column, row);
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int depth_map_select_row(int index)
@@ -121,10 +111,7 @@ int depth_map_select_row(int index)
   {
     return depth_map_select_subregion(0, _depthMap.nColumns() - 1, index, index);
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int depth_map_select_subregion(int leftmostColumn,
@@ -138,10 +125,7 @@ int depth_map_select_subregion(int leftmostColumn,
 
     return 1;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int depth_map_select_min_distance(int distance)
@@ -152,10 +136,7 @@ int depth_map_select_min_distance(int distance)
 
     return 1;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int depth_map_select_max_distance(int distance)
@@ -166,10 +147,7 @@ int depth_map_select_max_distance(int distance)
 
     return 1;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int depth_map_reset_selection()
@@ -180,10 +158,7 @@ int depth_map_reset_selection()
 
     return 1;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int number_selected_points()
@@ -194,10 +169,7 @@ int number_selected_points()
 
     return _points.size();
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int distance_of_point(int index)
@@ -206,10 +178,7 @@ int distance_of_point(int index)
   {
     return _points[index].distance;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int get_x_of_point(int index)
@@ -218,10 +187,7 @@ int get_x_of_point(int index)
   {
     return _points[index].x;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int get_y_of_point(int index)
@@ -230,10 +196,7 @@ int get_y_of_point(int index)
   {
     return _points[index].y;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
 
 int get_z_of_point(int index)
@@ -242,8 +205,5 @@ int get_z_of_point(int index)
   {
     return _points[index].z;
   }
-  catch(...)
-  {
-    return 0;
-  }
+  catchAllAndReturnOnError(0);
 }
