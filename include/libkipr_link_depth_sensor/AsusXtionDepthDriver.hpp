@@ -37,7 +37,8 @@ namespace libkipr_link_depth_sensor
   class AsusXtionDepthDriver : public DepthDriver,
                                public openni::OpenNI::DeviceConnectedListener,
                                public openni::OpenNI::DeviceDisconnectedListener,
-                               public openni::OpenNI::DeviceStateChangedListener
+                               public openni::OpenNI::DeviceStateChangedListener,
+                               public openni::VideoStream::NewFrameListener
   {
   public:
     static AsusXtionDepthDriver& instance();
@@ -92,6 +93,9 @@ namespace libkipr_link_depth_sensor
 
     // Implement OpenNI::DeviceStateChangedListener::onDeviceStateChanged()
     virtual void onDeviceStateChanged(const openni::DeviceInfo* pInfo, openni::DeviceState state);
+
+    // Implement VideoStream::NewFrameListener::onNewFrame()
+    virtual void onNewFrame(openni::VideoStream& stream);
   };
 }
 

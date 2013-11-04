@@ -48,6 +48,11 @@ void AsusXtionDepthDriver::onDeviceStateChanged(const DeviceInfo* pInfo,
   
 }
 
+void AsusXtionDepthDriver::onNewFrame(VideoStream& stream)
+{
+  
+}
+
 AsusXtionDepthDriver::AsusXtionDepthDriver()
 {
   Status rc = OpenNI::initialize();
@@ -85,21 +90,47 @@ void AsusXtionDepthDriver::open()
     }
     device_.open(ANY_DEVICE);
 
-    if(device_.getSensorInfo(SENSOR_DEPTH) != NULL)
+    if(device_.getSensorInfo(SENSOR_DEPTH) == NULL)
     {
-      rc = depth_stream_.create(device_, SENSOR_DEPTH);
-      if (rc != STATUS_OK)
-      {
-        device_.close();
-        throw Exception(std::string("Create the depth stream failed with ")
-          + OpenNI::getExtendedError());
-      }
+      device_.close();
+      throw Exception("Device has no depth sensor!");
+    }
+
+    rc = depth_stream_.create(device_, SENSOR_DEPTH);
+    if(rc != STATUS_OK)
+    {
+      device_.close();
+      throw Exception(std::string("Create the depth stream failed with ")
+        + OpenNI::getExtendedError());
+    }
+
+    rc = depth_stream_.start();
+    if(rc != STATUS_OK)
+    {
+      depth_stream_.destroy();
+      device_.close();
+
+      throw Exception(std::string("Starting the depth stream failed with ")
+        + OpenNI::getExtendedError());
+    }
+
+    rc = depth_stream_.addNewFrameListener(this);
+    if(rc != STATUS_OK)
+    {
+      depth_stream_.stop();
+      depth_stream_.destroy();
+      device_.close();
+
+      throw Exception(std::string("Adding the frame listener failed with ")
+        + OpenNI::getExtendedError());
     }
   }
 }
 
 void AsusXtionDepthDriver::close()
 {
+  depth_stream_.removeNewFrameListener(this);
+
   depth_stream_.stop();
   depth_stream_.destroy();
 
