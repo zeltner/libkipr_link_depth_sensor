@@ -85,7 +85,7 @@ void AsusXtionDepthDriver::open()
     Status rc = device_.open(ANY_DEVICE);
     if(rc != STATUS_OK)
     {
-      throw Exception(std::string("Open the device failed with ")
+      throw Exception(std::string("Open the device failed with\n")
         + OpenNI::getExtendedError());
     }
     device_.open(ANY_DEVICE);
@@ -100,7 +100,7 @@ void AsusXtionDepthDriver::open()
     if(rc != STATUS_OK)
     {
       device_.close();
-      throw Exception(std::string("Create the depth stream failed with ")
+      throw Exception(std::string("Create the depth stream failed with\n")
         + OpenNI::getExtendedError());
     }
 
@@ -110,7 +110,7 @@ void AsusXtionDepthDriver::open()
       depth_stream_.destroy();
       device_.close();
 
-      throw Exception(std::string("Starting the depth stream failed with ")
+      throw Exception(std::string("Starting the depth stream failed with\n")
         + OpenNI::getExtendedError());
     }
 
@@ -121,7 +121,7 @@ void AsusXtionDepthDriver::open()
       depth_stream_.destroy();
       device_.close();
 
-      throw Exception(std::string("Adding the frame listener failed with ")
+      throw Exception(std::string("Adding the frame listener failed with\n")
         + OpenNI::getExtendedError());
     }
   }
@@ -178,7 +178,7 @@ void AsusXtionDepthDriver::setDepthMapResolution(DepthMapResolution resolution)
   Status rc = depth_stream_.setVideoMode(video_mode);
   if (rc != STATUS_OK)
   {
-    throw Exception(std::string("Set the resolution failed with ")
+    throw Exception(std::string("Set the resolution failed with\n")
       + OpenNI::getExtendedError());
   }
 }
