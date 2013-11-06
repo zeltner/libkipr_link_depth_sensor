@@ -1,16 +1,9 @@
 # Compiled Object files
-*.slo
-*.lo
 *.o
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-
 # Compiled Static libraries
-*.lai
-*.la
 *.a
 
-# Build directory
-build/
+# Make dependencies
+*.d
+
