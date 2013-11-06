@@ -207,7 +207,7 @@ root@kovan:~# git clone https://github.com/zeltner/libkipr_link_depth_sensor.git
 ```
 
 ### 2.1 Build libkipr_link_depth_sensor
+```
 root@kovan:~# cd libkipr_link_depth_sensor/
-root@kovan:~/libkipr_link_depth_sensor# mkdir build
-root@kovan:~/libkipr_link_depth_sensor# cd build
-
+root@kovan:~/libkipr_link_depth_sensor# make
+```
