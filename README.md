@@ -192,6 +192,7 @@ root@kovan:~/OpenNI2/Bin/Arm-Release# cd ~/OpenNI2/
 root@kovan:~/OpenNI2# mkdir -p /usr/include/OpenNI2
 root@kovan:~/OpenNI2# cp -r Include/* /usr/include/OpenNI2/
 root@kovan:~/OpenNI2# cp Bin/Arm-Release/lib* /usr/lib/
+root@kovan:~/OpenNI2# cp Bin/Arm-Release/OpenNI2 /usr/lib/
 root@kovan:~/OpenNI2# cd ~
 ```
 
@@ -206,8 +207,19 @@ root@kovan:~# rm -r OpenNI2
 root@kovan:~# git clone https://github.com/zeltner/libkipr_link_depth_sensor.git
 ```
 
-### 2.1 Build libkipr_link_depth_sensor
+### 2.2 Build libkipr_link_depth_sensor
 ```
 root@kovan:~# cd libkipr_link_depth_sensor/
 root@kovan:~/libkipr_link_depth_sensor# make
 ```
+
+### 2.3 Update platform.hints
+
+Update */etc/kovan/platform.hints* :
+```
+[General]
+LD_FLAGS=-lkovan -lm -lpthread -lkipr_link_depth_sensor -lOpenNI2
+C_FLAGS=-I/home/root/libkipr_link_depth_sensor/include/libkipr_link_depth_sensor -include kovan/kovan.h -include stdio.h -include target.h -include math.h -include depth.h
+CPP_FLAGS=-include kovan/kovan.hpp -include stdio.h -include target.h -include math.h
+```
+
