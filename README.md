@@ -224,7 +224,7 @@ Update */etc/kovan/platform.hints* :
 ```
 [General]
 LD_FLAGS=-lkovan -lm -lpthread -lkipr_link_depth_sensor -lOpenNI2
-C_FLAGS=-I/home/root/libkipr_link_depth_sensor/include/libkipr_link_depth_sensor -include kovan/kovan.h -include stdio.h -include target.h -include math.h -include depth.h
+C_FLAGS=-include kovan/kovan.h -include stdio.h -include target.h -include math.h -include depth.h
 CPP_FLAGS=-include kovan/kovan.hpp -include stdio.h -include target.h -include math.h
 ```
 
