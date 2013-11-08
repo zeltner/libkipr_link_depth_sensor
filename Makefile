@@ -10,13 +10,13 @@ SRC_FILES = src/depth_c.cpp \
             src/AsusXtionDepthDriver.cpp \
             src/DepthMap.cpp
 
-LIB_NAME = libkipr_link_depth_sensor.a
+LIB_NAME = libkipr_link_depth_sensor.so
 
 CXX = g++
-AR = ar
 RM = -@rm -f
 
 CXXFLAGS = ${INC_DIRS} -Wall -Werror
+LDFLAGS = #-Wl,--no-undefined
 
 OBJ_FILES = ${SRC_FILES:.cpp=.o}
 DEB_FILES = ${SRC_FILES:.cpp=.d}
@@ -26,7 +26,7 @@ DEB_FILES = ${SRC_FILES:.cpp=.d}
 all : $(LIB_NAME)
 
 $(LIB_NAME) : $(OBJ_FILES)
-	$(AR) rcs $(LIB_NAME) $(OBJ_FILES)
+	$(CXX) -o $(LIB_NAME) $(OBJ_FILES) $(LDFLAGS) -shared
 
 %.o : %.cpp %.d
 	$(CXX) $(CXXFLAGS) -c $< -o $@
