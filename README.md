@@ -192,7 +192,7 @@ root@kovan:~/OpenNI2/Bin/Arm-Release# cd ~/OpenNI2/
 root@kovan:~/OpenNI2# mkdir -p /usr/include/OpenNI2
 root@kovan:~/OpenNI2# cp -r Include/* /usr/include/OpenNI2/
 root@kovan:~/OpenNI2# cp Bin/Arm-Release/lib* /usr/lib/
-root@kovan:~/OpenNI2# cp Bin/Arm-Release/OpenNI2 /usr/lib/
+root@kovan:~/OpenNI2# cp -r Bin/Arm-Release/OpenNI2 /usr/lib/
 root@kovan:~/OpenNI2# cd ~
 ```
 
@@ -213,7 +213,12 @@ root@kovan:~# cd libkipr_link_depth_sensor/
 root@kovan:~/libkipr_link_depth_sensor# make
 ```
 
-### 2.3 Update platform.hints
+### 2.3 Install libkipr_link_depth_sensor
+```
+root@kovan:~/libkipr_link_depth_sensor# make install
+```
+
+### 2.4 Update platform.hints
 
 Update */etc/kovan/platform.hints* :
 ```
