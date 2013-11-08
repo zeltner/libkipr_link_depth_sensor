@@ -1,8 +1,8 @@
 # Compiled Object files
 *.o
 
-# Compiled Static libraries
-*.a
+# Compiled libraries
+*.so
 
 # Make dependencies
 *.d
