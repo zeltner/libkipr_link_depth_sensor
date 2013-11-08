@@ -40,6 +40,7 @@ using namespace libkipr_link_depth_sensor::c_api;
 
 #define catchAllAndReturn(return_value) \
   catch(std::exception& e) { std::cerr << e.what() << std::endl; } \
+  catch(const char* msg) { std::cerr << msg << std::endl; } \
   catch(...) {} \
   return (return_value)
 
