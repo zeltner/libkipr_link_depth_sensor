@@ -19,10 +19,6 @@
 
 *******************************************************************************/
 
-#include <stdio.h>
-
-#include "depth.h"
-
 int main(int argc, char** argv)
 {
   if(!depth_open())
@@ -30,6 +26,15 @@ int main(int argc, char** argv)
     printf("Unable to open libkipr_link_depth_sensor\n");
     return 1;
   }
+  
+  while(a_button() == 0)
+  {
+	depth_update();
+    printf("Depth Value @ Center is %d\n", depth_map_get_distance_at(100, 100));
+	msleep(2000);
+  }
+  
+  depth_close();
 
   return 0;
 }
