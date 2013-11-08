@@ -12,7 +12,8 @@ SRC_FILES = src/depth_c.cpp \
 
 LIB_NAME = libkipr_link_depth_sensor.so
 
-INSTALL_INCLUDE_FILES = include/libkipr_link_depth_sensor/depth.h
+INSTALL_INCLUDE_FILES = include/libkipr_link_depth_sensor/depth.h \
+                        include/libkipr_link_depth_sensor/DepthMapResolution.h
 
 CXX = g++
 RM = -@rm -f
@@ -41,7 +42,7 @@ clean:
 	$(RM) $(OBJ_FILES) $(LIB_NAME) $(DEB_FILES)
 
 install: $(LIB_NAME)
-	$(INSTALL) -D /usr/include/libkipr_link_depth_sensor
+	$(INSTALL) -d /usr/include/libkipr_link_depth_sensor
 	$(INSTALL) $(INSTALL_INCLUDE_FILES) -t /usr/include/libkipr_link_depth_sensor
 	$(INSTALL) $(LIB_NAME) -D /usr/lib/
 
