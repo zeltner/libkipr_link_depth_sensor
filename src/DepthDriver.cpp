@@ -20,11 +20,11 @@
 *******************************************************************************/
 
 #include "libkipr_link_depth_sensor/DepthDriver.hpp"
-#include "libkipr_link_depth_sensor/AsusXtionDepthDriver.hpp"
+#include "libkipr_link_depth_sensor/OpenNI2DepthDriver.hpp"
 
 using namespace libkipr_link_depth_sensor;
 
 DepthDriver& DepthDriver::instance()
 {
-  return AsusXtionDepthDriver::instance(); // currently we have only one driver --> no need for more complex things
+  return OpenNI2DepthDriver::instance(); // currently we have only one driver --> no need for more complex things
 }

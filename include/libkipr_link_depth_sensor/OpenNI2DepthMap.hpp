@@ -44,14 +44,14 @@ namespace libkipr_link_depth_sensor
     *
     * \return The number of rows
     */
-    uint32_t nRows() const;
+    virtual uint32_t nRows() const;
 
     /**
     * Returns the number of columns
     *
     * \return The number of columns
     */
-    uint32_t nColumns() const;
+    virtual uint32_t nColumns() const;
 
     /**
     * Returns the distance value of the specified point.
@@ -60,7 +60,7 @@ namespace libkipr_link_depth_sensor
     * \param row Row number
     * \return The distance value
     */
-    uint32_t getDistanceAt(uint32_t column, uint32_t row) const;
+    virtual uint32_t getDistanceAt(uint32_t column, uint32_t row) const;
   
   private:
     openni::VideoFrameRef video_frame_ref_;

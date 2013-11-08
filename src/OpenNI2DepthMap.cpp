@@ -22,6 +22,7 @@
 #include "libkipr_link_depth_sensor/OpenNI2DepthMap.hpp"
 
 using namespace libkipr_link_depth_sensor;
+using namespace openni;
 
 OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref)
   : video_frame_ref_(video_frame_ref)
@@ -31,7 +32,7 @@ OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref)
 
 uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t column, uint32_t row) const
 {
-  return static_cast<DepthPixel*>(video_frame_ref_.getData())[column][row];
+  return ((DepthPixel*)video_frame_ref_.getData())[column + row*video_frame_ref_.getWidth()];
 }
 
 uint32_t OpenNI2DepthMap::nColumns() const

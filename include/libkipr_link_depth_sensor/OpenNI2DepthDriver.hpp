@@ -48,33 +48,33 @@ namespace libkipr_link_depth_sensor
     /**
       * Opens the OpenNI2 depth driver
       */
-    void open();
+    virtual void open();
 
     /**
       * Closes the OpenNI2 depth driver
       */
-    void close();
+    virtual void close();
 
     /**
       * Returns the current depth map resolution
       *
       * \return The current resolution
       */
-    DepthMapResolution getDepthMapResolution() const;
+    virtual DepthMapResolution getDepthMapResolution() const;
 
     /**
       * Sets the DepthMap resolution of new captured depth maps
       *
       * \param resolution The new resolution
       */
-    void setDepthMapResolution(DepthMapResolution resolution);
+    virtual void setDepthMapResolution(DepthMapResolution resolution);
 
     /**
       * Returns a Dept Map object containing the current depth values
       *
       * \return DepthMap object
       */
-    DepthMap getDepthMap();
+    virtual std::shared_ptr<DepthMap> getDepthMap();
 
     ~OpenNI2DepthDriver();
 
@@ -82,7 +82,7 @@ namespace libkipr_link_depth_sensor
     openni::Device device_;
     openni::VideoStream depth_stream_;
     
-    OpenNI2DepthMap last_captured_depth_map_;
+    std::shared_ptr<OpenNI2DepthMap> last_captured_depth_map_;
 
     // OpenNI2DepthDriver is a singleton
     OpenNI2DepthDriver();

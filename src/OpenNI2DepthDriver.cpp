@@ -50,7 +50,10 @@ void OpenNI2DepthDriver::onDeviceStateChanged(const DeviceInfo* pInfo,
 
 void OpenNI2DepthDriver::onNewFrame(VideoStream& stream)
 {
-  last_captured_depth_map_ = DepthMap(streamreadFrame());
+  VideoFrameRef ref;
+  stream.readFrame(&ref);
+
+  last_captured_depth_map_.reset(new  OpenNI2DepthMap(ref));
 }
 
 OpenNI2DepthDriver::OpenNI2DepthDriver()
@@ -183,7 +186,7 @@ void OpenNI2DepthDriver::setDepthMapResolution(DepthMapResolution resolution)
   }
 }
 
-DepthMap OpenNI2DepthDriver::getDepthMap()
+std::shared_ptr<DepthMap> OpenNI2DepthDriver::getDepthMap()
 {
   return last_captured_depth_map_;
 }

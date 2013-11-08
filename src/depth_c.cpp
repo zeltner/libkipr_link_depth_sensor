@@ -21,6 +21,7 @@
 
 #include <iostream>
 #include <exception>
+#include <memory>
 
 #include "libkipr_link_depth_sensor/DepthDriver.hpp"
 #include "libkipr_link_depth_sensor/depth.h"
@@ -29,9 +30,7 @@ namespace libkipr_link_depth_sensor
 {
   namespace c_api
   {
-    DepthMap _depthMap;
-
-    std::vector<Point<uint32_t> > _points;
+    std::shared_ptr<DepthMap> _depth_map;
   }
 }
 
@@ -90,7 +89,7 @@ int depth_update()
 {
   try
   {
-    _depthMap = DepthDriver::instance().getDepthMap();
+    _depth_map = DepthDriver::instance().getDepthMap();
 
     return 1;
   }
@@ -101,7 +100,7 @@ int depth_map_get_distance_at(int column, int row)
 {
   try
   {
-    return _depthMap.getDistanceAt(column, row);
+    return _depth_map->getDistanceAt(column, row);
   }
   catchAllAndReturn(0);
 }

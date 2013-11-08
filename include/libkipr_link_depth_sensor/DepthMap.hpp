@@ -25,6 +25,8 @@
  * \author Stefan Zeltner
  */
 
+#include <stdint.h>
+
 #ifndef _DEPTH_MAP_HPP_
 #define _DEPTH_MAP_HPP_
 
@@ -38,14 +40,14 @@ namespace libkipr_link_depth_sensor
     *
     * \return The number of rows
     */
-    uint32_t nRows() const = 0;
+    virtual uint32_t nRows() const = 0;
 
     /**
     * Returns the number of columns
     *
     * \return The number of columns
     */
-    uint32_t nColumns() const = 0;
+    virtual uint32_t nColumns() const = 0;
 
     /**
     * Returns the distance value of the specified point.
@@ -54,7 +56,7 @@ namespace libkipr_link_depth_sensor
     * \param row Row number
     * \return The distance value
     */
-    uint32_t getDistanceAt(uint32_t column, uint32_t row) const = 0;
+    virtual uint32_t getDistanceAt(uint32_t column, uint32_t row) const = 0;
   };
 }
 

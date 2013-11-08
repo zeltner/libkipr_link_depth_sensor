@@ -19,6 +19,8 @@
 
 *******************************************************************************/
 
+#include <memory>
+
 /**
  * \file DepthDriver.hpp
  * \brief C++ interface for depth driver used by libkipr_link_depth_sensor
@@ -67,7 +69,7 @@ namespace libkipr_link_depth_sensor
       *
       * \return DepthMap object
       */
-    virtual DepthMap getDepthMap() = 0;
+    virtual std::shared_ptr<DepthMap> getDepthMap() = 0;
   };
 }
 
