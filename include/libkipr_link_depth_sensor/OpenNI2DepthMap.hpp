@@ -19,33 +19,39 @@
 
 *******************************************************************************/
 
+#include <OpenNI.h>
+
 /**
- * \file DepthMap.hpp
- * \brief The interface for a depth map
+ * \file OpenNI2DepthMap.hpp
+ * \brief OpenNI2 implementation of the OpenNI2DepthMap interface
  * \author Stefan Zeltner
  */
 
-#ifndef _DEPTH_MAP_HPP_
-#define _DEPTH_MAP_HPP_
+#ifndef _OPENNI2_DEPTH_MAP_HPP_
+#define _OPENNI2_DEPTH_MAP_HPP_
+
+#include "libkipr_link_depth_sensor/DepthMap.hpp"
 
 namespace libkipr_link_depth_sensor
 {
-  class DepthMap
+  class OpenNI2DepthMap : public DepthMap
   {
   public:
+    OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref);
+    
     /**
     * Returns the number of rows
     *
     * \return The number of rows
     */
-    uint32_t nRows() const = 0;
+    uint32_t nRows() const;
 
     /**
     * Returns the number of columns
     *
     * \return The number of columns
     */
-    uint32_t nColumns() const = 0;
+    uint32_t nColumns() const;
 
     /**
     * Returns the distance value of the specified point.
@@ -54,8 +60,11 @@ namespace libkipr_link_depth_sensor
     * \param row Row number
     * \return The distance value
     */
-    uint32_t getDistanceAt(uint32_t column, uint32_t row) const = 0;
+    uint32_t getDistanceAt(uint32_t column, uint32_t row) const;
+  
+  private:
+    openni::VideoFrameRef video_frame_ref_;
   };
 }
 
-#endif /* _DEPTH_MAP_HPP_ */
+#endif /* _OPENNI2_DEPTH_MAP_HPP_ */

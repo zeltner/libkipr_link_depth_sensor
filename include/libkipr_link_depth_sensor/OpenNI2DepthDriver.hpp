@@ -21,35 +21,37 @@
 
 #include <OpenNI.h>
 
+#include "libkipr_link_depth_sensor/OpenNI2DepthMap.hpp"
+
 /**
- * \file DepthDriver.hpp
- * \brief C++ interface for depth driver used by libkipr_link_depth_sensor
+ * \file OpenNI2DepthDriver.hpp
+ * \brief OpenNI2 implementation of the DepthDriver interface
  * \author Stefan Zeltner
  */
 
-#ifndef _ASUS_XTION_DEPTH_DRIVER_HPP_
-#define _ASUS_XTION_DEPTH_DRIVER_HPP_
+#ifndef _OPENNI2_DEPTH_DRIVER_HPP_
+#define _OPENNI2_DEPTH_DRIVER_HPP_
 
-#include "DepthDriver.hpp"
+#include "libkipr_link_depth_sensor/DepthDriver.hpp"
 
 namespace libkipr_link_depth_sensor
 {
-  class AsusXtionDepthDriver : public DepthDriver,
-                               public openni::OpenNI::DeviceConnectedListener,
-                               public openni::OpenNI::DeviceDisconnectedListener,
-                               public openni::OpenNI::DeviceStateChangedListener,
-                               public openni::VideoStream::NewFrameListener
+  class OpenNI2DepthDriver : public DepthDriver,
+                             public openni::OpenNI::DeviceConnectedListener,
+                             public openni::OpenNI::DeviceDisconnectedListener,
+                             public openni::OpenNI::DeviceStateChangedListener,
+                             public openni::VideoStream::NewFrameListener
   {
   public:
-    static AsusXtionDepthDriver& instance();
+    static OpenNI2DepthDriver& instance();
 
     /**
-      * Opens the ASUS Xtion depth driver
+      * Opens the OpenNI2 depth driver
       */
     void open();
 
     /**
-      * Closes the ASUS Xtion depth driver
+      * Closes the OpenNI2 depth driver
       */
     void close();
 
@@ -74,16 +76,18 @@ namespace libkipr_link_depth_sensor
       */
     DepthMap getDepthMap();
 
-    ~AsusXtionDepthDriver();
+    ~OpenNI2DepthDriver();
 
   private:
     openni::Device device_;
     openni::VideoStream depth_stream_;
+    
+    OpenNI2DepthMap last_captured_depth_map_;
 
-    // AsusXtionDepthDriver is a singleton
-    AsusXtionDepthDriver();
-    AsusXtionDepthDriver(AsusXtionDepthDriver const&);
-    void operator=(AsusXtionDepthDriver const&);
+    // OpenNI2DepthDriver is a singleton
+    OpenNI2DepthDriver();
+    OpenNI2DepthDriver(OpenNI2DepthDriver const&);
+    void operator=(OpenNI2DepthDriver const&);
 
     // Implement OpenNI::DeviceConnectedListener::onDeviceConnected()
     virtual void onDeviceConnected(const openni::DeviceInfo* pInfo);
@@ -99,4 +103,4 @@ namespace libkipr_link_depth_sensor
   };
 }
 
-#endif /* _ASUS_XTION_DEPTH_DRIVER_HPP_ */
+#endif /* _OPENNI2_DEPTH_DRIVER_HPP_ */

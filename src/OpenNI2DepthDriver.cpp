@@ -20,40 +20,40 @@
 *******************************************************************************/
 
 #include "libkipr_link_depth_sensor/Exception.hpp"
-#include "libkipr_link_depth_sensor/AsusXtionDepthDriver.hpp"
+#include "libkipr_link_depth_sensor/OpenNI2DepthDriver.hpp"
 
 using namespace libkipr_link_depth_sensor;
 using namespace openni;
 
-AsusXtionDepthDriver& AsusXtionDepthDriver::instance()
+OpenNI2DepthDriver& OpenNI2DepthDriver::instance()
 {
-  static AsusXtionDepthDriver _instance;
+  static OpenNI2DepthDriver _instance;
 
   return _instance;
 }
 
-void AsusXtionDepthDriver::onDeviceConnected(const DeviceInfo* pInfo)
+void OpenNI2DepthDriver::onDeviceConnected(const DeviceInfo* pInfo)
 {
   
 }
 
-void AsusXtionDepthDriver::onDeviceDisconnected(const DeviceInfo* pInfo)
+void OpenNI2DepthDriver::onDeviceDisconnected(const DeviceInfo* pInfo)
 {
   
 }
 
-void AsusXtionDepthDriver::onDeviceStateChanged(const DeviceInfo* pInfo,
+void OpenNI2DepthDriver::onDeviceStateChanged(const DeviceInfo* pInfo,
                                                 DeviceState state)
 {
   
 }
 
-void AsusXtionDepthDriver::onNewFrame(VideoStream& stream)
+void OpenNI2DepthDriver::onNewFrame(VideoStream& stream)
 {
-  
+  last_captured_depth_map_ = DepthMap(streamreadFrame());
 }
 
-AsusXtionDepthDriver::AsusXtionDepthDriver()
+OpenNI2DepthDriver::OpenNI2DepthDriver()
 {
   Status rc = OpenNI::initialize();
   if(rc != STATUS_OK)
@@ -67,7 +67,7 @@ AsusXtionDepthDriver::AsusXtionDepthDriver()
   OpenNI::addDeviceStateChangedListener(this);
 }
 
-AsusXtionDepthDriver::~AsusXtionDepthDriver()
+OpenNI2DepthDriver::~OpenNI2DepthDriver()
 {
   close();
 
@@ -78,7 +78,7 @@ AsusXtionDepthDriver::~AsusXtionDepthDriver()
   OpenNI::shutdown();
 }
 
-void AsusXtionDepthDriver::open()
+void OpenNI2DepthDriver::open()
 {
   if(!device_.isValid())
   {
@@ -127,7 +127,7 @@ void AsusXtionDepthDriver::open()
   }
 }
 
-void AsusXtionDepthDriver::close()
+void OpenNI2DepthDriver::close()
 {
   depth_stream_.removeNewFrameListener(this);
 
@@ -137,7 +137,7 @@ void AsusXtionDepthDriver::close()
   device_.close();
 }
 
-DepthMapResolution AsusXtionDepthDriver::getDepthMapResolution() const
+DepthMapResolution OpenNI2DepthDriver::getDepthMapResolution() const
 {
   VideoMode video_mode = depth_stream_.getVideoMode();
 
@@ -158,7 +158,7 @@ DepthMapResolution AsusXtionDepthDriver::getDepthMapResolution() const
   }
 }
 
-void AsusXtionDepthDriver::setDepthMapResolution(DepthMapResolution resolution)
+void OpenNI2DepthDriver::setDepthMapResolution(DepthMapResolution resolution)
 {
   VideoMode video_mode = depth_stream_.getVideoMode();
 
@@ -183,7 +183,7 @@ void AsusXtionDepthDriver::setDepthMapResolution(DepthMapResolution resolution)
   }
 }
 
-DepthMap AsusXtionDepthDriver::getDepthMap()
+DepthMap OpenNI2DepthDriver::getDepthMap()
 {
-  throw "Not Implemented!!";
+  return last_captured_depth_map_;
 }

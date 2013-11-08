@@ -19,47 +19,27 @@
 
 *******************************************************************************/
 
-#include "libkipr_link_depth_sensor/DepthMap.hpp"
+#include "libkipr_link_depth_sensor/OpenNI2DepthMap.hpp"
 
 using namespace libkipr_link_depth_sensor;
 
-uint32_t DepthMap::getDistanceAt(uint32_t column, uint32_t row)
+OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref)
+  : video_frame_ref_(video_frame_ref)
 {
-  throw "Not Implemented!!";
+
 }
 
-uint32_t DepthMap::nColumns()
+uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t column, uint32_t row) const
 {
-  throw "Not Implemented!!";
+  return static_cast<DepthPixel*>(video_frame_ref_.getData())[column][row];
 }
 
-uint32_t DepthMap::nRows()
+uint32_t OpenNI2DepthMap::nColumns() const
 {
-  throw "Not Implemented!!";
+  return video_frame_ref_.getWidth();
 }
 
-void DepthMap::selectSubregion(uint32_t leftmostColumn, uint32_t rightmostColumn,
-                               uint32_t uppermostRow, uint32_t lowermostRow)
+uint32_t OpenNI2DepthMap::nRows() const
 {
-  throw "Not Implemented!!";
-}
-
-int DepthMap::selectMinDistance(int max_distance)
-{
-  throw "Not Implemented!!";
-}
-
-void DepthMap::selectMaxDistance(uint32_t min_distance)
-{
-  throw "Not Implemented!!";
-}
-
-void DepthMap::resetSelection()
-{
-  throw "Not Implemented!!";
-}
-
-std::vector<Point<uint32_t> > DepthMap::getPoints()
-{
-  throw "Not Implemented!!";
+  return video_frame_ref_.getHeight();
 }

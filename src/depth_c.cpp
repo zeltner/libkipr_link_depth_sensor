@@ -110,7 +110,7 @@ int depth_map_select_row(int index)
 {
   try
   {
-    return depth_map_select_subregion(0, _depthMap.nColumns() - 1, index, index);
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -122,9 +122,7 @@ int depth_map_select_subregion(int leftmostColumn,
 {
   try
   {
-    _depthMap.selectSubregion(leftmostColumn, rightmostColumn, uppermostRow, lowermostRow);
-
-    return 1;
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -133,9 +131,7 @@ int depth_map_select_min_distance(int distance)
 {
   try
   {
-    _depthMap.selectMaxDistance(distance);
-
-    return 1;
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -144,9 +140,7 @@ int depth_map_select_max_distance(int distance)
 {
   try
   {
-    _depthMap.selectMinDistance(distance);
-
-    return 1;
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -155,9 +149,7 @@ int depth_map_reset_selection()
 {
   try
   {
-    _depthMap.resetSelection();
-
-    return 1;
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -166,9 +158,7 @@ int number_selected_points()
 {
   try
   {
-    _points = _depthMap.getPoints();
-
-    return _points.size();
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -177,7 +167,7 @@ int distance_of_point(int index)
 {
   try
   {
-    return _points[index].distance;
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -186,7 +176,7 @@ int get_x_of_point(int index)
 {
   try
   {
-    return _points[index].x;
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -195,7 +185,7 @@ int get_y_of_point(int index)
 {
   try
   {
-    return _points[index].y;
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
@@ -204,7 +194,7 @@ int get_z_of_point(int index)
 {
   try
   {
-    return _points[index].z;
+    throw "Not Implemented!!";
   }
   catchAllAndReturn(0);
 }
