@@ -8,9 +8,9 @@ libkipr_link_depth_sensor is currently under development and not part of the KIP
 
 ## 1 Installing Prerequisites
 ### 1.1 Update the KIPR Link Firmware
-**This step is optional.** However you might face some issues if you have another firmware running than 1.9.6 or if you run a modified version of 1.9.6.
+**This step is optional.** However you might face some issues if you have another firmware running than 1.9.8 or if you run a modified version of 1.9.8.
 
-To update the firmware to version 1.9.6 follow these [instructions](http://www.kipr.org/kiss-platform-link-firmware) 
+To update the firmware to version 1.9.8 follow these [instructions](http://www.kipr.org/kiss-platform-link-firmware) 
 
 *Note:* If you previously called
 
@@ -86,11 +86,19 @@ root@kovan:~# opkg install http://netv.bunnie-bar.com/build/kovan-debug/LATEST/a
 
 ### 1.6 Install libudev
 ```
-root@kovan:~# opkg install http://netv.bunnie-bar.com/build/kovan-debug/LATEST/armv5te/libudev0_180-r0_armv5te.ipk
+root@kovan:~/OpenNI2# opkg install http://netv.bunnie-bar.com/build/kovan-debug/LATEST/armv5te/udev-dev_180-r0_armv5te.ipk
 ```
 
-### 1.7 Install OpenNI2
-#### 1.7.1 Clone the Source Files
+### 1.7 Create a Swap File
+Creating a swap file will speed up the OpenNI2 and libkipr_link_depth_sensor compilation time.
+```
+root@kovan:~# dd if=/dev/zero of=/swapfile bs=1024 count=262144
+root@kovan:~# mkswap /swapfile
+root@kovan:~# swapon /swapfile
+```
+
+### 1.8 Install OpenNI2
+#### 1.8.1 Clone the Source Files
 
 ```
 root@kovan:~# git clone https://github.com/OpenNI/OpenNI2.git
@@ -98,7 +106,7 @@ root@kovan:~# cd OpenNI2/
 root@kovan:~/OpenNI2# git checkout 2.2-beta
 ```
 
-#### 1.7.2 Prepare the Source Files
+#### 1.8.2 Prepare the Source Files
 Comment the Hardware specifying flags and the *XN_NEON* define in *ThirdParty/PSCommon/BuildSystem/Platform.Arm*:
 ```
 ifeq "$(CFG)" "Release"
@@ -130,7 +138,7 @@ static const char* ANY_DEVICE = NULL;
 #endif
 ```
 
-Comment all *.java targets in *Makefile*:
+Comment all \*.java targets in *Makefile*:
 ```
   # list all wrappers
   ALL_WRAPPERS = \
@@ -164,12 +172,12 @@ Comment all *.java targets in *Makefile*:
   #       Samples/SimpleViewer.java
 ```
 
-#### 1.7.3 Compile OpenNI2
+#### 1.8.3 Compile OpenNI2
 ```
 root@kovan:~/OpenNI2# make
 ```
 
-#### 1.7.4 Test OpenNI2
+#### 1.8.4 Test OpenNI2
 Connect a depth sensor with the Link, then
 
 ```
@@ -187,7 +195,7 @@ root@kovan:~/OpenNI2/Bin/Arm-Release# ./SimpleRead
 root@kovan:~/OpenNI2/Bin/Arm-Release# cd ~/OpenNI2/
 ```
 
-#### 1.7.5 Install OpenNI2
+#### 1.8.5 Install OpenNI2
 ```
 root@kovan:~/OpenNI2# mkdir -p /usr/include/OpenNI2
 root@kovan:~/OpenNI2# cp -r Include/* /usr/include/OpenNI2/
@@ -196,7 +204,7 @@ root@kovan:~/OpenNI2# cp -r Bin/Arm-Release/OpenNI2 /usr/lib/
 root@kovan:~/OpenNI2# cd ~
 ```
 
-#### 1.7.6 Delete Source Files
+#### 1.8.6 Delete Source Files
 ```
 root@kovan:~# rm -r OpenNI2
 ```
