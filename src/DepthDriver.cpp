@@ -26,5 +26,6 @@ using namespace libkipr_link_depth_sensor;
 
 DepthDriver& DepthDriver::instance()
 {
-  return OpenNI2DepthDriver::instance(); // currently we have only one driver --> no need for more complex things
+  return OpenNI2DepthDriver::instance(); // currently we have only one driver
+                                         //  --> no need for more complex things
 }

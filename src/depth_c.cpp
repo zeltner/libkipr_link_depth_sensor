@@ -96,11 +96,11 @@ int depth_update()
   catchAllAndReturn(0);
 }
 
-int depth_map_get_distance_at(int column, int row)
+int depth_map_get_distance_at(int x, int y)
 {
   try
   {
-    return _depth_map->getDistanceAt(column, row);
+    return _depth_map->getDistanceAt(x, y);
   }
   catchAllAndReturn(0);
 }

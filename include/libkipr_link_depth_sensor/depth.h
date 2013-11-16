@@ -123,11 +123,11 @@ int depth_update();
 /**
  * Returns the distance value of the specified point.
  *
- * \param column Column number
- * \param row Row number
+ * \param x X index of the point
+ * \param y Y index of the point
  * \return The distance value
  */
-int depth_map_get_distance_at(int column, int row);
+int depth_map_get_distance_at(int x, int y);
 
 /** \} */
 

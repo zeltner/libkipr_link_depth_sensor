@@ -36,27 +36,27 @@ namespace libkipr_link_depth_sensor
   {
   public:
     /**
-    * Returns the number of rows
+    * Returns the height of the depth map in pixel
     *
-    * \return The number of rows
+    * \return Height of the depth map in pixel
     */
-    virtual uint32_t nRows() const = 0;
+    virtual uint32_t getHeight() const = 0;
 
     /**
-    * Returns the number of columns
+    * Returns the width of the depth map in pixel
     *
-    * \return The number of columns
+    * \return Width of the depth map in pixel
     */
-    virtual uint32_t nColumns() const = 0;
+    virtual uint32_t getWidth() const = 0;
 
     /**
     * Returns the distance value of the specified point.
     *
-    * \param column Column number
-    * \param row Row number
+    * \param x X index of the point
+    * \param y Y index of the point
     * \return The distance value
     */
-    virtual uint32_t getDistanceAt(uint32_t column, uint32_t row) const = 0;
+    virtual uint32_t getDistanceAt(uint32_t x, uint32_t y) const = 0;
   };
 }
 

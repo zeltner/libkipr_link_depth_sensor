@@ -30,17 +30,17 @@ OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref)
 
 }
 
-uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t column, uint32_t row) const
+uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t width, uint32_t row) const
 {
-  return ((DepthPixel*)video_frame_ref_.getData())[column + row*video_frame_ref_.getWidth()];
+  return ((DepthPixel*)video_frame_ref_.getData())[width + row*video_frame_ref_.getWidth()];
 }
 
-uint32_t OpenNI2DepthMap::nColumns() const
+uint32_t OpenNI2DepthMap::getWidth() const
 {
   return video_frame_ref_.getWidth();
 }
 
-uint32_t OpenNI2DepthMap::nRows() const
+uint32_t OpenNI2DepthMap::getHeight() const
 {
   return video_frame_ref_.getHeight();
 }

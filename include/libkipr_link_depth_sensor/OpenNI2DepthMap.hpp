@@ -40,27 +40,27 @@ namespace libkipr_link_depth_sensor
     OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref);
     
     /**
-    * Returns the number of rows
+    * Returns the height of the depth map in pixel
     *
-    * \return The number of rows
+    * \return Height of the depth map in pixel
     */
-    virtual uint32_t nRows() const;
+    virtual uint32_t getHeight() const;
 
     /**
-    * Returns the number of columns
+    * Returns the width of the depth map in pixel
     *
-    * \return The number of columns
+    * \return Width of the depth map in pixel
     */
-    virtual uint32_t nColumns() const;
+    virtual uint32_t getWidth() const;
 
     /**
     * Returns the distance value of the specified point.
     *
-    * \param column Column number
-    * \param row Row number
+    * \param x X index of the point
+    * \param y Y index of the point
     * \return The distance value
     */
-    virtual uint32_t getDistanceAt(uint32_t column, uint32_t row) const;
+    virtual uint32_t getDistanceAt(uint32_t x, uint32_t y) const;
   
   private:
     openni::VideoFrameRef video_frame_ref_;
