@@ -27,11 +27,24 @@ int main(int argc, char** argv)
     return 1;
   }
   
+  printf("Press the 'A' button for three seconds to stop\n");
+  
   while(a_button() == 0)
   {
-	depth_update();
-    printf("Depth Value @ Center is %d\n", depth_map_get_distance_at(100, 100));
-	msleep(2000);
+    if(depth_update())
+    {
+      int x_center = depth_map_get_width() / 2;
+      int y_center = depth_map_get_height() / 2;
+      int depth_center = depth_map_get_distance_at(x_center, y_center);
+      
+      printf("Depth at(%d, %d) is %d\n", x_center, y_center, depth_center);
+      msleep(2000);
+    }
+    else
+    {
+      printf("No depth frame received yet\n");
+      msleep(2000);
+    }
   }
   
   depth_close();
