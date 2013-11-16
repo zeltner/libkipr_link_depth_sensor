@@ -121,7 +121,28 @@ int depth_update();
 /** \{ */
 
 /**
+ * Returns the height of the depth map stored by depth_update in pixel
+ *
+ * \see depth_update
+ *
+ * \return Height of the depth map in pixel or 0 if no depth map was saved
+ */
+int depth_map_get_height();
+
+/**
+ * Returns the width of the depth map stored by depth_update in pixel
+ *
+ * \see depth_update
+ *
+ * \return Width of the depth map in pixel or 0 if no depth map was saved
+ */
+int depth_map_get_width();
+
+/**
  * Returns the distance value of the specified point.
+ *
+ * \see depth_map_get_height
+ * \see depth_map_get_width
  *
  * \param x X index of the point
  * \param y Y index of the point

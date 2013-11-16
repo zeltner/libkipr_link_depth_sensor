@@ -96,6 +96,38 @@ int depth_update()
   catchAllAndReturn(0);
 }
 
+int depth_map_get_height()
+{
+  try
+  {
+    if(_depth_map)
+    {
+        return _depth_map->getHeight();
+    }
+    else
+    {
+        return 0;
+    }
+  }
+  catchAllAndReturn(0);
+}
+
+int depth_map_get_width()
+{
+  try
+  {
+    if(_depth_map)
+    {
+        return _depth_map->getWidth();
+    }
+    else
+    {
+        return 0;
+    }
+  }
+  catchAllAndReturn(0);
+}
+
 int depth_map_get_distance_at(int x, int y)
 {
   try
