@@ -67,6 +67,8 @@ namespace libkipr_link_depth_sensor
     /**
       * Returns a Dept Map object containing the current depth values
       *
+      * \note The shared_ptr contains a null pointer if there is no depth
+      *       map available yet.
       * \return DepthMap object
       */
     virtual std::shared_ptr<DepthMap> getDepthMap() = 0;

@@ -91,7 +91,7 @@ int depth_update()
   {
     _depth_map = DepthDriver::instance().getDepthMap();
 
-    return 1;
+    return _depth_map ? 1 : 0;
   }
   catchAllAndReturn(0);
 }
