@@ -8,9 +8,9 @@ libkipr_link_depth_sensor is currently under development and not part of the KIP
 
 ## 1 Installing Prerequisites
 ### 1.1 Update the KIPR Link Firmware
-**This step is optional.** However you might face some issues if you have another firmware running than 1.9.8 or if you run a modified version of 1.9.8.
+**This step is optional.** However you might face some issues if you have another firmware running than 1.9.5 or if you run a modified version of 1.9.5.
 
-To update the firmware to version 1.9.8 follow these [instructions](http://www.kipr.org/kiss-platform-link-firmware) 
+To update the firmware to version 1.9.5 follow these [instructions](http://www.kipr.org/kiss-platform-link-firmware) 
 
 *Note:* If you previously called
 
@@ -236,3 +236,13 @@ C_FLAGS=-include kovan/kovan.h -include stdio.h -include target.h -include math.
 CPP_FLAGS=-include kovan/kovan.hpp -include stdio.h -include target.h -include math.h
 ```
 
+## 3 Clean-up
+### 3.1 Delete the Swap File
+```
+root@kovan:~# swapff /swapfile
+root@kovan:~# rm /swapfile
+```
+
+## 4 Examples
+The libkipr_link_depth_sensor repository comes with a few examples located in *./kiss_ide_examples*.
+You can clone libkipr_link_depth_sensor to your PC and open one of the examples into the KISS IDE.
