@@ -239,6 +239,7 @@ CPP_FLAGS=-include kovan/kovan.hpp -include stdio.h -include target.h -include m
 ## 3 Clean-up
 ### 3.1 Delete the Swap File
 ```
+root@kovan:~/libkipr_link_depth_sensor# cd ~
 root@kovan:~# swapoff /swapfile
 root@kovan:~# rm /swapfile
 ```
