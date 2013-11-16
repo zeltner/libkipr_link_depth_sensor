@@ -239,10 +239,10 @@ CPP_FLAGS=-include kovan/kovan.hpp -include stdio.h -include target.h -include m
 ## 3 Clean-up
 ### 3.1 Delete the Swap File
 ```
-root@kovan:~# swapff /swapfile
+root@kovan:~# swapoff /swapfile
 root@kovan:~# rm /swapfile
 ```
 
 ## 4 Examples
 The libkipr_link_depth_sensor repository comes with a few examples located in *./kiss_ide_examples*.
-You can clone libkipr_link_depth_sensor to your PC and open one of the examples into the KISS IDE.
+You can clone libkipr_link_depth_sensor to your PC and open them with your KISS IDE.
