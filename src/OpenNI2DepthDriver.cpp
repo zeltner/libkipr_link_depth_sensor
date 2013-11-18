@@ -107,6 +107,17 @@ void OpenNI2DepthDriver::open()
         + OpenNI::getExtendedError());
     }
 
+    VideoMode video_mode = depth_stream_.getVideoMode();
+    video_mode.setPixelFormat(PIXEL_FORMAT_DEPTH_1_MM);
+
+    rc = depth_stream_.setVideoMode(video_mode);
+    if(rc != STATUS_OK)
+    {
+        throw Exception(std::string("Set the pixel format to "
+            "PIXEL_FORMAT_DEPTH_1_MM failed with\n")
+            + OpenNI::getExtendedError());
+    }
+
     rc = depth_stream_.start();
     if(rc != STATUS_OK)
     {
@@ -163,6 +174,12 @@ DepthMapResolution OpenNI2DepthDriver::getDepthMapResolution() const
 
 void OpenNI2DepthDriver::setDepthMapResolution(DepthMapResolution resolution)
 {
+  Status rc = depth_stream_.stop();
+  if(rc != STATUS_OK)
+  {
+    throw Exception(std::string("Unable to stop the depth stream"));
+  }
+  
   VideoMode video_mode = depth_stream_.getVideoMode();
 
   if(DEPTH_MAP_RESOLUTION_320_240)
@@ -175,14 +192,25 @@ void OpenNI2DepthDriver::setDepthMapResolution(DepthMapResolution resolution)
   }
   else
   {
+    depth_stream_.start();
     throw Exception(std::string("Invalid resolution"));
   }
 
-  Status rc = depth_stream_.setVideoMode(video_mode);
+  rc = depth_stream_.setVideoMode(video_mode);
   if (rc != STATUS_OK)
   {
+    depth_stream_.start();
     throw Exception(std::string("Set the resolution failed with\n")
       + OpenNI::getExtendedError());
+  }
+  
+  rc = depth_stream_.start();
+  if(rc != STATUS_OK)
+  {
+    // how handle this?!
+    close();
+    
+    throw Exception(std::string("Unable to start the depth stream"));
   }
 }
 
