@@ -20,6 +20,7 @@
 *******************************************************************************/
 
 #include "libkipr_link_depth_sensor/OpenNI2DepthMap.hpp"
+#include "libkipr_link_depth_sensor/OpenNI2PointCloud.hpp"
 
 using namespace libkipr_link_depth_sensor;
 using namespace openni;
@@ -47,5 +48,5 @@ uint32_t OpenNI2DepthMap::getHeight() const
 
 std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud() const
 {
-  return std::shared_ptr(new OpenNI2PointCloud(video_frame_ref_));
+  return std::shared_ptr<PointCloud>(new OpenNI2PointCloud(video_frame_ref_));
 }

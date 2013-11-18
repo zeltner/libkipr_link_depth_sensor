@@ -25,8 +25,8 @@
  * \author Stefan Zeltner
  */
 
-#ifndef _POINT_CLOUD_HPP_
-#define _POINT_CLOUD_HPP_
+#ifndef _OPENNI2_POINT_CLOUD_HPP_
+#define _OPENNI2_POINT_CLOUD_HPP_
 
 #include <OpenNI.h>
 
@@ -34,7 +34,7 @@
 
 namespace libkipr_link_depth_sensor
 {
-  class OpenNI2PointCloud
+  class OpenNI2PointCloud : public PointCloud
   {
   public:
     OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref);
@@ -53,9 +53,9 @@ namespace libkipr_link_depth_sensor
     virtual std::shared_ptr<PointCloud> getSubCloud(Selector select) const;
     
   private:
-    Selector selector_;
     openni::VideoFrameRef video_frame_ref_;
+    Selector selector_;
   };
 }
 
-#endif /* _POINT_CLOUD_HPP_ */
+#endif /* _OPENNI2_POINT_CLOUD_HPP_ */

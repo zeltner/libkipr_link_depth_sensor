@@ -25,8 +25,8 @@ using namespace libkipr_link_depth_sensor;
 using namespace openni;
 
 OpenNI2PointCloud::OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref)
-  : OpenNI2PointCloud(video_frame_ref,
-    [](uint32_t x, uint32_t y, uint32_t z) { return true; })
+  : video_frame_ref_(video_frame_ref),
+    selector_([](uint32_t x, uint32_t y, uint32_t z) { return true; })
 {
 
 }
