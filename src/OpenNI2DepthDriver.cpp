@@ -174,11 +174,7 @@ DepthMapResolution OpenNI2DepthDriver::getDepthMapResolution() const
 
 void OpenNI2DepthDriver::setDepthMapResolution(DepthMapResolution resolution)
 {
-  Status rc = depth_stream_.stop();
-  if(rc != STATUS_OK)
-  {
-    throw Exception(std::string("Unable to stop the depth stream"));
-  }
+  depth_stream_.stop();
   
   VideoMode video_mode = depth_stream_.getVideoMode();
 
@@ -196,7 +192,7 @@ void OpenNI2DepthDriver::setDepthMapResolution(DepthMapResolution resolution)
     throw Exception(std::string("Invalid resolution"));
   }
 
-  rc = depth_stream_.setVideoMode(video_mode);
+  Status rc = depth_stream_.setVideoMode(video_mode);
   if (rc != STATUS_OK)
   {
     depth_stream_.start();
