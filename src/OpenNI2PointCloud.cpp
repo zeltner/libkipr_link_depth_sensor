@@ -19,33 +19,27 @@
 
 *******************************************************************************/
 
-#include "libkipr_link_depth_sensor/OpenNI2DepthMap.hpp"
+#include "libkipr_link_depth_sensor/OpenNI2PointCloud.hpp"
 
 using namespace libkipr_link_depth_sensor;
 using namespace openni;
 
-OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref)
-  : video_frame_ref_(video_frame_ref)
+OpenNI2PointCloud::OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref)
+  : OpenNI2PointCloud(video_frame_ref,
+    [](uint32_t x, uint32_t y, uint32_t z) { return true; })
 {
 
 }
 
-uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t width, uint32_t row) const
+OpenNI2PointCloud::OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref,
+                                     Selector selector)
+  : video_frame_ref_(video_frame_ref), selector_(selector)
 {
-  return ((DepthPixel*)video_frame_ref_.getData())[width + row*video_frame_ref_.getWidth()];
+
 }
 
-uint32_t OpenNI2DepthMap::getWidth() const
+std::shared_ptr<PointCloud> OpenNI2PointCloud::getSubCloud(Selector select) const
 {
-  return video_frame_ref_.getWidth();
-}
-
-uint32_t OpenNI2DepthMap::getHeight() const
-{
-  return video_frame_ref_.getHeight();
-}
-
-std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud() const
-{
-  return std::shared_ptr(new OpenNI2PointCloud(video_frame_ref_));
+  return std::shared_ptr<PointCloud>(new OpenNI2PointCloud(video_frame_ref_, 
+                                                           select));
 }

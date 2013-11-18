@@ -19,33 +19,38 @@
 
 *******************************************************************************/
 
-#include "libkipr_link_depth_sensor/OpenNI2DepthMap.hpp"
+/**
+ * \file PointCloud.hpp
+ * \brief The interface for a point cloud
+ * \author Stefan Zeltner
+ */
 
-using namespace libkipr_link_depth_sensor;
-using namespace openni;
+#include <stdint.h>
+#include <memory>
+#include <functional>
 
-OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref)
-  : video_frame_ref_(video_frame_ref)
+#ifndef _POINT_CLOUD_HPP_
+#define _POINT_CLOUD_HPP_
+
+namespace libkipr_link_depth_sensor
 {
-
+  class PointCloud
+  {
+  public:
+    typedef std::function<bool (uint32_t x, uint32_t y, uint32_t z)> Selector;
+    
+    /**
+     * Returns a new PointCloud object containing a subset of points
+     *
+     * The select function specifies which points are kept. It is called for 
+     * every point of this point cloud and if it returns true, the point is
+     * copied into the new cloud.
+     *
+     * \param select The select function
+     * \return A new PointCloud object
+     */
+    virtual std::shared_ptr<PointCloud> getSubCloud(Selector select) const = 0;
+  };
 }
 
-uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t width, uint32_t row) const
-{
-  return ((DepthPixel*)video_frame_ref_.getData())[width + row*video_frame_ref_.getWidth()];
-}
-
-uint32_t OpenNI2DepthMap::getWidth() const
-{
-  return video_frame_ref_.getWidth();
-}
-
-uint32_t OpenNI2DepthMap::getHeight() const
-{
-  return video_frame_ref_.getHeight();
-}
-
-std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud() const
-{
-  return std::shared_ptr(new OpenNI2PointCloud(video_frame_ref_));
-}
+#endif /* _POINT_CLOUD_HPP_ */

@@ -20,58 +20,42 @@
 *******************************************************************************/
 
 /**
- * \file OpenNI2DepthMap.hpp
- * \brief OpenNI2 implementation of the DepthMap interface
+ * \file OpenNI2PointCloud.hpp
+ * \brief OpenNI2 implementation of the PointCloud interface
  * \author Stefan Zeltner
  */
 
-#ifndef _OPENNI2_DEPTH_MAP_HPP_
-#define _OPENNI2_DEPTH_MAP_HPP_
+#ifndef _POINT_CLOUD_HPP_
+#define _POINT_CLOUD_HPP_
 
 #include <OpenNI.h>
 
-#include "libkipr_link_depth_sensor/DepthMap.hpp"
+#include "libkipr_link_depth_sensor/PointCloud.hpp"
 
 namespace libkipr_link_depth_sensor
 {
-  class OpenNI2DepthMap : public DepthMap
+  class OpenNI2PointCloud
   {
   public:
-    OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref);
+    OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref);
+    OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref, Selector selector);
     
     /**
-    * Returns the height of the depth map in pixel
-    *
-    * \return Height of the depth map in pixel
-    */
-    virtual uint32_t getHeight() const;
-
-    /**
-    * Returns the width of the depth map in pixel
-    *
-    * \return Width of the depth map in pixel
-    */
-    virtual uint32_t getWidth() const;
-
-    /**
-    * Returns the distance value of the specified point.
-    *
-    * \param x X index of the point
-    * \param y Y index of the point
-    * \return The distance value
-    */
-    virtual uint32_t getDistanceAt(uint32_t x, uint32_t y) const;
-    
-    /**
-     * Returns a PointCloud object of this depth map
+     * Returns a new PointCloud object containing a subset of points
      *
-     * \return A PointCloud object
+     * The select function specifies which points are kept. It is called for 
+     * every point of this point cloud and if it returns true, the point is
+     * copied into the new cloud.
+     *
+     * \param select The select function
+     * \return A new PointCloud object
      */
-    virtual std::shared_ptr<PointCloud> getPointCloud() const;
-  
+    virtual std::shared_ptr<PointCloud> getSubCloud(Selector select) const;
+    
   private:
+    Selector selector_;
     openni::VideoFrameRef video_frame_ref_;
   };
 }
 
-#endif /* _OPENNI2_DEPTH_MAP_HPP_ */
+#endif /* _POINT_CLOUD_HPP_ */

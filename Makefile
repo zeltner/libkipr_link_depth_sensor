@@ -8,7 +8,8 @@ INC_DIRS = -Iinclude \
 SRC_FILES = src/depth_c.cpp \
             src/DepthDriver.cpp \
             src/OpenNI2DepthDriver.cpp \
-            src/OpenNI2DepthMap.cpp
+            src/OpenNI2DepthMap.cpp \
+            src/OpenNI2PointCloud.cpp
 
 LIB_NAME = libkipr_link_depth_sensor.so
 

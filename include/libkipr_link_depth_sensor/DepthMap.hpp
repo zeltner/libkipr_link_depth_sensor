@@ -26,6 +26,9 @@
  */
 
 #include <stdint.h>
+#include <memory>
+
+#include "libkipr_link_depth_sensor/PointCloud.hpp"
 
 #ifndef _DEPTH_MAP_HPP_
 #define _DEPTH_MAP_HPP_
@@ -57,6 +60,13 @@ namespace libkipr_link_depth_sensor
      * \return The distance value
      */
     virtual uint32_t getDistanceAt(uint32_t x, uint32_t y) const = 0;
+    
+    /**
+     * Returns a PointCloud object of this depth map
+     *
+     * \return A PointCloud object
+     */
+    virtual std::shared_ptr<PointCloud> getPointCloud() const = 0;
   };
 }
 
