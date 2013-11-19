@@ -40,17 +40,17 @@ void PointCloud::addPoint(const Point& point)
   points_->push_back(point);
 }
 
-std::shared_ptr<PointCloud> getSubCloud(Selector select) const
+std::shared_ptr<PointCloud> PointCloud::getSubCloud(Selector select) const
 {
   return std::shared_ptr<PointCloud>(new PointCloud(*points_, select));
 }
 
-std::shared_ptr<const std::list<Point>> getPoints() const
+std::shared_ptr<const std::list<Point>> PointCloud::getPoints() const
 {
   return points_;
 }
 
-std::shared_ptr<std::list<Point>> getPoints(Selector select) const
+std::shared_ptr<std::list<Point>> PointCloud::getPoints(Selector select) const
 {
   std::shared_ptr<std::list<Point>> points(new std::list<Point>());
   
@@ -58,3 +58,4 @@ std::shared_ptr<std::list<Point>> getPoints(Selector select) const
   
   return points;
 }
+
