@@ -30,7 +30,7 @@
 
 #include <OpenNI.h>
 
-#include "libkipr_link_depth_sensor/PointCloud.hpp"
+#include <libkipr_link_depth_sensor/PointCloud.hpp>
 
 namespace libkipr_link_depth_sensor
 {
@@ -39,6 +39,8 @@ namespace libkipr_link_depth_sensor
   public:
     OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref);
     OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref, Selector selector);
+    OpenNI2PointCloud(const std::list<Point>& points);
+    OpenNI2PointCloud(const std::list<Point>& points, Selector selector);
     
     /**
      * Returns a new PointCloud object containing a subset of points
@@ -52,9 +54,21 @@ namespace libkipr_link_depth_sensor
      */
     virtual std::shared_ptr<PointCloud> getSubCloud(Selector select) const;
     
+    /**
+     * Returns a list of all points
+     *
+     * The select function specifies which points are kept. It is called for 
+     * every point of this point cloud and if it returns true, the point is
+     * copied into the list.
+     *
+     * \param select The select function
+     * \return A list of all points
+     */
+    virtual std::list<Point> getPoints() const;
+    virtual std::list<Point> getPoints(Selector select) const;
+    
   private:
-    openni::VideoFrameRef video_frame_ref_;
-    Selector selector_;
+    std::list<Point> points_;
   };
 }
 

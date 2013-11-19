@@ -19,27 +19,42 @@
 
 *******************************************************************************/
 
-#include "libkipr_link_depth_sensor/OpenNI2PointCloud.hpp"
+#include <algorithm>
+
+#include <libkipr_link_depth_sensor/PointCloud.hpp>
 
 using namespace libkipr_link_depth_sensor;
-using namespace openni;
 
-OpenNI2PointCloud::OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref)
-  : video_frame_ref_(video_frame_ref),
-    selector_([](uint32_t x, uint32_t y, uint32_t z) { return true; })
+PointCloud::PointCloud()
 {
 
 }
 
-OpenNI2PointCloud::OpenNI2PointCloud(openni::VideoFrameRef video_frame_ref,
-                                     Selector selector)
-  : video_frame_ref_(video_frame_ref), selector_(selector)
+PointCloud::PointCloud(const std::list<Point>& points, Selector select)
 {
-
+  std::copy_if(points.begin(), points.end(), points_->begin(), select);
 }
 
-std::shared_ptr<PointCloud> OpenNI2PointCloud::getSubCloud(Selector select) const
+void PointCloud::addPoint(const Point& point)
 {
-  return std::shared_ptr<PointCloud>(new OpenNI2PointCloud(video_frame_ref_, 
-                                                           select));
+  points_->push_back(point);
+}
+
+std::shared_ptr<PointCloud> getSubCloud(Selector select) const
+{
+  return std::shared_ptr<PointCloud>(new PointCloud(*points_, select));
+}
+
+std::shared_ptr<const std::list<Point>> getPoints() const
+{
+  return points_;
+}
+
+std::shared_ptr<std::list<Point>> getPoints(Selector select) const
+{
+  std::shared_ptr<std::list<Point>> points(new std::list<Point>());
+  
+  std::copy_if(points_->begin(), points_->end(), points->begin(), select);
+  
+  return points;
 }

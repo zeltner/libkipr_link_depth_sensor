@@ -28,17 +28,21 @@
 #ifndef _POINT_HPP_
 #define _POINT_HPP_
 
+#include <stdint.h>
+
 namespace libkipr_link_depth_sensor
 {
-  template <typename T>
   struct Point
   {
-    T x;
-    T y;
-    T z;
-    T distance;
+    uint32_t x;
+    uint32_t y;
+    uint32_t z;
+    uint32_t distance;
 
-    Point(const T& x, const T& y, const T& z, const T& distance)
+    Point(const uint32_t& x,
+          const uint32_t& y,
+          const uint32_t& z,
+          const uint32_t& distance)
       : x(x), y(y), z(z), distance(distance) {}
   };
 }
