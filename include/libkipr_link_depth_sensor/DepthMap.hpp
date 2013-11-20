@@ -38,8 +38,8 @@ namespace libkipr_link_depth_sensor
   class DepthMap
   {
   public:
-    typedef std::function<bool (const DepthMap& _this,
-      uint32_t x, uint32_t y, uint32_t& depth)> Filter;
+    typedef std::function<bool (const DepthMap* _this,
+      int x, int y, int& depth)> Filter;
     
     /**
      * Returns the height of the depth map in pixel
