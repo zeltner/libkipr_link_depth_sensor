@@ -47,8 +47,10 @@ uint32_t OpenNI2DepthMap::getHeight() const
   return video_frame_ref_.getHeight();
 }
 
-std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud() const
+std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud(Filter filter) const
 {
+  std::shared_ptr<PointCloud> point_cloud(new PointCloud());
+  
   int depth_x, depth_y, depth_z;
   float world_x, world_y, world_z;
   Status rc;
@@ -58,18 +60,20 @@ std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud() const
     for(depth_y = 0; depth_y < video_frame_ref_.getHeight(); depth_y++)
     {
       depth_z = getDistanceAt(depth_x, depth_y);
-
-      rc = CoordinateConverter::convertDepthToWorld(stream_, depth_x, depth_y, depth_z, &world_x, &world_y, &world_z);
-      if(rc != STATUS_OK)
+      
+      if(depth_z != 0)
       {
-        printf("[%d, %d, %d] --> N/A\n", depth_x, depth_y, depth_z);
-      }
-      else
-      {
-        printf("[%d, %d, %d] --> [%d, %d, %d]\n", depth_x, depth_y, depth_z, (int) world_x, (int) world_y, (int) world_z);
+        if(filter(this, depth_x, depth_y, depth_z))
+        {
+          rc = CoordinateConverter::convertDepthToWorld(stream_, depth_x, depth_y, depth_z, &world_x, &world_y, &world_z);
+          if(rc == STATUS_OK)
+          {
+            point_cloud->addPoint(Point(world_x, world_y, world_z));
+          }
+        }
       }
     }
   }
   
-  return std::shared_ptr<PointCloud>(new PointCloud());
+  return point_cloud;
 }

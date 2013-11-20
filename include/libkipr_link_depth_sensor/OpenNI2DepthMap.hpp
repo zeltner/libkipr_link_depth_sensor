@@ -66,9 +66,18 @@ namespace libkipr_link_depth_sensor
     /**
      * Returns a PointCloud object of this depth map
      *
+     * The filter function is used to add only points to the point cloud
+     * which meet the filter criteria. In addition it can be used to modify the
+     * depth value (e.g. average over the surrounding pixel) before put them
+     * into the point cloud. The _this parameter of the filter can be used to
+     * get the distance of the surrounding pixel via getDistanceAt()
+     *
+     * \note Creating a point cloud is very expensive. Therefore the filter
+     * should filter out as much as possible.
+     *
      * \return A PointCloud object
      */
-    virtual std::shared_ptr<PointCloud> getPointCloud() const;
+    virtual std::shared_ptr<PointCloud> getPointCloud(Filter filter) const;
   
   private:
     openni::VideoFrameRef video_frame_ref_;
