@@ -25,15 +25,16 @@
 using namespace libkipr_link_depth_sensor;
 using namespace openni;
 
-OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref)
-  : video_frame_ref_(video_frame_ref)
+OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref,
+                                 const openni::VideoStream& stream)
+  : video_frame_ref_(video_frame_ref), stream_(stream)
 {
 
 }
 
-uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t width, uint32_t row) const
+uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t x, uint32_t y) const
 {
-  return ((DepthPixel*)video_frame_ref_.getData())[width + row*video_frame_ref_.getWidth()];
+  return ((DepthPixel*)video_frame_ref_.getData())[x + y*video_frame_ref_.getWidth()];
 }
 
 uint32_t OpenNI2DepthMap::getWidth() const
@@ -48,5 +49,26 @@ uint32_t OpenNI2DepthMap::getHeight() const
 
 std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud() const
 {
+  int depth_x, depth_y, depth_z;
+  float world_x, world_y, world_z;
+  Status rc;
+  
+  for(depth_x = 0; depth_x < video_frame_ref_.getWidth(); depth_x++)
+  {
+    for(depth_y = 0; depth_y < video_frame_ref_.getHeight(); depth_y++)
+    {
+      depth_z = getDistanceAt(depth_x, depth_y);
+      rc = CoordinateConverter::convertDepthToWorld(stream, depth_x, depth_y, depth_z, &world_x, &world_y, &world_z);
+      if(rc != STATUS_OK)
+      {
+        printf("[%d, %d, %d] --> N/A\n", depth_x, depth_y, depth_z);
+      }
+      else
+      {
+        printf("[%d, %d, %d] --> [%d, %d, %d]\n", depth_x, depth_y, depth_z, (int) world_x, (int) world_y, (int) world_z));
+      }
+    }
+  }
+  
   return std::shared_ptr<PointCloud>(new PointCloud());
 }

@@ -37,7 +37,8 @@ namespace libkipr_link_depth_sensor
   class OpenNI2DepthMap : public DepthMap
   {
   public:
-    OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref);
+    OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref,
+                    const openni::VideoStream& stream);
     
     /**
     * Returns the height of the depth map in pixel
@@ -71,6 +72,7 @@ namespace libkipr_link_depth_sensor
   
   private:
     openni::VideoFrameRef video_frame_ref_;
+    const openni::VideoStream& stream_;
   };
 }
 
