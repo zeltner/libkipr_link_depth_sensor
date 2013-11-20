@@ -58,14 +58,15 @@ std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud() const
     for(depth_y = 0; depth_y < video_frame_ref_.getHeight(); depth_y++)
     {
       depth_z = getDistanceAt(depth_x, depth_y);
-      rc = CoordinateConverter::convertDepthToWorld(stream, depth_x, depth_y, depth_z, &world_x, &world_y, &world_z);
+
+      rc = CoordinateConverter::convertDepthToWorld(stream_, depth_x, depth_y, depth_z, &world_x, &world_y, &world_z);
       if(rc != STATUS_OK)
       {
         printf("[%d, %d, %d] --> N/A\n", depth_x, depth_y, depth_z);
       }
       else
       {
-        printf("[%d, %d, %d] --> [%d, %d, %d]\n", depth_x, depth_y, depth_z, (int) world_x, (int) world_y, (int) world_z));
+        printf("[%d, %d, %d] --> [%d, %d, %d]\n", depth_x, depth_y, depth_z, (int) world_x, (int) world_y, (int) world_z);
       }
     }
   }

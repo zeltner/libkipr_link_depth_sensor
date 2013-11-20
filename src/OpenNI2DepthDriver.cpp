@@ -53,7 +53,7 @@ void OpenNI2DepthDriver::onNewFrame(VideoStream& stream)
   VideoFrameRef ref;
   stream.readFrame(&ref);
 
-  last_captured_depth_map_.reset(new OpenNI2DepthMap(ref, stream));
+  last_captured_depth_map_.reset(new OpenNI2DepthMap(ref, depth_stream_));
 }
 
 OpenNI2DepthDriver::OpenNI2DepthDriver()
