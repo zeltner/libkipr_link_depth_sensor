@@ -32,7 +32,7 @@ OpenNI2DepthMap::OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref,
 
 }
 
-uint32_t OpenNI2DepthMap::getDistanceAt(uint32_t x, uint32_t y) const
+uint32_t OpenNI2DepthMap::getDepthAt(uint32_t x, uint32_t y) const
 {
   return ((DepthPixel*)video_frame_ref_.getData())[x + y*video_frame_ref_.getWidth()];
 }
@@ -59,7 +59,7 @@ std::shared_ptr<PointCloud> OpenNI2DepthMap::getPointCloud(Filter filter) const
   {
     for(depth_y = 0; depth_y < video_frame_ref_.getHeight(); depth_y++)
     {
-      depth_z = getDistanceAt(depth_x, depth_y);
+      depth_z = getDepthAt(depth_x, depth_y);
       
       if(depth_z != 0)
       {

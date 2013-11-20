@@ -35,7 +35,7 @@ int main(int argc, char** argv)
     {
       int x_center = depth_map_get_width() / 2;
       int y_center = depth_map_get_height() / 2;
-      int depth_center = depth_map_get_distance_at(x_center, y_center);
+      int depth_center = depth_map_get_depth_at(x_center, y_center);
       
       printf("Depth at(%d, %d) is %d\n", x_center, y_center, depth_center);
       msleep(2000);

@@ -56,13 +56,13 @@ namespace libkipr_link_depth_sensor
     virtual uint32_t getWidth() const = 0;
 
     /**
-     * Returns the distance value of the specified point.
+     * Returns the depth value of the specified point.
      *
      * \param x X index of the point
      * \param y Y index of the point
-     * \return The distance value
+     * \return The depth value
      */
-    virtual uint32_t getDistanceAt(uint32_t x, uint32_t y) const = 0;
+    virtual uint32_t getDepthAt(uint32_t x, uint32_t y) const = 0;
     
     /**
      * Returns a PointCloud object of this depth map
@@ -71,7 +71,7 @@ namespace libkipr_link_depth_sensor
      * which meet the filter criteria. In addition it can be used to modify the
      * depth value (e.g. average over the surrounding pixel) before put them
      * into the point cloud. The _this parameter of the filter can be used to
-     * get the distance of the surrounding pixel via getDistanceAt()
+     * get the depth of the surrounding pixel via getDepthAt()
      *
      * \note Creating a point cloud is very expensive. Therefore the filter
      * should filter out as much as possible.

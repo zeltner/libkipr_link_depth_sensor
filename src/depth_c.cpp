@@ -23,6 +23,7 @@
 #include <exception>
 #include <memory>
 
+#include "libkipr_link_depth_sensor/Exception.hpp"
 #include "libkipr_link_depth_sensor/DepthDriver.hpp"
 #include "libkipr_link_depth_sensor/depth.h"
 
@@ -31,6 +32,46 @@ namespace libkipr_link_depth_sensor
   namespace c_api
   {
     std::shared_ptr<DepthMap> _depth_map;
+    std::shared_ptr<PointCloud> _point_cloud;
+    
+    struct MinMaxFilterValue
+    {
+    private:
+      bool min_is_set;
+      int min;
+      bool max_is_set;
+      int max;
+      
+    public:
+      FilterValue()
+        : min_is_set(false), max_is_set(false) {}
+      
+      void setMin(int value)
+      {
+        min_is_set = true;
+        min = value;
+      }
+      
+      void setMax(int value)
+      {
+        max_is_set = true;
+        max = value;
+      }
+      
+      bool filter(int value)
+      {
+        if(min_is_set && (min > value))
+        {
+          return false;
+        }
+        if(max_is_set && (max < value))
+        {
+          return false;
+        }
+        
+        return true;
+      }
+    } _filter_x, _filter_y, _filter_depth;
   }
 }
 
@@ -128,62 +169,83 @@ int depth_map_get_width()
   catchAllAndReturn(0);
 }
 
-int depth_map_get_distance_at(int x, int y)
+int depth_map_get_depth_at(int x, int y)
 {
   try
   {
-    return _depth_map->getDistanceAt(x, y);
+    if(_depth_map)
+    {
+        return _depth_map->getDistanceAt(x, y);
+    }
+    else
+    {
+        throw Exception("Depth map is not valid");
+    }
   }
   catchAllAndReturn(0);
 }
 
-int depth_map_select_row(int index)
+int add_point_cloud_update_filter(PointCloudUpdateFilter filter, int value)
+{
+  switch (filter)
+  {
+  case POINT_CLOUD_FILTER_MIN_X:
+    _filter_x.setMin(value);
+    return 1;
+  case POINT_CLOUD_FILTER_MAX_X:
+    _filter_x.setMax(value);
+    return 1;
+  case POINT_CLOUD_FILTER_MIN_Y:
+    _filter_y.setMin(value);
+    return 1;
+  case POINT_CLOUD_FILTER_MAX_Y:
+    _filter_y.setMax(value);
+    return 1;
+  case POINT_CLOUD_FILTER_MIN_DEPTH:
+    _filter_depth.setMin(value);
+    return 1;
+  case POINT_CLOUD_FILTER_MAX_DEPTH:
+    _filter_depth.setMax(value);
+    return 1;
+    
+  default:
+    return 0;
+  }
+}
+
+int reset_point_cloud_update_filter()
+{
+  _filter_x = FilterValue();
+  _filter_y = FilterValue();
+  _filter_depth = FilterValue();
+  
+  return 1;
+}
+
+int point_cloud_update()
 {
   try
   {
-    throw "Not Implemented!!";
+    if(_depth_map)
+    {
+      _point_cloud = _depth_map->getPointCloud(
+        [](const DepthMap* _this, int x, int y, int& depth) -> bool
+        {
+          return _filter_x.filter(x) && _filter_y.filter(y)
+            && _filter_depth.filter(depth);
+        });
+
+      return _point_cloud ? 1 : 0;
+    }
+    else
+    {
+        throw Exception("Depth map is not valid");
+    }
   }
   catchAllAndReturn(0);
 }
 
-int depth_map_select_subregion(int leftmostColumn,
-                               int rightmostColumn,
-                               int uppermostRow,
-                               int lowermostRow)
-{
-  try
-  {
-    throw "Not Implemented!!";
-  }
-  catchAllAndReturn(0);
-}
 
-int depth_map_select_min_distance(int distance)
-{
-  try
-  {
-    throw "Not Implemented!!";
-  }
-  catchAllAndReturn(0);
-}
-
-int depth_map_select_max_distance(int distance)
-{
-  try
-  {
-    throw "Not Implemented!!";
-  }
-  catchAllAndReturn(0);
-}
-
-int depth_map_reset_selection()
-{
-  try
-  {
-    throw "Not Implemented!!";
-  }
-  catchAllAndReturn(0);
-}
 
 int number_selected_points()
 {
