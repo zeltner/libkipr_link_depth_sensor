@@ -43,7 +43,7 @@ namespace libkipr_link_depth_sensor
       int max;
       
     public:
-      FilterValue()
+      MinMaxFilterValue()
         : min_is_set(false), max_is_set(false) {}
       
       void setMin(int value)
@@ -175,7 +175,7 @@ int depth_map_get_depth_at(int x, int y)
   {
     if(_depth_map)
     {
-        return _depth_map->getDistanceAt(x, y);
+        return _depth_map->getDepthAt(x, y);
     }
     else
     {
@@ -215,9 +215,9 @@ int add_point_cloud_update_filter(PointCloudUpdateFilter filter, int value)
 
 int reset_point_cloud_update_filter()
 {
-  _filter_x = FilterValue();
-  _filter_y = FilterValue();
-  _filter_depth = FilterValue();
+  _filter_x = MinMaxFilterValue();
+  _filter_y = MinMaxFilterValue();
+  _filter_depth = MinMaxFilterValue();
   
   return 1;
 }
