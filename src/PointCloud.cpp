@@ -30,9 +30,9 @@ PointCloud::PointCloud()
 
 }
 
-PointCloud::PointCloud(const std::list<Point>& points, Selector select)
+PointCloud::PointCloud(const std::list<Point>& points, Filter filter)
 {
-  std::copy_if(points.begin(), points.end(), points_->begin(), select);
+  std::copy_if(points.begin(), points.end(), points_->begin(), filter);
 }
 
 void PointCloud::addPoint(const Point& point)
@@ -40,9 +40,9 @@ void PointCloud::addPoint(const Point& point)
   points_->push_back(point);
 }
 
-std::shared_ptr<PointCloud> PointCloud::getSubCloud(Selector select) const
+std::shared_ptr<PointCloud> PointCloud::getSubCloud(Filter filter) const
 {
-  return std::shared_ptr<PointCloud>(new PointCloud(*points_, select));
+  return std::shared_ptr<PointCloud>(new PointCloud(*points_, filter));
 }
 
 std::shared_ptr<const std::list<Point>> PointCloud::getPoints() const
@@ -50,11 +50,11 @@ std::shared_ptr<const std::list<Point>> PointCloud::getPoints() const
   return points_;
 }
 
-std::shared_ptr<std::list<Point>> PointCloud::getPoints(Selector select) const
+std::shared_ptr<std::list<Point>> PointCloud::getPoints(Filter filter) const
 {
   std::shared_ptr<std::list<Point>> points(new std::list<Point>());
   
-  std::copy_if(points_->begin(), points_->end(), points->begin(), select);
+  std::copy_if(points_->begin(), points_->end(), points->begin(), filter);
   
   return points;
 }

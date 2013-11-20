@@ -40,7 +40,7 @@ namespace libkipr_link_depth_sensor
   class PointCloud
   {
   public:
-    typedef std::function<bool (const Point& point)> Selector;
+    typedef std::function<bool (const Point& point)> Filter;
     
     /**
      * Creates an empty point cloud
@@ -50,14 +50,14 @@ namespace libkipr_link_depth_sensor
     /**
      * Creates a point cloud from a list of points
      *
-     * The select function specifies which points are kept. It is called for 
+     * The filter function specifies which points are kept. It is called for 
      * every point of this point cloud and if it returns true, the point is
      * copied into the list.
      *
      * \param points A list of points
-     * \param select The select function
+     * \param filter The filter function
      */
-    PointCloud(const std::list<Point>& points, Selector selector);
+    PointCloud(const std::list<Point>& points, Filter filter);
     
     /**
      * Adds a point to the point cloud
@@ -69,25 +69,25 @@ namespace libkipr_link_depth_sensor
     /**
      * Returns a new PointCloud object containing a subset of points
      *
-     * The select function specifies which points are kept. It is called for 
+     * The filter function specifies which points are kept. It is called for 
      * every point of this point cloud and if it returns true, the point is
      * copied into the new cloud.
      *
-     * \param select The select function
+     * \param filter The filter function
      * \return A new PointCloud object
      */
-    std::shared_ptr<PointCloud> getSubCloud(Selector select) const;
+    std::shared_ptr<PointCloud> getSubCloud(Filter filter) const;
     
     /**
      * Returns a list of all points
      *
-     * The select function specifies which points are kept. It is called for 
+     * The filter function specifies which points are kept. It is called for 
      * every point of this point cloud and if it returns true, the point is
      * copied into the list.
      *
      * \note This function creates no copy of the point list!
      *
-     * \param select The select function
+     * \param filter The filter function
      * \return A list of all points
      */
     std::shared_ptr<const std::list<Point>> getPoints() const;
@@ -95,16 +95,16 @@ namespace libkipr_link_depth_sensor
     /**
      * Returns a list of all points
      *
-     * The select function specifies which points are kept. It is called for 
+     * The filter function specifies which points are kept. It is called for 
      * every point of this point cloud and if it returns true, the point is
      * copied into the list.
      *
      * \note This function creates a copy of the point list!
      *
-     * \param select The select function
+     * \param filter The filter function
      * \return A list of all points
      */
-    std::shared_ptr<std::list<Point>> getPoints(Selector select) const;
+    std::shared_ptr<std::list<Point>> getPoints(Filter filter) const;
     
   private:
     std::shared_ptr<std::list<Point>> points_;
