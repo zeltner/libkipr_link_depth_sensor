@@ -37,13 +37,11 @@ namespace libkipr_link_depth_sensor
     uint32_t x;
     uint32_t y;
     uint32_t z;
-    uint32_t distance;
 
     Point(const uint32_t& x,
           const uint32_t& y,
-          const uint32_t& z,
-          const uint32_t& distance)
-      : x(x), y(y), z(z), distance(distance) {}
+          const uint32_t& z)
+      : x(x), y(y), z(z) {}
   };
 }
 
