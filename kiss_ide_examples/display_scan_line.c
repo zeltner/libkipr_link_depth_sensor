@@ -21,6 +21,7 @@
 
 #define N_BINS 34
 #define N_LINES 9
+#define N_FIXED_SCALE 3150
 
 int main(int argc, char** argv)
 {
@@ -78,6 +79,9 @@ int main(int argc, char** argv)
         }
       }
       
+#ifdef N_FIXED_SCALE
+      max = N_FIXED_SCALE;
+#endif
       int step_size = (max/N_LINES)/10;
       int l;
       int step_value;
