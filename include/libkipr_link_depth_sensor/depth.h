@@ -64,7 +64,7 @@ int depth_close();
 
 /** \name Depth map resolution
  * Use these functions to get and set the resolution of the next depth map saved
- * by depth_update for processing.
+ * by depth_update.
  *
  * \see depth_update
  */
@@ -81,13 +81,12 @@ DepthMapResolution get_depth_map_resolution();
 /**
  * Set the current depth map resolution.
  *
- * \note Changing the resolution will not affect the currently by depth_update
- *       saved depth map
+ * \note Changing the resolution will only affect the next by depth_update
+ *       saved depth map.
  * \param resolution New resolution
  * \return 1 on success, 0 otherwise
  * \see depth_update
  * \see get_depth_map_resolution
- * \see get_default_depth_map_resolution
  */
 int set_depth_map_resolution(DepthMapResolution resolution);
 
@@ -96,7 +95,7 @@ int set_depth_map_resolution(DepthMapResolution resolution);
 
 
 /** \name Save depth map
- * Use these functions to save the current depth map for future processing.
+ * Use depth_update()to save the current depth map for future processing.
  */
 /** \{ */
 
@@ -113,15 +112,15 @@ int depth_update();
 
 /** \name Access raw depth measurements
  * Use these functions to retrieve raw depth measurements of the saved depth map.
- * Calling depth_update() is required before any other function can be
- * called.
+ * You have to call depth_update() before you can access the raw depth
+ * measurements.
  *
  * \note All the raw depth functions use a different coordinate system than
  *       the point cloud functions:
  *       x and y are used to address a depth value within of the depth map.
  *       The range of x is between 0 and depth_map_get_width()-1, the range of
  *       y is between 0 and depth_map_get_height()-1.
- *       (0, 0) defines the depth in the upper left corner.
+ *       (0, 0) address the depth value in the upper left corner.
  *
  * \see depth_update
  */
@@ -151,9 +150,10 @@ int depth_map_get_width();
  * \see depth_map_get_height
  * \see depth_map_get_width
  *
- * \param x X index of the point (depth coordinate system)
- * \param y Y index of the point (depth coordinate system)
- * \return The depth value in mm
+ * \param x X coordinate of the depth value (depth coordinate system)
+ * \param y Y coordinate of the depth value (depth coordinate system)
+ * \return The depth value in millimeters or 0 if no depth map was saved or if
+ *         the depth value of (x, y) is not visible by the depth sensor
  */
 int depth_map_get_depth_at(int x, int y);
 

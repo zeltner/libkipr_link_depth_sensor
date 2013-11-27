@@ -87,7 +87,6 @@ namespace libkipr_link_depth_sensor
      *
      * \note This function creates no copy of the point list!
      *
-     * \param filter The filter function
      * \return A list of all points
      */
     std::shared_ptr<const std::list<Point>> getPoints() const;
