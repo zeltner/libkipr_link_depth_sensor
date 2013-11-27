@@ -38,8 +38,8 @@ int main(int argc, char** argv)
     if(depth_update())
     {
       int x;
-      int width = depth_map_get_width();
-      int y_center = depth_map_get_height() / 2;
+      int width = depth_image_get_width();
+      int y_center = depth_image_get_height() / 2;
       int depth;
       int max = 0;
       int bucket_size = width / N_BINS;
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
       
       for(x = 0; x < width; x++)
       {
-        depth = depth_map_get_depth_at(x, y_center);
+        depth = depth_image_get_depth_at(x, y_center);
         if(depth != 0)
         {
           sum += depth;
