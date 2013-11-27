@@ -254,7 +254,7 @@ int point_cloud_size()
     if(_point_cloud)
     {
       std::shared_ptr<const std::list<Point>> points = _point_cloud->getPoints();
-      return points.size();
+      return points->size();
     }
     else
     {
