@@ -7,3 +7,5 @@
 # Make dependencies
 *.d
 
+# Ignore doc folder
+doc/
