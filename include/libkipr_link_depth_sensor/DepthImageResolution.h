@@ -20,27 +20,27 @@
 *******************************************************************************/
 
 /**
- * \file DepthMapResolution.h
- * \brief Contains the definiton of the enum DepthMapResolution
+ * \file DepthImageResolution.h
+ * \brief Contains the definiton of the enum DepthImageResolution
  * \author Stefan Zeltner
  */
 
-#ifndef _DEPTH_MAP_RESOLUTION_H_
-#define _DEPTH_MAP_RESOLUTION_H_
+#ifndef _DEPTH_IMAGE_RESOLUTION_H_
+#define _DEPTH_IMAGE_RESOLUTION_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef enum DepthMapResolution_
+typedef enum DepthImageResolution_
 {
-  DEPTH_MAP_INVALID_RESOLUTION,
-  DEPTH_MAP_RESOLUTION_320_240,
-  DEPTH_MAP_RESOLUTION_640_480
-} DepthMapResolution;
+  DEPTH_IMAGE_INVALID_RESOLUTION,
+  DEPTH_IMAGE_RESOLUTION_320_240,
+  DEPTH_IMAGE_RESOLUTION_640_480
+} DepthImageResolution;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _DEPTH_MAP_RESOLUTION_H_ */
+#endif /* _DEPTH_IMAGE_RESOLUTION_H_ */

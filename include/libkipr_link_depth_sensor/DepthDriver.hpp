@@ -30,8 +30,8 @@
 #ifndef _DEPTH_DRIVER_HPP_
 #define _DEPTH_DRIVER_HPP_
 
-#include "DepthMap.hpp"
-#include "DepthMapResolution.h"
+#include "DepthImage.hpp"
+#include "DepthImageResolution.h"
 
 namespace libkipr_link_depth_sensor
 {
@@ -51,27 +51,27 @@ namespace libkipr_link_depth_sensor
     virtual void close() = 0;
 
     /**
-      * Returns the current depth map resolution
+      * Returns the current depth image resolution
       *
       * \return The current resolution
       */
-    virtual DepthMapResolution getDepthMapResolution() const = 0;
+    virtual DepthImageResolution getDepthImageResolution() const = 0;
 
     /**
-      * Sets the DepthMap resolution of new captured depth maps
+      * Sets the DepthImage resolution of new captured depth images
       *
       * \param resolution The new resolution
       */
-    virtual void setDepthMapResolution(DepthMapResolution resolution) = 0;
+    virtual void setDepthImageResolution(DepthImageResolution resolution) = 0;
 
     /**
-      * Returns a Dept Map object containing the current depth values
+      * Returns a Dept Image object containing the current depth values
       *
       * \note The shared_ptr contains a null pointer if there is no depth
-      *       map available yet.
-      * \return DepthMap object
+      *       image available yet.
+      * \return DepthImage object
       */
-    virtual std::shared_ptr<DepthMap> getDepthMap() = 0;
+    virtual std::shared_ptr<DepthImage> getDepthImage() = 0;
   };
 }
 

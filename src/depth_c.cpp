@@ -31,7 +31,7 @@ namespace libkipr_link_depth_sensor
 {
   namespace c_api
   {
-    std::shared_ptr<DepthMap> _depth_map;
+    std::shared_ptr<DepthImage> _depth_image;
     std::shared_ptr<PointCloud> _point_cloud;
     
     struct MinMaxFilterValue
@@ -106,20 +106,20 @@ int depth_close()
   catchAllAndReturn(0);
 }
 
-DepthMapResolution get_depth_map_resolution()
+DepthImageResolution get_depth_image_resolution()
 {
   try
   {
-    return DepthDriver::instance().getDepthMapResolution();
+    return DepthDriver::instance().getDepthImageResolution();
   }
-  catchAllAndReturn(DEPTH_MAP_INVALID_RESOLUTION);
+  catchAllAndReturn(DEPTH_IMAGE_INVALID_RESOLUTION);
 }
 
-int set_depth_map_resolution(DepthMapResolution resolution)
+int set_depth_image_resolution(DepthImageResolution resolution)
 {
   try
   {
-    DepthDriver::instance().setDepthMapResolution(resolution);
+    DepthDriver::instance().setDepthImageResolution(resolution);
 
     return 1;
   }
@@ -130,20 +130,20 @@ int depth_update()
 {
   try
   {
-    _depth_map = DepthDriver::instance().getDepthMap();
+    _depth_image = DepthDriver::instance().getDepthImage();
 
-    return _depth_map ? 1 : 0;
+    return _depth_image ? 1 : 0;
   }
   catchAllAndReturn(0);
 }
 
-int depth_map_get_height()
+int depth_image_get_height()
 {
   try
   {
-    if(_depth_map)
+    if(_depth_image)
     {
-        return _depth_map->getHeight();
+        return _depth_image->getHeight();
     }
     else
     {
@@ -153,13 +153,13 @@ int depth_map_get_height()
   catchAllAndReturn(0);
 }
 
-int depth_map_get_width()
+int depth_image_get_width()
 {
   try
   {
-    if(_depth_map)
+    if(_depth_image)
     {
-        return _depth_map->getWidth();
+        return _depth_image->getWidth();
     }
     else
     {
@@ -169,17 +169,17 @@ int depth_map_get_width()
   catchAllAndReturn(0);
 }
 
-int depth_map_get_depth_at(int x, int y)
+int depth_image_get_depth_at(int x, int y)
 {
   try
   {
-    if(_depth_map)
+    if(_depth_image)
     {
-        return _depth_map->getDepthAt(x, y);
+        return _depth_image->getDepthAt(x, y);
     }
     else
     {
-        throw Exception("Depth map is not valid");
+        throw Exception("Depth image is not valid");
     }
   }
   catchAllAndReturn(0);
@@ -226,10 +226,10 @@ int point_cloud_update()
 {
   try
   {
-    if(_depth_map)
+    if(_depth_image)
     {
-      _point_cloud = _depth_map->getPointCloud(
-        [](const DepthMap* _this, int x, int y, int& depth) -> bool
+      _point_cloud = _depth_image->getPointCloud(
+        [](const DepthImage* _this, int x, int y, int& depth) -> bool
         {
           return _filter_x.filter(x) && _filter_y.filter(y)
             && _filter_depth.filter(depth);
@@ -239,7 +239,7 @@ int point_cloud_update()
     }
     else
     {
-        throw Exception("Depth map is not valid");
+        throw Exception("Depth image is not valid");
     }
   }
   catchAllAndReturn(0);
@@ -247,11 +247,19 @@ int point_cloud_update()
 
 
 
-int number_selected_points()
+int point_cloud_size()
 {
   try
   {
-    throw "Not Implemented!!";
+    if(_point_cloud)
+    {
+      std::shared_ptr<const std::list<Point>> points = _point_cloud->getPoints();
+      return points.size();
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
   }
   catchAllAndReturn(0);
 }

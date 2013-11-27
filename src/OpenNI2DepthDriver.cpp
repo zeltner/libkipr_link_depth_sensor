@@ -53,7 +53,7 @@ void OpenNI2DepthDriver::onNewFrame(VideoStream& stream)
   VideoFrameRef ref;
   stream.readFrame(&ref);
 
-  last_captured_depth_map_.reset(new OpenNI2DepthMap(ref, depth_stream_));
+  last_captured_depth_image_.reset(new OpenNI2DepthImage(ref, depth_stream_));
 }
 
 OpenNI2DepthDriver::OpenNI2DepthDriver()
@@ -151,7 +151,7 @@ void OpenNI2DepthDriver::close()
   device_.close();
 }
 
-DepthMapResolution OpenNI2DepthDriver::getDepthMapResolution() const
+DepthImageResolution OpenNI2DepthDriver::getDepthImageResolution() const
 {
   VideoMode video_mode = depth_stream_.getVideoMode();
 
@@ -160,29 +160,29 @@ DepthMapResolution OpenNI2DepthDriver::getDepthMapResolution() const
 
   if((res_x == 320) && (res_y = 240))
   {
-    return DEPTH_MAP_RESOLUTION_320_240;
+    return DEPTH_IMAGE_RESOLUTION_320_240;
   }
   else if((res_x == 640) && (res_y = 480))
   {
-    return DEPTH_MAP_RESOLUTION_640_480;
+    return DEPTH_IMAGE_RESOLUTION_640_480;
   }
   else
   {
-    return DEPTH_MAP_INVALID_RESOLUTION;
+    return DEPTH_IMAGE_INVALID_RESOLUTION;
   }
 }
 
-void OpenNI2DepthDriver::setDepthMapResolution(DepthMapResolution resolution)
+void OpenNI2DepthDriver::setDepthImageResolution(DepthImageResolution resolution)
 {
   depth_stream_.stop();
   
   VideoMode video_mode = depth_stream_.getVideoMode();
 
-  if(DEPTH_MAP_RESOLUTION_320_240)
+  if(DEPTH_IMAGE_RESOLUTION_320_240)
   {
     video_mode.setResolution(320, 240);
   }
-  else if(DEPTH_MAP_RESOLUTION_640_480)
+  else if(DEPTH_IMAGE_RESOLUTION_640_480)
   {
     video_mode.setResolution(640, 480);
   }
@@ -210,7 +210,7 @@ void OpenNI2DepthDriver::setDepthMapResolution(DepthMapResolution resolution)
   }
 }
 
-std::shared_ptr<DepthMap> OpenNI2DepthDriver::getDepthMap()
+std::shared_ptr<DepthImage> OpenNI2DepthDriver::getDepthImage()
 {
-  return last_captured_depth_map_;
+  return last_captured_depth_image_;
 }

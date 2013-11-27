@@ -20,37 +20,37 @@
 *******************************************************************************/
 
 /**
- * \file OpenNI2DepthMap.hpp
- * \brief OpenNI2 implementation of the DepthMap interface
+ * \file OpenNI2DepthImage.hpp
+ * \brief OpenNI2 implementation of the DepthImage interface
  * \author Stefan Zeltner
  */
 
-#ifndef _OPENNI2_DEPTH_MAP_HPP_
-#define _OPENNI2_DEPTH_MAP_HPP_
+#ifndef _OPENNI2_DEPTH_IMAGE_HPP_
+#define _OPENNI2_DEPTH_IMAGE_HPP_
 
 #include <OpenNI.h>
 
-#include "libkipr_link_depth_sensor/DepthMap.hpp"
+#include "libkipr_link_depth_sensor/DepthImage.hpp"
 
 namespace libkipr_link_depth_sensor
 {
-  class OpenNI2DepthMap : public DepthMap
+  class OpenNI2DepthImage : public DepthImage
   {
   public:
-    OpenNI2DepthMap(openni::VideoFrameRef video_frame_ref,
+    OpenNI2DepthImage(openni::VideoFrameRef video_frame_ref,
                     const openni::VideoStream& stream);
     
     /**
-    * Returns the height of the depth map in pixel
+    * Returns the height of the depth image in pixel
     *
-    * \return Height of the depth map in pixel
+    * \return Height of the depth image in pixel
     */
     virtual uint32_t getHeight() const;
 
     /**
-    * Returns the width of the depth map in pixel
+    * Returns the width of the depth image in pixel
     *
-    * \return Width of the depth map in pixel
+    * \return Width of the depth image in pixel
     */
     virtual uint32_t getWidth() const;
 
@@ -64,7 +64,7 @@ namespace libkipr_link_depth_sensor
     virtual uint32_t getDepthAt(uint32_t x, uint32_t y) const;
     
     /**
-     * Returns a PointCloud object of this depth map
+     * Returns a PointCloud object of this depth image
      *
      * The filter function is used to add only points to the point cloud
      * which meet the filter criteria. In addition it can be used to modify the
@@ -85,4 +85,4 @@ namespace libkipr_link_depth_sensor
   };
 }
 
-#endif /* _OPENNI2_DEPTH_MAP_HPP_ */
+#endif /* _OPENNI2_DEPTH_IMAGE_HPP_ */

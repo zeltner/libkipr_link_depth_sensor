@@ -20,8 +20,8 @@
 *******************************************************************************/
 
 /**
- * \file DepthMap.hpp
- * \brief The interface for a depth map
+ * \file DepthImage.hpp
+ * \brief The interface for a depth image
  * \author Stefan Zeltner
  */
 
@@ -30,28 +30,28 @@
 
 #include "libkipr_link_depth_sensor/PointCloud.hpp"
 
-#ifndef _DEPTH_MAP_HPP_
-#define _DEPTH_MAP_HPP_
+#ifndef _DEPTH_IMAGE_HPP_
+#define _DEPTH_IMAGE_HPP_
 
 namespace libkipr_link_depth_sensor
 {
-  class DepthMap
+  class DepthImage
   {
   public:
-    typedef std::function<bool (const DepthMap* _this,
+    typedef std::function<bool (const DepthImage* _this,
       int x, int y, int& depth)> Filter;
     
     /**
-     * Returns the height of the depth map in pixel
+     * Returns the height of the depth image in pixel
      *
-     * \return Height of the depth map in pixel
+     * \return Height of the depth image in pixel
      */
     virtual uint32_t getHeight() const = 0;
 
     /**
-     * Returns the width of the depth map in pixel
+     * Returns the width of the depth image in pixel
      *
-     * \return Width of the depth map in pixel
+     * \return Width of the depth image in pixel
      */
     virtual uint32_t getWidth() const = 0;
 
@@ -65,7 +65,7 @@ namespace libkipr_link_depth_sensor
     virtual uint32_t getDepthAt(uint32_t x, uint32_t y) const = 0;
     
     /**
-     * Returns a PointCloud object of this depth map
+     * Returns a PointCloud object of this depth image
      *
      * The filter function is used to add only points to the point cloud
      * which meet the filter criteria. In addition it can be used to modify the
@@ -82,4 +82,4 @@ namespace libkipr_link_depth_sensor
   };
 }
 
-#endif /* _DEPTH_MAP_HPP_ */
+#endif /* _DEPTH_IMAGE_HPP_ */

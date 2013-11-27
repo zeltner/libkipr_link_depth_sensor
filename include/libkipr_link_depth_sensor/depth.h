@@ -34,7 +34,7 @@
 #ifndef _DEPTH_H_
 #define _DEPTH_H_
 
-#include "DepthMapResolution.h"
+#include "DepthImageResolution.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,8 +62,8 @@ int depth_close();
 /** \} */
 
 
-/** \name Depth map resolution
- * Use these functions to get and set the resolution of the next depth map saved
+/** \name Depth image resolution
+ * Use these functions to get and set the resolution of the next depth image saved
  * by depth_update.
  *
  * \see depth_update
@@ -71,36 +71,36 @@ int depth_close();
 /** \{ */
 
 /**
- * Get the current depth map resolution.
+ * Get the current depth image resolution.
  *
- * \return The current depth map resolution
- * \see set_depth_map_resolution
+ * \return The current depth image resolution
+ * \see set_depth_image_resolution
  */
-DepthMapResolution get_depth_map_resolution();
+DepthImageResolution get_depth_image_resolution();
 
 /**
- * Set the current depth map resolution.
+ * Set the current depth image resolution.
  *
  * \note Changing the resolution will only affect the next by depth_update
- *       saved depth map.
+ *       saved depth image.
  * \param resolution New resolution
  * \return 1 on success, 0 otherwise
  * \see depth_update
- * \see get_depth_map_resolution
+ * \see get_depth_image_resolution
  */
-int set_depth_map_resolution(DepthMapResolution resolution);
+int set_depth_image_resolution(DepthImageResolution resolution);
 
 /** \} */
 
 
 
-/** \name Save depth map
- * Use depth_update()to save the current depth map for future processing.
+/** \name Save depth image
+ * Use depth_update()to save the current depth image for future processing.
  */
 /** \{ */
 
 /**
- * Save the current depth map for future processing.
+ * Save the current depth image for future processing.
  *
  * \return 1 on success, 0 otherwise
  */
@@ -111,15 +111,15 @@ int depth_update();
 
 
 /** \name Access raw depth measurements
- * Use these functions to retrieve raw depth measurements of the saved depth map.
+ * Use these functions to retrieve raw depth measurements of the saved depth image.
  * You have to call depth_update() before you can access the raw depth
  * measurements.
  *
  * \note All the raw depth functions use a different coordinate system than
  *       the point cloud functions:
- *       x and y are used to address a depth value within of the depth map.
- *       The range of x is between 0 and depth_map_get_width()-1, the range of
- *       y is between 0 and depth_map_get_height()-1.
+ *       x and y are used to address a depth value within of the depth image.
+ *       The range of x is between 0 and depth_image_get_width()-1, the range of
+ *       y is between 0 and depth_image_get_height()-1.
  *       (0, 0) address the depth value in the upper left corner.
  *
  * \see depth_update
@@ -127,42 +127,42 @@ int depth_update();
 /** \{ */
 
 /**
- * Returns the height of the depth map stored by depth_update in pixel
+ * Returns the height of the depth image stored by depth_update in pixel
  *
  * \see depth_update
  *
- * \return Height of the depth map in pixel or 0 if no depth map was saved
+ * \return Height of the depth image in pixel or 0 if no depth image was saved
  */
-int depth_map_get_height();
+int depth_image_get_height();
 
 /**
- * Returns the width of the depth map stored by depth_update in pixel
+ * Returns the width of the depth image stored by depth_update in pixel
  *
  * \see depth_update
  *
- * \return Width of the depth map in pixel or 0 if no depth map was saved
+ * \return Width of the depth image in pixel or 0 if no depth image was saved
  */
-int depth_map_get_width();
+int depth_image_get_width();
 
 /**
  * Returns the depth value of the specified point.
  *
- * \see depth_map_get_height
- * \see depth_map_get_width
+ * \see depth_image_get_height
+ * \see depth_image_get_width
  *
  * \param x X coordinate of the depth value (depth coordinate system)
  * \param y Y coordinate of the depth value (depth coordinate system)
- * \return The depth value in millimeters or 0 if no depth map was saved or if
+ * \return The depth value in millimeters or 0 if no depth image was saved or if
  *         the depth value of (x, y) is not visible by the depth sensor
  */
-int depth_map_get_depth_at(int x, int y);
+int depth_image_get_depth_at(int x, int y);
 
 /** \} */
 
 
 
 /** \name Point cloud functions
- * Use these functions to create a point cloud from a specific depth map region.
+ * Use these functions to create a point cloud from a specific depth image region.
  * calling point_cloud_update() is required before any other function can be
  * called.
  *
