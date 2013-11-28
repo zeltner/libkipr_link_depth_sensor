@@ -175,14 +175,15 @@ DepthCameraResolution OpenNI2DepthDriver::getDepthCameraResolution() const
 void OpenNI2DepthDriver::setDepthCameraResolution(DepthCameraResolution resolution)
 {
   depth_stream_.stop();
+  last_captured_depth_image_.reset();
   
   VideoMode video_mode = depth_stream_.getVideoMode();
 
-  if(DEPTH_CAMERA_RESOLUTION_320_240)
+  if(resolution == DEPTH_CAMERA_RESOLUTION_320_240)
   {
     video_mode.setResolution(320, 240);
   }
-  else if(DEPTH_CAMERA_RESOLUTION_640_480)
+  else if(resolution == DEPTH_CAMERA_RESOLUTION_640_480)
   {
     video_mode.setResolution(640, 480);
   }
