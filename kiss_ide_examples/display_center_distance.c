@@ -42,7 +42,7 @@ int main(int argc, char** argv)
     }
     else
     {
-      printf("No depth frame received yet\n");
+      printf("No depth frame image yet\n");
       msleep(2000);
     }
   }
