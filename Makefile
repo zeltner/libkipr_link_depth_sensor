@@ -14,7 +14,7 @@ SRC_FILES = src/depth_c.cpp \
 LIB_NAME = libkipr_link_depth_sensor.so
 
 INSTALL_INCLUDE_FILES = include/libkipr_link_depth_sensor/depth.h \
-                        include/libkipr_link_depth_sensor/DepthImageResolution.h
+                        include/libkipr_link_depth_sensor/DepthCameraResolution.h
 
 CXX = g++
 RM = -@rm -f

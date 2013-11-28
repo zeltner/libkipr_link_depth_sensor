@@ -20,27 +20,27 @@
 *******************************************************************************/
 
 /**
- * \file DepthImageResolution.h
- * \brief Contains the definiton of the enum DepthImageResolution
+ * \file DepthCameraResolution.h
+ * \brief Contains the definiton of the enum DepthCameraResolution
  * \author Stefan Zeltner
  */
 
-#ifndef _DEPTH_IMAGE_RESOLUTION_H_
-#define _DEPTH_IMAGE_RESOLUTION_H_
+#ifndef _DEPTH_CAMERA_RESOLUTION_H_
+#define _DEPTH_CAMERA_RESOLUTION_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef enum DepthImageResolution_
+typedef enum DepthCameraResolution_
 {
-  DEPTH_IMAGE_INVALID_RESOLUTION,
-  DEPTH_IMAGE_RESOLUTION_320_240,
-  DEPTH_IMAGE_RESOLUTION_640_480
-} DepthImageResolution;
+  DEPTH_CAMERA_INVALID_RESOLUTION,
+  DEPTH_CAMERA_RESOLUTION_320_240,
+  DEPTH_CAMERA_RESOLUTION_640_480
+} DepthCameraResolution;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _DEPTH_IMAGE_RESOLUTION_H_ */
+#endif /* _DEPTH_CAMERA_RESOLUTION_H_ */

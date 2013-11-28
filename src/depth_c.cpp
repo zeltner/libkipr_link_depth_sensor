@@ -106,20 +106,20 @@ int depth_close()
   catchAllAndReturn(0);
 }
 
-DepthImageResolution get_depth_image_resolution()
+DepthCameraResolution get_depth_camera_resolution()
 {
   try
   {
-    return DepthDriver::instance().getDepthImageResolution();
+    return DepthDriver::instance().getDepthCameraResolution();
   }
-  catchAllAndReturn(DEPTH_IMAGE_INVALID_RESOLUTION);
+  catchAllAndReturn(DEPTH_CAMERA_INVALID_RESOLUTION);
 }
 
-int set_depth_image_resolution(DepthImageResolution resolution)
+int set_depth_camera_resolution(DepthCameraResolution resolution)
 {
   try
   {
-    DepthDriver::instance().setDepthImageResolution(resolution);
+    DepthDriver::instance().setDepthCameraResolution(resolution);
 
     return 1;
   }

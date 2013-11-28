@@ -34,7 +34,7 @@
 #ifndef _DEPTH_H_
 #define _DEPTH_H_
 
-#include "DepthImageResolution.h"
+#include "DepthCameraResolution.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,45 +62,45 @@ int depth_close();
 /** \} */
 
 
-/** \name Depth image resolution
- * Use these functions to get and set the resolution of the next depth image saved
- * by depth_update.
+/** \name Depth camera resolution
+ * Use these functions to get and set the resolution of the depth camera.
+ * A new depth image pulled by depth_update() has this resolution.
  *
  * \see depth_update
  */
 /** \{ */
 
 /**
- * Get the current depth image resolution.
+ * Get the current depth camera resolution
  *
- * \return The current depth image resolution
- * \see set_depth_image_resolution
+ * \return The current depth camera resolution
+ *
+ * \see set_depth_camera_resolution
+ * \see depth_update
  */
-DepthImageResolution get_depth_image_resolution();
+DepthCameraResolution get_depth_camera_resolution();
 
 /**
- * Set the current depth image resolution.
+ * Set the current depth camera resolution.
  *
- * \note Changing the resolution will only affect the next by depth_update
- *       saved depth image.
- * \param resolution New resolution
+ * \param resolution New depth camera resolution
  * \return 1 on success, 0 otherwise
- * \see depth_update
+ *
  * \see get_depth_image_resolution
+ * \see depth_update
  */
-int set_depth_image_resolution(DepthImageResolution resolution);
+int set_depth_camera_resolution(DepthCameraResolution resolution);
 
 /** \} */
 
 
 
-/** \name Save depth image
- * Use depth_update()to save the current depth image for future processing.
+/** \name Pull a depth image
  */
 /** \{ */
 
 /**
- * Save the current depth image for future processing.
+ * Pulls a new depth image from the depth sensor for future processing.
  *
  * \return 1 on success, 0 otherwise
  */

@@ -151,7 +151,7 @@ void OpenNI2DepthDriver::close()
   device_.close();
 }
 
-DepthImageResolution OpenNI2DepthDriver::getDepthImageResolution() const
+DepthCameraResolution OpenNI2DepthDriver::getDepthCameraResolution() const
 {
   VideoMode video_mode = depth_stream_.getVideoMode();
 
@@ -160,29 +160,29 @@ DepthImageResolution OpenNI2DepthDriver::getDepthImageResolution() const
 
   if((res_x == 320) && (res_y = 240))
   {
-    return DEPTH_IMAGE_RESOLUTION_320_240;
+    return DEPTH_CAMERA_RESOLUTION_320_240;
   }
   else if((res_x == 640) && (res_y = 480))
   {
-    return DEPTH_IMAGE_RESOLUTION_640_480;
+    return DEPTH_CAMERA_RESOLUTION_640_480;
   }
   else
   {
-    return DEPTH_IMAGE_INVALID_RESOLUTION;
+    return DEPTH_CAMERA_INVALID_RESOLUTION;
   }
 }
 
-void OpenNI2DepthDriver::setDepthImageResolution(DepthImageResolution resolution)
+void OpenNI2DepthDriver::setDepthCameraResolution(DepthCameraResolution resolution)
 {
   depth_stream_.stop();
   
   VideoMode video_mode = depth_stream_.getVideoMode();
 
-  if(DEPTH_IMAGE_RESOLUTION_320_240)
+  if(DEPTH_CAMERA_RESOLUTION_320_240)
   {
     video_mode.setResolution(320, 240);
   }
-  else if(DEPTH_IMAGE_RESOLUTION_640_480)
+  else if(DEPTH_CAMERA_RESOLUTION_640_480)
   {
     video_mode.setResolution(640, 480);
   }

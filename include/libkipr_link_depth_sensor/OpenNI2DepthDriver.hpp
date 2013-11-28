@@ -56,18 +56,18 @@ namespace libkipr_link_depth_sensor
     virtual void close();
 
     /**
-      * Returns the current depth image resolution
+      * Get the current depth camera resolution
       *
-      * \return The current resolution
+      * \return The current depth camera resolution
       */
-    virtual DepthImageResolution getDepthImageResolution() const;
+    virtual DepthCameraResolution getDepthCameraResolution() const;
 
     /**
-      * Sets the DepthImage resolution of new captured depth images
+      * Set the current depth camera resolution.
       *
-      * \param resolution The new resolution
+      * \param resolution New depth camera resolution
       */
-    virtual void setDepthImageResolution(DepthImageResolution resolution);
+    virtual void setDepthCameraResolution(DepthCameraResolution resolution);
 
     /**
       * Returns a Dept Image object containing the current depth values
