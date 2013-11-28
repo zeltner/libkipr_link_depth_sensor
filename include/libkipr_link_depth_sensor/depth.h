@@ -155,7 +155,7 @@ int depth_image_get_width();
  * \return The depth value in millimeters or 0 if no depth image was saved or if
  *         the depth value of (x, y) is not visible by the depth sensor
  */
-int depth_image_get_depth_at(int x, int y);
+int get_depth_value(int x, int y);
 
 /** \} */
 

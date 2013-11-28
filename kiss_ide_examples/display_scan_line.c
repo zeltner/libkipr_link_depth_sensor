@@ -50,7 +50,7 @@ int main(int argc, char** argv)
       
       for(x = 0; x < width; x++)
       {
-        depth = depth_image_get_depth_at(x, y_center);
+        depth = get_depth_value(x, y_center);
         if(depth != 0)
         {
           sum += depth;

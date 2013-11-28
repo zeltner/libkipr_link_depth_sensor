@@ -169,7 +169,7 @@ int depth_image_get_width()
   catchAllAndReturn(0);
 }
 
-int depth_image_get_depth_at(int x, int y)
+int get_depth_value(int x, int y)
 {
   try
   {
