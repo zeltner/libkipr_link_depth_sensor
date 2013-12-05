@@ -9,3 +9,11 @@
 
 # Ignore doc folder
 doc/
+
+# Ignore Windows generated files
+Debug/
+Release/
+*.sdf
+*.opensdf
+*.suo
+*.vcxproj.user

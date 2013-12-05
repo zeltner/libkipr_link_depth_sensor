@@ -34,7 +34,8 @@
 #ifndef _DEPTH_H_
 #define _DEPTH_H_
 
-#include "DepthCameraResolution.h"
+#include <libkipr_link_depth_sensor/DepthCameraResolution.h>
+#include <libkipr_link_depth_sensor/Library.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,13 +52,13 @@ extern "C" {
  *
  * \return 1 on success, 0 otherwise
  */
-int depth_open();
+LIBRARY_API int depth_open();
 
 /**
  * Closes the depth sensor
  * \return 1 on success, 0 otherwise
  */
-int depth_close();
+LIBRARY_API int depth_close();
 
 /** \} */
 
@@ -78,7 +79,7 @@ int depth_close();
  * \see set_depth_camera_resolution
  * \see depth_update
  */
-DepthCameraResolution get_depth_camera_resolution();
+LIBRARY_API DepthCameraResolution get_depth_camera_resolution();
 
 /**
  * Set the current depth camera resolution.
@@ -89,7 +90,7 @@ DepthCameraResolution get_depth_camera_resolution();
  * \see get_depth_image_resolution
  * \see depth_update
  */
-int set_depth_camera_resolution(DepthCameraResolution resolution);
+LIBRARY_API int set_depth_camera_resolution(DepthCameraResolution resolution);
 
 /** \} */
 
@@ -104,7 +105,7 @@ int set_depth_camera_resolution(DepthCameraResolution resolution);
  *
  * \return 1 on success, 0 otherwise
  */
-int depth_update();
+LIBRARY_API int depth_update();
 
 /** \} */
 
@@ -133,7 +134,7 @@ int depth_update();
  *
  * \return Height of the depth image in pixel or 0 if no depth image was saved
  */
-int depth_image_get_height();
+LIBRARY_API int depth_image_get_height();
 
 /**
  * Returns the width of the depth image stored by depth_update in pixel
@@ -142,7 +143,7 @@ int depth_image_get_height();
  *
  * \return Width of the depth image in pixel or 0 if no depth image was saved
  */
-int depth_image_get_width();
+LIBRARY_API int depth_image_get_width();
 
 /**
  * Returns the depth value of the specified point.
@@ -155,7 +156,7 @@ int depth_image_get_width();
  * \return The depth value in millimeters or 0 if no depth image was saved or if
  *         the depth value of (x, y) is not visible by the depth sensor
  */
-int get_depth_value(int x, int y);
+LIBRARY_API int get_depth_value(int x, int y);
 
 /** \} */
 
