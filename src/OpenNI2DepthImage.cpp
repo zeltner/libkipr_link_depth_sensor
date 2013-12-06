@@ -20,7 +20,7 @@
 *******************************************************************************/
 
 #include "libkipr_link_depth_sensor/OpenNI2DepthImage.hpp"
-#include "libkipr_link_depth_sensor/PointCloud.hpp"
+#include "libkipr_link_depth_sensor/OctreePointCloud.hpp"
 
 using namespace libkipr_link_depth_sensor;
 using namespace openni;
@@ -49,7 +49,7 @@ uint32_t OpenNI2DepthImage::getHeight() const
 
 std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) const
 {
-  std::shared_ptr<PointCloud> point_cloud(new PointCloud());
+  std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud());
   
   int depth_x, depth_y, depth_z;
   float world_x, world_y, world_z;

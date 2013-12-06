@@ -21,36 +21,36 @@
 
 #include <algorithm>
 
-#include <libkipr_link_depth_sensor/PointCloud.hpp>
+#include <libkipr_link_depth_sensor/OctreePointCloud.hpp>
 
 using namespace libkipr_link_depth_sensor;
 
-PointCloud::PointCloud()
+OctreePointCloud::OctreePointCloud()
 {
 
 }
 
-PointCloud::PointCloud(const std::list<Point>& points, Filter filter)
+OctreePointCloud::OctreePointCloud(const std::list<Point>& points, Filter filter)
 {
   std::copy_if(points.begin(), points.end(), points_->begin(), filter);
 }
 
-void PointCloud::addPoint(const Point& point)
+void OctreePointCloud::addPoint(const Point& point)
 {
   points_->push_back(point);
 }
 
-std::shared_ptr<PointCloud> PointCloud::getSubCloud(Filter filter) const
+std::shared_ptr<PointCloud> OctreePointCloud::getSubCloud(Filter filter) const
 {
-  return std::shared_ptr<PointCloud>(new PointCloud(*points_, filter));
+  return std::shared_ptr<OctreePointCloud>(new OctreePointCloud(*points_, filter));
 }
 
-std::shared_ptr<const std::list<Point>> PointCloud::getPoints() const
+std::shared_ptr<const std::list<Point>> OctreePointCloud::getPoints() const
 {
   return points_;
 }
 
-std::shared_ptr<std::list<Point>> PointCloud::getPoints(Filter filter) const
+std::shared_ptr<std::list<Point>> OctreePointCloud::getPoints(Filter filter) const
 {
   std::shared_ptr<std::list<Point>> points(new std::list<Point>());
   
