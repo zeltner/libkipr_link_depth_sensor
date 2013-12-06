@@ -281,7 +281,7 @@ Open the solution libkipr_link_depth_sensor.sln with Visual Studio and build it
 with [BUILD] > [Build Solution]
 
 *Note*: You may have to adjust the project preferences to point to the correct
-OpenNI2 installation directory [link](http://www.openni.org/resources/)
+OpenNI2 installation directory ([link](http://www.openni.org/resources/))
 
 ### 2.3 Modify platform.hints
 
