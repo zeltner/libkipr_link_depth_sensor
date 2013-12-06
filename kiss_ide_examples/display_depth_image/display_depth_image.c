@@ -27,8 +27,53 @@ int main(int argc, char** argv)
     return 1;
   }
   
-  /* not implemented yet */
+  int depth_image_height = -1;
+  int depth_image_width = -1;
   
+  if(set_depth_camera_resolution(DEPTH_CAMERA_RESOLUTION_640_480) == 0)
+  {
+    printf("Failed to set the depth camera resolution to 640 x 480\n");
+    return 1;
+  }
+  
+  printf("Press 'Q' to stop\n");
+  
+  while(!get_key_state('Q'))
+  {
+    if(depth_update())
+    {
+      if(depth_image_height == -1)
+      {
+        // initialize the graphics output
+        depth_image_height = depth_image_get_height();
+        depth_image_width = depth_image_get_width();
+        
+        graphics_open(depth_image_width, depth_image_height);
+      }
+      
+      // display depth image
+      for(int y = 0; y < depth_image_height; y++)
+      {
+        for(int x = 0; x < depth_image_width; x++)
+        {
+          int depth = get_depth_value(x, y);
+          
+          // max depth is 4 meter
+          int color = depth*255/4000;
+          graphics_pixel(x, y, color, color, color);
+        }
+      }
+	  
+	  graphics_update();
+    }
+    else
+    {
+      printf("No depth image received yet\n");
+      msleep(2000);
+    }
+  }
+  
+  graphics_close();
   depth_close();
 
   return 0;
