@@ -26,9 +26,10 @@
  */
 
 #include <stdint.h>
+#include <functional>
 #include <memory>
 
-#include "libkipr_link_depth_sensor/PointCloud.hpp"
+#include <libkipr_link_depth_sensor/PointCloud.hpp>
 
 #ifndef _DEPTH_IMAGE_HPP_
 #define _DEPTH_IMAGE_HPP_

@@ -19,8 +19,6 @@
 
 *******************************************************************************/
 
-#include <memory>
-
 /**
  * \file DepthDriver.hpp
  * \brief C++ interface for depth driver used by libkipr_link_depth_sensor
@@ -30,8 +28,10 @@
 #ifndef _DEPTH_DRIVER_HPP_
 #define _DEPTH_DRIVER_HPP_
 
-#include "DepthImage.hpp"
-#include "DepthCameraResolution.h"
+#include <memory>
+
+#include <libkipr_link_depth_sensor/DepthImage.hpp>
+#include <libkipr_link_depth_sensor/DepthCameraResolution.h>
 
 namespace libkipr_link_depth_sensor
 {
