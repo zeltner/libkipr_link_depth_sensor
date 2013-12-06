@@ -1,11 +1,12 @@
 libkipr_link_depth_sensor
 =========================
 
-libkipr_link_depth_sensor is a depth sensor library for the [KIPR Link Robot Controller](http://www.kipr.org/products/link). It is designed in such a way that it can be easily used by applications build with the KISS IDE.
+libkipr_link_depth_sensor is a depth sensor library for the [KIPR Link Robot Controller](http://www.kipr.org/products/link). It is designed in such a way that it can be easily used by applications build with the KISS Platform.
 
 **DISCLAIMER:**
 libkipr_link_depth_sensor is currently under development and not part of the KIPR Link firmware. Installing libkipr_link_depth_sensor and its prerequisites requires modifying the KIPR Link firmware which, even following carefully this README, may result in a non-working system. So you should be aware that if you follow these instructions, you do it at your own risk.
 
+# Installing libkipr_link_depth_sensor on the KIPR Link
 ## 1 Installing Prerequisites
 ### 1.1 Update the KIPR Link Firmware
 **This step is optional.** However you might face some issues if you have another firmware running than 1.9.5 or if you run a modified version of 1.9.5.
@@ -86,7 +87,7 @@ root@kovan:~# opkg install http://netv.bunnie-bar.com/build/kovan-debug/LATEST/a
 
 ### 1.6 Install libudev
 ```
-root@kovan:~/OpenNI2# opkg install http://netv.bunnie-bar.com/build/kovan-debug/LATEST/armv5te/udev-dev_180-r0_armv5te.ipk
+root@kovan:~# opkg install http://netv.bunnie-bar.com/build/kovan-debug/LATEST/armv5te/udev-dev_180-r0_armv5te.ipk
 ```
 
 ### 1.7 Create a Swap File
@@ -246,4 +247,62 @@ root@kovan:~# rm /swapfile
 
 ## 4 Examples
 The libkipr_link_depth_sensor repository comes with a few examples located in *./kiss_ide_examples*.
-You can clone libkipr_link_depth_sensor to your PC and open them with your KISS IDE.
+You can clone libkipr_link_depth_sensor to your PC and open them with your KISS Platform.
+
+# Installing libkipr_link_depth_sensor on a Windows PC
+*Warning:* This section is in a preliminary state and only tested with
+Windows 8.1 Pro!
+
+## 1 Install Prerequisites
+### 1.1 Install KISS Platform
+Install KISS Platform 4.2.3 ([link](http://www.kipr.org//kiss-platform-windows))
+
+<KISS_path> : Absolute path of the KISS Platform installation directory
+<KISS_programs_path> : Absolute path of the KISS programs folder (usually at <user>\KISS Programs)
+
+### 1.2 Install OpenNI2
+Install OpenNI 2.2.0.33 x86 ([link](http://www.openni.org/openni-sdk/))
+
+<OpenNI2_path> : Absolute path of the OpenNI2 installation directory 
+
+### 1.3 Install Visual Studio (Express)
+OpenNI2 needs at least Visual Studio 2003 (7.0) ([link](http://www.visualstudio.com/downloads/download-visual-studio-vs))
+
+## 2 Install libkipr_link_depth_sensor
+
+### 2.1 Clone libkipr_link_depth_sensor
+This could be done using [GitHub for Windows](http://windows.github.com/) or any
+other GIT tool.
+
+<project_dir> : Absolute path of the libkipr_link_depth_sensor root directory
+
+### 2.2 Compile libkipr_link_depth_sensor
+Open the solution libkipr_link_depth_sensor.sln with Visual Studio and build it
+with [BUILD] > [Build Solution]
+
+*Note*: You may have to adjust the project preferences to point to the correct
+OpenNI2 installation directory [link](http://www.openni.org/resources/)
+
+### 2.3 Modify platform.hints
+
+Modify <KISS_path>\computer\platform.hints:
+```
+[General]
+C_FLAGS = -std=c99 -Wall \"-I${PREFIX}/usr/include\" -I<project_dir>/include -include stdio.h -include kovan/kovan.h -include libkipr_link_depth_sensor/depth.h
+CPP_FLAGS = -Wall \"-I${PREFIX}/usr/include\" -include stdio.h -include kovan/kovan.hpp
+LD_FLAGS = \"-L${PREFIX}/usr/lib\" -L<project_dir>/Debug -lkovan -lkipr_link_depth_sensor
+
+[osx]
+LD_FLAGS = -framework OpenGL -framework CoreFoundation -framework IOKit -framework Cocoa
+```
+
+## 3 Add libkipr_link_depth_sensor to a KISS Platform project
+
+### 3.1 Open or create a KISS Platform project
+
+<KISS_project_bin_path> : <KISS_programs_path>\bin\<project name>
+
+### 3.2 Copy files
+
+Copy <project_dir>\Debug\libkipr_link_depth_sensor.dll into <KISS_project_bin_path>\
+Copy <OpenNI2_path>\Redist\* into <KISS_project_bin_path>\
