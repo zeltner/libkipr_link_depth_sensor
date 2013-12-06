@@ -28,80 +28,48 @@
 #ifndef _OCTREE_POINT_CLOUD_HPP_
 #define _OCTREE_POINT_CLOUD_HPP_
 
-#include <libkipr_link_depth_sensor/PointCloud.hpp>
+#include <array>
+
+#include "octree/octree.h"
+#include "libkipr_link_depth_sensor/PointCloud.hpp"
 
 namespace libkipr_link_depth_sensor
 {
   class OctreePointCloud : public PointCloud
   {
   public:
-    typedef std::function<bool (const Point& point)> Filter;
-    
     /**
      * Creates an empty point cloud
+	   *
+	   * \param leave_size The leave size of the octree in mm
+	   * \param nodes_per_edge Number of nodes per edge of the world cube.
+	   *                       Must be a power of two
      */
-    OctreePointCloud();
-    
-    /**
-     * Creates a point cloud from a list of points
-     *
-     * The filter function specifies which points are kept. It is called for 
-     * every point of this point cloud and if it returns true, the point is
-     * copied into the list.
-     *
-     * \param points A list of points
-     * \param filter The filter function
-     */
-    OctreePointCloud(const std::list<Point>& points, Filter filter);
+	  OctreePointCloud(uint32_t leave_size, uint32_t nodes_per_edge);
     
     /**
      * Adds a point to the point cloud
      *
      * \param point Add this point to the cloud
      */
-    void addPoint(const Point& point);
-    
+    virtual void addPoint(std::shared_ptr<Point> point);
+
     /**
-     * Returns a new OctreePointCloud object containing a subset of points
+     * Gets a point specified by its depth coordinates
      *
-     * The filter function specifies which points are kept. It is called for 
-     * every point of this point cloud and if it returns true, the point is
-     * copied into the new cloud.
+     * \param depth_x X coordinate of this point
+     * \param depth_y Y coordinate of this point
      *
-     * \param filter The filter function
-     * \return A new OctreePointCloud object
+     * \returns The point or a nullpointer if no point exists
      */
-    std::shared_ptr<PointCloud> getSubCloud(Filter filter) const;
-    
-    /**
-     * Returns a list of all points
-     *
-     * The filter function specifies which points are kept. It is called for 
-     * every point of this point cloud and if it returns true, the point is
-     * copied into the list.
-     *
-     * \note This function creates no copy of the point list!
-     *
-     * \return A list of all points
-     */
-    std::shared_ptr<const std::list<Point>> getPoints() const;
-    
-    /**
-     * Returns a list of all points
-     *
-     * The filter function specifies which points are kept. It is called for 
-     * every point of this point cloud and if it returns true, the point is
-     * copied into the list.
-     *
-     * \note This function creates a copy of the point list!
-     *
-     * \param filter The filter function
-     * \return A list of all points
-     */
-    std::shared_ptr<std::list<Point>> getPoints(Filter filter) const;
+    virtual std::shared_ptr<Point> getPointAtDepthCoordinate(uint32_t depth_x,
+                                                             uint32_t depth_y);
     
   private:
-    std::shared_ptr<std::list<Point>> points_;
+	uint32_t leave_size_;
+	uint32_t nodes_per_edge_;
+	Octree<std::shared_ptr<Point>> octree_;
+  std::array<std::array<std::shared_ptr<Point>, 640>, 480> points_2d_;
   };
 }
 

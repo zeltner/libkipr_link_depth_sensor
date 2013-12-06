@@ -201,7 +201,7 @@ typedef enum PointCloudUpdateFilter_
  *
  * \return 1 on success, 0 otherwise
  */
-int add_point_cloud_update_filter(PointCloudUpdateFilter filter, int value);
+LIBRARY_API int add_point_cloud_update_filter(PointCloudUpdateFilter filter, int value);
 
 /**
  * Remove all point cloud update filter
@@ -211,7 +211,7 @@ int add_point_cloud_update_filter(PointCloudUpdateFilter filter, int value);
  *
  * \return 1 on success, 0 otherwise
  */
-int reset_point_cloud_update_filter();
+LIBRARY_API int reset_point_cloud_update_filter();
 
 /**
  * Save the current point cloud for future processing.
@@ -225,7 +225,37 @@ int reset_point_cloud_update_filter();
  *
  * \return 1 on success, 0 otherwise
  */
-int point_cloud_update();
+LIBRARY_API int point_cloud_update();
+
+/**
+  * Gets a point color from the point cloud specified by its depth coordinates
+  *
+  * \param depth_x X coordinate of this point
+  * \param depth_y Y coordinate of this point
+  *
+  * \returns The red color value of this point
+  */
+LIBRARY_API int get_point_color_red(int depth_x, int depth_y);
+
+/**
+  * Gets a point color from the point cloud specified by its depth coordinates
+  *
+  * \param depth_x X coordinate of this point
+  * \param depth_y Y coordinate of this point
+  *
+  * \returns The green color value of this point
+  */
+LIBRARY_API int get_point_color_green(int depth_x, int depth_y);
+
+/**
+  * Gets a point color from the point cloud specified by its depth coordinates
+  *
+  * \param depth_x X coordinate of this point
+  * \param depth_y Y coordinate of this point
+  *
+  * \returns The blue color value of this point
+  */
+LIBRARY_API int get_point_color_blue(int depth_x, int depth_y);
 
 /** \} */
 

@@ -28,10 +28,7 @@
 #ifndef _POINT_CLOUD_HPP_
 #define _POINT_CLOUD_HPP_
 
-#include <stdint.h>
 #include <memory>
-#include <functional>
-#include <list>
 
 #include <libkipr_link_depth_sensor/Point.hpp>
 
@@ -40,53 +37,23 @@ namespace libkipr_link_depth_sensor
   class PointCloud
   {
   public:
-    typedef std::function<bool (const Point& point)> Filter;
-    
     /**
      * Adds a point to the point cloud
      *
      * \param point Add this point to the cloud
      */
-    virtual void addPoint(const Point& point) = 0;
-    
+    virtual void addPoint(std::shared_ptr<Point> point) = 0;
+
     /**
-     * Returns a new PointCloud object containing a subset of points
+     * Gets a point specified by its depth coordinates
      *
-     * The filter function specifies which points are kept. It is called for 
-     * every point of this point cloud and if it returns true, the point is
-     * copied into the new cloud.
+     * \param depth_x X coordinate of this point
+     * \param depth_y Y coordinate of this point
      *
-     * \param filter The filter function
-     * \return A new PointCloud object
+     * \returns The point or a nullpointer if no point exists
      */
-    virtual std::shared_ptr<PointCloud> getSubCloud(Filter filter) const = 0;
-    
-    /**
-     * Returns a list of all points
-     *
-     * The filter function specifies which points are kept. It is called for 
-     * every point of this point cloud and if it returns true, the point is
-     * copied into the list.
-     *
-     * \note This function creates no copy of the point list!
-     *
-     * \return A list of all points
-     */
-    virtual std::shared_ptr<const std::list<Point>> getPoints() const = 0;
-    
-    /**
-     * Returns a list of all points
-     *
-     * The filter function specifies which points are kept. It is called for 
-     * every point of this point cloud and if it returns true, the point is
-     * copied into the list.
-     *
-     * \note This function creates a copy of the point list!
-     *
-     * \param filter The filter function
-     * \return A list of all points
-     */
-    virtual std::shared_ptr<std::list<Point>> getPoints(Filter filter) const = 0;
+    virtual std::shared_ptr<Point> getPointAtDepthCoordinate(uint32_t depth_x,
+                                                             uint32_t depth_y) = 0;
   };
 }
 

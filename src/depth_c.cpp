@@ -244,3 +244,45 @@ int point_cloud_update()
   }
   catchAllAndReturn(0);
 }
+
+int get_point_color_red(int depth_x, int depth_y)
+{
+  std::shared_ptr<Point> point = _point_cloud->getPointAtDepthCoordinate(depth_x, depth_y);
+
+  if(point)
+  {
+    return point->color_r;
+  }
+  else
+  {
+    return 0xFF;
+  }
+}
+
+int get_point_color_green(int depth_x, int depth_y)
+{
+  std::shared_ptr<Point> point = _point_cloud->getPointAtDepthCoordinate(depth_x, depth_y);
+
+  if(point)
+  {
+    return point->color_g;
+  }
+  else
+  {
+    return 0xFF;
+  }
+}
+
+int get_point_color_blue(int depth_x, int depth_y)
+{
+  std::shared_ptr<Point> point = _point_cloud->getPointAtDepthCoordinate(depth_x, depth_y);
+
+  if(point)
+  {
+    return point->color_b;
+  }
+  else
+  {
+    return 0xFF;
+  }
+}

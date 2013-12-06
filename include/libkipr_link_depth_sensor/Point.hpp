@@ -34,14 +34,23 @@ namespace libkipr_link_depth_sensor
 {
   struct Point
   {
-    uint32_t x;
-    uint32_t y;
-    uint32_t z;
+    int32_t world_x;
+    int32_t world_y;
+    int32_t world_z;
 
-    Point(const uint32_t& x,
-          const uint32_t& y,
-          const uint32_t& z)
-      : x(x), y(y), z(z) {}
+    int32_t depth_x;
+    int32_t depth_y;
+    int32_t depth_z;
+
+    uint8_t color_r;
+    uint8_t color_g;
+    uint8_t color_b;
+
+    Point(int32_t depth_x, int32_t depth_y, int32_t depth_z,
+      int32_t world_x, int32_t world_y, int32_t world_z)
+      : depth_x(depth_x), depth_y(depth_y), depth_z(depth_z),
+        world_x(world_x), world_y(world_y), world_z(world_z),
+        color_r(0x00), color_g(0x00), color_b(0x00){}
   };
 }
 

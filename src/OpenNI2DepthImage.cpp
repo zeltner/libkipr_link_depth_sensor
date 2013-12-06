@@ -49,7 +49,11 @@ uint32_t OpenNI2DepthImage::getHeight() const
 
 std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) const
 {
-  std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud());
+  // TODO: assume a world of 4098 x 4098 x 4098 mm with 256 points per edge
+  uint32_t leave_size = 8 /* mm */;
+  uint32_t nodes_per_edge = 256;
+
+  std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud(leave_size, nodes_per_edge));
   
   int depth_x, depth_y, depth_z;
   float world_x, world_y, world_z;
@@ -68,7 +72,8 @@ std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) cons
           rc = CoordinateConverter::convertDepthToWorld(stream_, depth_x, depth_y, depth_z, &world_x, &world_y, &world_z);
           if(rc == STATUS_OK)
           {
-            point_cloud->addPoint(Point(world_x, world_y, world_z));
+            point_cloud->addPoint(std::make_shared<Point>(Point(depth_x, depth_y, depth_z, 
+              (int32_t) world_x, (int32_t) world_y, (int32_t) world_z)));
           }
         }
       }

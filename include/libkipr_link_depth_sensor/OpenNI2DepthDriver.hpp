@@ -19,10 +19,6 @@
 
 *******************************************************************************/
 
-#include <OpenNI.h>
-
-#include "libkipr_link_depth_sensor/OpenNI2DepthImage.hpp"
-
 /**
  * \file OpenNI2DepthDriver.hpp
  * \brief OpenNI2 implementation of the DepthDriver interface
@@ -32,6 +28,10 @@
 #ifndef _OPENNI2_DEPTH_DRIVER_HPP_
 #define _OPENNI2_DEPTH_DRIVER_HPP_
 
+
+#include <OpenNI.h>
+
+#include "libkipr_link_depth_sensor/OpenNI2DepthImage.hpp"
 #include "libkipr_link_depth_sensor/DepthDriver.hpp"
 
 namespace libkipr_link_depth_sensor

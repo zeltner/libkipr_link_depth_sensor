@@ -21,41 +21,58 @@
 
 #include <algorithm>
 
-#include <libkipr_link_depth_sensor/OctreePointCloud.hpp>
+#include "libkipr_link_depth_sensor/OctreePointCloud.hpp"
 
 using namespace libkipr_link_depth_sensor;
 
-OctreePointCloud::OctreePointCloud()
+OctreePointCloud::OctreePointCloud(uint32_t leave_size, uint32_t nodes_per_edge)
+  : leave_size_(leave_size), nodes_per_edge_(nodes_per_edge),
+	  octree_(nodes_per_edge, std::shared_ptr<Point>())
 {
 
 }
 
-OctreePointCloud::OctreePointCloud(const std::list<Point>& points, Filter filter)
+void OctreePointCloud::addPoint(std::shared_ptr<Point> point)
 {
-  std::copy_if(points.begin(), points.end(), points_->begin(), filter);
-}
+  int half_world_size = leave_size_ * nodes_per_edge_ / 2;
 
-void OctreePointCloud::addPoint(const Point& point)
-{
-  points_->push_back(point);
-}
-
-std::shared_ptr<PointCloud> OctreePointCloud::getSubCloud(Filter filter) const
-{
-  return std::shared_ptr<OctreePointCloud>(new OctreePointCloud(*points_, filter));
-}
-
-std::shared_ptr<const std::list<Point>> OctreePointCloud::getPoints() const
-{
-  return points_;
-}
-
-std::shared_ptr<std::list<Point>> OctreePointCloud::getPoints(Filter filter) const
-{
-  std::shared_ptr<std::list<Point>> points(new std::list<Point>());
+  int tree_x = (half_world_size + point->world_x) / leave_size_;
+  if(tree_x < 0 || tree_x >= (int32_t) nodes_per_edge_)
+  {
+    point->color_r = 0xFF;
+    point->color_g = 0xFF;
+    point->color_b = 0xFF;
+    return;
+  }
   
-  std::copy_if(points_->begin(), points_->end(), points->begin(), filter);
+  int tree_y = (half_world_size + point->world_y) / leave_size_;
+  if(tree_y < 0 || tree_y >= (int32_t) nodes_per_edge_)
+  {
+    point->color_r = 0xFF;
+    point->color_g = 0xFF;
+    point->color_b = 0xFF;
+    return;
+  }
   
-  return points;
+  int tree_z = point->world_z / leave_size_;
+  if(tree_z < 0 || tree_z >= (int32_t) nodes_per_edge_)
+  {
+    point->color_r = 0xFF;
+    point->color_g = 0xFF;
+    point->color_b = 0xFF;
+    return;
+  }
+
+  point->color_r = 0xFF * tree_x / nodes_per_edge_;
+  point->color_g = 0xFF * tree_y / nodes_per_edge_;
+  point->color_b = 0xFF * tree_z / nodes_per_edge_;
+
+  octree_(tree_x, tree_y, tree_z) = point;
+  points_2d_[point->depth_y][point->depth_x] = point;
 }
 
+std::shared_ptr<Point> OctreePointCloud::getPointAtDepthCoordinate(uint32_t depth_x,
+                                                                   uint32_t depth_y)
+{
+  return points_2d_[depth_y][depth_x];
+}
