@@ -91,6 +91,7 @@
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthDriver.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthImage.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Exception.hpp" />
+    <ClInclude Include="include\libkipr_link_depth_sensor\Library.h" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2DepthDriver.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2DepthImage.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Point.hpp" />

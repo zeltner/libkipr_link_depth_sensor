@@ -59,5 +59,8 @@
     <ClInclude Include="include\libkipr_link_depth_sensor\PointCloud.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\libkipr_link_depth_sensor\Library.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
