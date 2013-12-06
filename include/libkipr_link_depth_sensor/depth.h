@@ -227,51 +227,6 @@ int reset_point_cloud_update_filter();
  */
 int point_cloud_update();
 
-/**
- * Returns the number of points within the current selected region. The points are
- * enumerated by distance. This means that the distance of point i is equal or
- * less than the distance of i+1.
- *
- * \return The number of points
- */
-int number_selected_points();
-
-/**
- * Returns the distance of the spicified point
- *
- * \param index The index of the point
- * \return The distance of this point
- * \see number_selected_points
- */
-int distance_of_point(int index);
-
-/**
- * Returns the x coordinate of the spicified point
- *
- * \param index The index of the point
- * \return The x coordinate of this point
- * \see number_selected_points
- */
-int get_x_of_point(int index);
-
-/**
- * Returns the y coordinate of the spicified point
- *
- * \param index The index of the point
- * \return The y coordinate of this point
- * \see number_selected_points
- */
-int get_y_of_point(int index);
-
-/**
- * Returns the z coordinate of the spicified point
- *
- * \param index The index of the point
- * \return The z coordinate of this point
- * \see number_selected_points
- */
-int get_z_of_point(int index);
-
 /** \} */
 
 #ifdef __cplusplus
