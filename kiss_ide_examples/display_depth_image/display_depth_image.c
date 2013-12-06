@@ -58,9 +58,22 @@ int main(int argc, char** argv)
         {
           int depth = get_depth_value(x, y);
           
-          // max depth is 4 meter
-          int color = depth*255/4000;
-          graphics_pixel(x, y, color, color, color);
+          // max depth is 2 meter
+          if(depth > 2000)
+          {
+            depth = 2000;
+          }
+          
+          // color invalid depth pixel red
+          if(depth)
+          {
+            int color = 0xFF*depth/2000;
+            graphics_pixel(x, y, color, color, color);
+          }
+          else
+          {
+            graphics_pixel(x, y, 0xFF, 0x00, 0x00);
+          }
         }
       }
 	  
