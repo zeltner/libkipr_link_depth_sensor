@@ -175,7 +175,7 @@ int get_depth_value(int x, int y)
   {
     if(_depth_image)
     {
-        return _depth_image->getDepthAt(x, y);
+      return _depth_image->getDepthAt(DepthImageCoordinate(x, y));
     }
     else
     {
@@ -229,9 +229,9 @@ int point_cloud_update()
     if(_depth_image)
     {
       _point_cloud = _depth_image->getPointCloud(
-        [](const DepthImage* _this, int x, int y, int& depth) -> bool
+        [](const DepthImage* _this, const DepthImageCoordinate& depth_image_coordinate, int& depth) -> bool
         {
-          return _filter_x.filter(x) && _filter_y.filter(y)
+          return _filter_x.filter(depth_image_coordinate.x) && _filter_y.filter(depth_image_coordinate.y)
             && _filter_depth.filter(depth);
         });
 
@@ -251,7 +251,7 @@ int get_point_color_red(int depth_x, int depth_y)
 
   if(point)
   {
-    return point->color_r;
+    return point->getColor().red;
   }
   else
   {
@@ -265,7 +265,7 @@ int get_point_color_green(int depth_x, int depth_y)
 
   if(point)
   {
-    return point->color_g;
+    return point->getColor().green;
   }
   else
   {
@@ -279,7 +279,7 @@ int get_point_color_blue(int depth_x, int depth_y)
 
   if(point)
   {
-    return point->color_b;
+    return point->getColor().blue;
   }
   else
   {

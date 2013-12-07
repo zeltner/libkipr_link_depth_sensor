@@ -20,6 +20,7 @@
 *******************************************************************************/
 
 #include "libkipr_link_depth_sensor/OpenNI2DepthImage.hpp"
+#include "libkipr_link_depth_sensor/OpenNI2Point.hpp"
 #include "libkipr_link_depth_sensor/OctreePointCloud.hpp"
 
 using namespace libkipr_link_depth_sensor;
@@ -56,25 +57,20 @@ std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) cons
   std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud(leave_size, nodes_per_edge));
   
   int depth_x, depth_y, depth_z;
-  float world_x, world_y, world_z;
-  Status rc;
   
   for(depth_x = 0; depth_x < video_frame_ref_.getWidth(); depth_x++)
   {
     for(depth_y = 0; depth_y < video_frame_ref_.getHeight(); depth_y++)
     {
-      depth_z = getDepthAt(depth_x, depth_y);
+      DepthImageCoordinate depth_coord(depth_x, depth_y);
+
+      depth_z = getDepthAt(depth_coord);
       
       if(depth_z != 0)
       {
-        if(filter(this, DepthImageCoordinate(depth_x, depth_y), depth_z))
+        if(filter(this, depth_coord, depth_z))
         {
-          rc = CoordinateConverter::convertDepthToWorld(stream_, depth_x, depth_y, depth_z, &world_x, &world_y, &world_z);
-          if(rc == STATUS_OK)
-          {
-            point_cloud->addPoint(std::make_shared<Point>(Point(depth_x, depth_y, depth_z, 
-              (int32_t) world_x, (int32_t) world_y, (int32_t) world_z)));
-          }
+          point_cloud->addPoint(std::make_shared<OpenNI2Point>(OpenNI2Point(depth_coord, video_frame_ref_, stream_)));
         }
       }
     }
