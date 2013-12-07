@@ -84,19 +84,24 @@
     <ClCompile Include="src\OpenNI2DepthDriver.cpp" />
     <ClCompile Include="src\OpenNI2DepthImage.cpp" />
     <ClCompile Include="src\OctreePointCloud.cpp" />
+    <ClCompile Include="src\OpenNI2Point.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\libkipr_link_depth_sensor\Color.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\depth.h" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthCameraResolution.h" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthDriver.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthImage.hpp" />
+    <ClInclude Include="include\libkipr_link_depth_sensor\DepthImageCoordinate.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Exception.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Library.h" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OctreePointCloud.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2DepthDriver.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2DepthImage.hpp" />
+    <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2Point.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Point.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\PointCloud.hpp" />
+    <ClInclude Include="include\libkipr_link_depth_sensor\WorldCoordinate.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

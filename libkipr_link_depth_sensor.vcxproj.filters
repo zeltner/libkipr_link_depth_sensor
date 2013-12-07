@@ -30,6 +30,9 @@
     <ClCompile Include="src\OctreePointCloud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\OpenNI2Point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\libkipr_link_depth_sensor\depth.h">
@@ -63,6 +66,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\libkipr_link_depth_sensor\OctreePointCloud.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2Point.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libkipr_link_depth_sensor\DepthImageCoordinate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libkipr_link_depth_sensor\WorldCoordinate.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libkipr_link_depth_sensor\Color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

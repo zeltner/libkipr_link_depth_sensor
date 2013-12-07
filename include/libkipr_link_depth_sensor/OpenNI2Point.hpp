@@ -20,60 +20,74 @@
 *******************************************************************************/
 
 /**
- * \file Point.hpp
- * \brief This file describes the interface Point
+ * \file OpenNI2Point.hpp
+ * \brief This file describes the OpenNI2 implementation of the interface Point
  * \author Stefan Zeltner
  */
 
-#ifndef _POINT_HPP_
-#define _POINT_HPP_
+#ifndef _OPENNI2_POINT_HPP_
+#define _OPENNI2_POINT_HPP_
 
-#include <stdint.h>
+#include <OpenNI.h>
 
-#include "libkipr_link_depth_sensor/WorldCoordinate.hpp"
-#include "libkipr_link_depth_sensor/DepthImageCoordinate.hpp"
-#include "libkipr_link_depth_sensor/Color.hpp"
+#include "libkipr_link_depth_sensor/Point.hpp"
 
 namespace libkipr_link_depth_sensor
 {
-  class Point
+  class OpenNI2Point : public Point
   {
   public:
+    OpenNI2Point(const DepthImageCoordinate depth_coord,
+      openni::VideoFrameRef video_frame_ref,
+      const openni::VideoStream& stream);
+
     /**
      * Returns the world coordinate of the point
      *
      * \return The world coordinate of the point
      */
-    virtual WorldCoordinate getWorldCoordinate() = 0;
+    virtual WorldCoordinate getWorldCoordinate();
 
     /**
      * Returns the depth image coordinate of the point
      *
      * \return The depth image coordinate of the point
      */
-    virtual DepthImageCoordinate getDepthImageCoordinate() = 0;
+    virtual DepthImageCoordinate getDepthImageCoordinate();
 
     /**
      * Returns the depth value of the point
      *
      * \return The depth value of the point
      */
-    virtual int32_t getDepth() = 0;
+    virtual int32_t getDepth();
 
     /**
      * Returns the color of the point
      *
      * \return The color of the point
      */
-    virtual Color getColor() = 0;
+    virtual Color getColor();
 
     /**
      * Sets the color of the point
      *
      * \param color The color of the point
      */
-    virtual void setColor(const Color& color) = 0;
+    virtual void setColor(const Color& color);
+
+  private:
+    openni::VideoFrameRef video_frame_ref_;
+    const openni::VideoStream& stream_;
+
+    DepthImageCoordinate depth_coord_;
+    int32_t depth_;
+
+    bool world_coord_is_calc_;
+    WorldCoordinate world_coord_;
+
+    Color color_;
   };
 }
 
-#endif /* _POINT_HPP_ */
+#endif /* _OPENNI2_POINT_HPP_ */
