@@ -55,13 +55,12 @@ namespace libkipr_link_depth_sensor
     virtual uint32_t getWidth() const;
 
     /**
-    * Returns the depth value of the specified point.
-    *
-    * \param x X index of the point
-    * \param y Y index of the point
-    * \return The depth value
-    */
-    virtual uint32_t getDepthAt(uint32_t x, uint32_t y) const;
+     * Returns the depth value of the specified point.
+     *
+     * \param coordinate The coordinate of the point
+     * \return The depth value
+     */
+    virtual int32_t getDepthAt(const DepthImageCoordinate& coordinate) const;
     
     /**
      * Returns a PointCloud object of this depth image

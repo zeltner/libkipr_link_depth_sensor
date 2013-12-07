@@ -25,14 +25,15 @@
  * \author Stefan Zeltner
  */
 
+#ifndef _DEPTH_IMAGE_HPP_
+#define _DEPTH_IMAGE_HPP_
+
 #include <stdint.h>
 #include <functional>
 #include <memory>
 
+#include <libkipr_link_depth_sensor/DepthImageCoordinate.hpp>
 #include <libkipr_link_depth_sensor/PointCloud.hpp>
-
-#ifndef _DEPTH_IMAGE_HPP_
-#define _DEPTH_IMAGE_HPP_
 
 namespace libkipr_link_depth_sensor
 {
@@ -40,7 +41,8 @@ namespace libkipr_link_depth_sensor
   {
   public:
     typedef std::function<bool (const DepthImage* _this,
-      int x, int y, int& depth)> Filter;
+      const DepthImageCoordinate& depth_image_coordinate,
+      int32_t& depth)> Filter;
     
     /**
      * Returns the height of the depth image in pixel
@@ -59,11 +61,10 @@ namespace libkipr_link_depth_sensor
     /**
      * Returns the depth value of the specified point.
      *
-     * \param x X index of the point
-     * \param y Y index of the point
+     * \param coordinate The coordinate of the point
      * \return The depth value
      */
-    virtual uint32_t getDepthAt(uint32_t x, uint32_t y) const = 0;
+    virtual int32_t getDepthAt(const DepthImageCoordinate& coordinate) const = 0;
     
     /**
      * Returns a PointCloud object of this depth image

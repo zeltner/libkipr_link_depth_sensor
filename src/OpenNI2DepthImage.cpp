@@ -32,9 +32,9 @@ OpenNI2DepthImage::OpenNI2DepthImage(openni::VideoFrameRef video_frame_ref,
 
 }
 
-uint32_t OpenNI2DepthImage::getDepthAt(uint32_t x, uint32_t y) const
+int32_t OpenNI2DepthImage::getDepthAt(const DepthImageCoordinate& coordinate) const
 {
-  return ((DepthPixel*)video_frame_ref_.getData())[x + y*video_frame_ref_.getWidth()];
+  return ((DepthPixel*)video_frame_ref_.getData())[coordinate.x + coordinate.y*video_frame_ref_.getWidth()];
 }
 
 uint32_t OpenNI2DepthImage::getWidth() const
@@ -67,7 +67,7 @@ std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) cons
       
       if(depth_z != 0)
       {
-        if(filter(this, depth_x, depth_y, depth_z))
+        if(filter(this, DepthImageCoordinate(depth_x, depth_y), depth_z))
         {
           rc = CoordinateConverter::convertDepthToWorld(stream_, depth_x, depth_y, depth_z, &world_x, &world_y, &world_z);
           if(rc == STATUS_OK)
