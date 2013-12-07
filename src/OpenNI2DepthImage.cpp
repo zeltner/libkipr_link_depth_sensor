@@ -70,7 +70,7 @@ std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) cons
       {
         if(filter(this, depth_coord, depth_z))
         {
-          point_cloud->addPoint(std::make_shared<OpenNI2Point>(OpenNI2Point(depth_coord, video_frame_ref_, stream_)));
+          point_cloud->addPoint(std::shared_ptr<Point>(new OpenNI2Point(depth_coord, video_frame_ref_, stream_)));
         }
       }
     }
