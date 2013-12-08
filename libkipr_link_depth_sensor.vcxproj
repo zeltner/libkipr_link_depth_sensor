@@ -84,7 +84,6 @@
     <ClCompile Include="src\OpenNI2DepthDriver.cpp" />
     <ClCompile Include="src\OpenNI2DepthImage.cpp" />
     <ClCompile Include="src\PointCloud2D.cpp" />
-    <ClCompile Include="src\OpenNI2Point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\libkipr_link_depth_sensor\Color.hpp" />
@@ -99,7 +98,6 @@
     <ClInclude Include="include\libkipr_link_depth_sensor\PointCloud2D.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2DepthDriver.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2DepthImage.hpp" />
-    <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2Point.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Point.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\PointCloud.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\WorldCoordinate.hpp" />

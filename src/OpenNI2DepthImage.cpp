@@ -20,7 +20,7 @@
 *******************************************************************************/
 
 #include "libkipr_link_depth_sensor/OpenNI2DepthImage.hpp"
-#include "libkipr_link_depth_sensor/OpenNI2Point.hpp"
+#include "libkipr_link_depth_sensor/Exception.hpp"
 #include "libkipr_link_depth_sensor/PointCloud2D.hpp"
 
 using namespace libkipr_link_depth_sensor;
@@ -54,21 +54,28 @@ std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) cons
   std::shared_ptr<PointCloud> point_cloud(new PointCloud2D(size_));
   
   int depth_x, depth_y, depth_z;
+  float world_x, world_y, world_z;
   
   for(depth_y = 0; depth_y < (int) size_.height; depth_y++)
   {
     for(depth_x = 0; depth_x < (int) size_.width; depth_x++)
     {
       DepthImageCoordinate depth_coord(depth_x, depth_y);
-
       depth_z = getDepthAt(depth_coord);
       
       if(depth_z != 0)
       {
-        if(/*filter(this, depth_coord, depth_z)*/ true)
+        Status rc = CoordinateConverter::convertDepthToWorld(stream_, 
+          depth_coord.x, depth_coord.y, depth_z, &world_x, &world_y, &world_z);
+        if(rc != STATUS_OK)
         {
-          point_cloud->addPoint(new OpenNI2Point(depth_coord, video_frame_ref_, stream_));
+          throw Exception(std::string("Coordinate conversion failed with ")
+            + OpenNI::getExtendedError());
         }
+        
+        point_cloud->addPoint(new Point(
+          WorldCoordinate((int32_t) world_x, (int32_t) world_y, (int32_t) world_z),
+          depth_coord, depth_z));
       }
     }
   }

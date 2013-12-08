@@ -39,47 +39,71 @@ namespace libkipr_link_depth_sensor
   class Point
   {
   public:
+    Point(WorldCoordinate world_coord, DepthImageCoordinate depth_coord,
+      int32_t depth, Color color = Color(0xFF, 0xFF, 0xFF))
+      : world_coord_(world_coord), depth_coord_(depth_coord),
+        depth_(depth), color_(color)
+    {
+
+    }
+
     /**
      * Returns the world coordinate of the point
      *
      * \return The world coordinate of the point
      */
-    virtual WorldCoordinate getWorldCoordinate() = 0;
+    inline WorldCoordinate getWorldCoordinate() const
+    {
+      return world_coord_;
+    }
 
     /**
      * Returns the depth image coordinate of the point
      *
      * \return The depth image coordinate of the point
      */
-    virtual DepthImageCoordinate getDepthImageCoordinate() = 0;
+    inline DepthImageCoordinate getDepthImageCoordinate() const
+    {
+      return depth_coord_;
+    }
 
     /**
      * Returns the depth value of the point
      *
      * \return The depth value of the point
      */
-    virtual int32_t getDepth() = 0;
+    inline int32_t getDepth() const
+    {
+      return depth_;
+    }
 
     /**
      * Returns the color of the point
      *
      * \return The color of the point
      */
-    virtual Color getColor() = 0;
+    inline Color getColor() const
+    {
+      return color_;
+    }
 
     /**
      * Sets the color of the point
      *
      * \param color The color of the point
      */
-    virtual void setColor(const Color& color) = 0;
-    
-    /**
-     * Creates a clone of an point
-     *
-     * \return A pointer to the new point
-     */
-    virtual Point* clone() const = 0;
+    inline void setColor(const Color& color)
+    {
+      color_ = color;
+    }
+
+  private:
+    DepthImageCoordinate depth_coord_;
+    int32_t depth_;
+
+    WorldCoordinate world_coord_;
+
+    Color color_;
   };
 }
 

@@ -27,9 +27,6 @@
     <ClCompile Include="src\OpenNI2DepthImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenNI2Point.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\PointCloud2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,9 +60,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\libkipr_link_depth_sensor\Library.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2Point.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthImageCoordinate.hpp">
