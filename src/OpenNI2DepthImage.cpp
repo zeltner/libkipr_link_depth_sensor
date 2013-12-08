@@ -28,40 +28,40 @@ using namespace openni;
 
 OpenNI2DepthImage::OpenNI2DepthImage(openni::VideoFrameRef video_frame_ref,
                                  const openni::VideoStream& stream)
-  : video_frame_ref_(video_frame_ref), stream_(stream)
+  : video_frame_ref_(video_frame_ref), stream_(stream),
+    size_(video_frame_ref_.getWidth(), video_frame_ref_.getHeight())
 {
 
 }
 
 int32_t OpenNI2DepthImage::getDepthAt(const DepthImageCoordinate& coordinate) const
 {
-  return ((DepthPixel*)video_frame_ref_.getData())[coordinate.x + coordinate.y*video_frame_ref_.getWidth()];
+  return ((DepthPixel*)video_frame_ref_.getData())[coordinate.x + coordinate.y*size_.width];
 }
 
 uint32_t OpenNI2DepthImage::getWidth() const
 {
-  return video_frame_ref_.getWidth();
+  return size_.width;
 }
 
 uint32_t OpenNI2DepthImage::getHeight() const
 {
-  return video_frame_ref_.getHeight();
+  return size_.height;
 }
 
 std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) const
 {
   // TODO: assume a world of 4098 x 4098 x 4098 mm with 256 points per edge
-  uint32_t leave_size = 8 /* mm */;
+  uint32_t leave_size = 16 /* mm */;
   uint32_t nodes_per_edge = 256;
 
-  std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud(leave_size, nodes_per_edge,
-    DepthImageSize(video_frame_ref_.getWidth(), video_frame_ref_.getHeight())));
+  std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud(leave_size, nodes_per_edge, size_));
   
   int depth_x, depth_y, depth_z;
   
-  for(depth_x = 0; depth_x < video_frame_ref_.getWidth(); depth_x++)
+  for(depth_y = 0; depth_y < (int) size_.height; depth_y++)
   {
-    for(depth_y = 0; depth_y < video_frame_ref_.getHeight(); depth_y++)
+    for(depth_x = 0; depth_x < (int) size_.width; depth_x++)
     {
       DepthImageCoordinate depth_coord(depth_x, depth_y);
 
@@ -69,7 +69,7 @@ std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) cons
       
       if(depth_z != 0)
       {
-        if(filter(this, depth_coord, depth_z))
+        if(/*filter(this, depth_coord, depth_z)*/ true)
         {
           point_cloud->addPoint(new OpenNI2Point(depth_coord, video_frame_ref_, stream_));
         }

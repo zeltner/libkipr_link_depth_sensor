@@ -31,6 +31,7 @@
 #include <OpenNI.h>
 
 #include "libkipr_link_depth_sensor/DepthImage.hpp"
+#include "libkipr_link_depth_sensor/DepthImageSize.hpp"
 
 namespace libkipr_link_depth_sensor
 {
@@ -81,6 +82,8 @@ namespace libkipr_link_depth_sensor
   private:
     openni::VideoFrameRef video_frame_ref_;
     const openni::VideoStream& stream_;
+
+    DepthImageSize size_;
   };
 }
 
