@@ -75,6 +75,13 @@ namespace libkipr_link_depth_sensor
      * \param color The color of the point
      */
     virtual void setColor(const Color& color);
+    
+    /**
+     * Creates a clone of an point
+     *
+     * \return A pointer to the new point
+     */
+    virtual Point* clone() const;
 
   private:
     openni::VideoFrameRef video_frame_ref_;
