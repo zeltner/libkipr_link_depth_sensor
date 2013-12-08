@@ -38,7 +38,7 @@ PointCloud2D::PointCloud2D(const PointCloud2D& other)
 {
   std::for_each(other.points_2d_.begin(), other.points_2d_.end(), [this](Point* point)
     {
-      addPoint(point->clone());
+      addPoint(new Point(*point));
     });
 }
 
@@ -64,7 +64,7 @@ PointCloud2D& PointCloud2D::operator= (const PointCloud2D& other)
   
   std::for_each(other.points_2d_.begin(), other.points_2d_.end(), [this](Point* point)
     {
-      addPoint(point->clone());
+      addPoint(new Point(*point));
     });
 
   return *this;
