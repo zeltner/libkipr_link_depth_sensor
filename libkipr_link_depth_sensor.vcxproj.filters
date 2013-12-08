@@ -80,5 +80,8 @@
     <ClInclude Include="include\libkipr_link_depth_sensor\Color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\libkipr_link_depth_sensor\DepthImageSize.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

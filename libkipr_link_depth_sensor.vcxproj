@@ -93,6 +93,7 @@
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthDriver.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthImage.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthImageCoordinate.hpp" />
+    <ClInclude Include="include\libkipr_link_depth_sensor\DepthImageSize.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Exception.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Library.h" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OctreePointCloud.hpp" />
