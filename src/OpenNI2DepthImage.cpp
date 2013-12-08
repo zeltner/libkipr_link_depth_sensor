@@ -21,7 +21,7 @@
 
 #include "libkipr_link_depth_sensor/OpenNI2DepthImage.hpp"
 #include "libkipr_link_depth_sensor/OpenNI2Point.hpp"
-#include "libkipr_link_depth_sensor/OctreePointCloud.hpp"
+#include "libkipr_link_depth_sensor/PointCloud2D.hpp"
 
 using namespace libkipr_link_depth_sensor;
 using namespace openni;
@@ -51,11 +51,7 @@ uint32_t OpenNI2DepthImage::getHeight() const
 
 std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) const
 {
-  // TODO: assume a world of 4098 x 4098 x 4098 mm with 256 points per edge
-  uint32_t leave_size = 16 /* mm */;
-  uint32_t nodes_per_edge = 256;
-
-  std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud(leave_size, nodes_per_edge, size_));
+  std::shared_ptr<PointCloud> point_cloud(new PointCloud2D(size_));
   
   int depth_x, depth_y, depth_z;
   

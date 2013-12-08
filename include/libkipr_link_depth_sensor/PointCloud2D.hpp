@@ -20,41 +20,37 @@
 *******************************************************************************/
 
 /**
- * \file OctreePointCloud.hpp
- * \brief A point cloud using an octree as datastructure
+ * \file PointCloud2D.hpp
+ * \brief A point cloud using an simple 2D array as datastructure
  * \author Stefan Zeltner
  */
 
-#ifndef _OCTREE_POINT_CLOUD_HPP_
-#define _OCTREE_POINT_CLOUD_HPP_
+#ifndef _POINT_CLOUD_2D_HPP_
+#define _POINT_CLOUD_2D_HPP_
 
 #include <vector>
 
-#include "octree/octree.h"
 #include "libkipr_link_depth_sensor/PointCloud.hpp"
 #include "libkipr_link_depth_sensor/DepthImageSize.hpp"
 
 namespace libkipr_link_depth_sensor
 {
-  class OctreePointCloud : public PointCloud
+  class PointCloud2D : public PointCloud
   {
   public:
     /**
      * Creates an empty point cloud
 	   *
-	   * \param leave_size The leave size of the octree in mm
-	   * \param nodes_per_edge Number of nodes per edge of the world cube.
-	   *                       Must be a power of two
 	   * \param depth_image_size The size of the depth image in pixel
      */
-    OctreePointCloud(uint32_t leave_size, uint32_t nodes_per_edge, DepthImageSize depth_image_size);
+    PointCloud2D(DepthImageSize depth_image_size);
 
     /* For memory handling */
-    OctreePointCloud(const OctreePointCloud& other);
-    OctreePointCloud(OctreePointCloud&& other);
-    ~OctreePointCloud();
-    OctreePointCloud& operator= (const OctreePointCloud& other);
-    OctreePointCloud& operator= (OctreePointCloud&& other);
+    PointCloud2D(const PointCloud2D& other);
+    PointCloud2D(PointCloud2D&& other);
+    ~PointCloud2D();
+    PointCloud2D& operator= (const PointCloud2D& other);
+    PointCloud2D& operator= (PointCloud2D&& other);
     
     /**
      * Adds a point to the point cloud
@@ -78,12 +74,9 @@ namespace libkipr_link_depth_sensor
     virtual Point* getPointAtDepthCoordinate(DepthImageCoordinate depth_coord);
     
   private:
-	  uint32_t leave_size_;
-	  uint32_t nodes_per_edge_;
-	  Octree<Point*> octree_;
     std::vector<Point*> points_2d_;
     DepthImageSize depth_image_size_;
   };
 }
 
-#endif /* _OCTREE_POINT_CLOUD_HPP_ */
+#endif /* _POINT_CLOUD_2D_HPP_ */

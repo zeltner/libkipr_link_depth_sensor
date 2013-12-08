@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBKIPR_LINK_DEPTH_SENSOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\OpenNI2\Include;include;third-party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OpenNI2\Include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,7 +83,7 @@
     <ClCompile Include="src\depth_c.cpp" />
     <ClCompile Include="src\OpenNI2DepthDriver.cpp" />
     <ClCompile Include="src\OpenNI2DepthImage.cpp" />
-    <ClCompile Include="src\OctreePointCloud.cpp" />
+    <ClCompile Include="src\PointCloud2D.cpp" />
     <ClCompile Include="src\OpenNI2Point.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -96,7 +96,7 @@
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthImageSize.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Exception.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Library.h" />
-    <ClInclude Include="include\libkipr_link_depth_sensor\OctreePointCloud.hpp" />
+    <ClInclude Include="include\libkipr_link_depth_sensor\PointCloud2D.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2DepthDriver.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2DepthImage.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\OpenNI2Point.hpp" />

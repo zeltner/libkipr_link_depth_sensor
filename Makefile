@@ -10,7 +10,7 @@ SRC_FILES = src/depth_c.cpp \
             src/OpenNI2DepthDriver.cpp \
             src/OpenNI2DepthImage.cpp \
             src/OpenNI2Point.cpp \
-            src/OctreePointCloud.cpp
+            src/PointCloud2D.cpp
 
 LIB_NAME = libkipr_link_depth_sensor.so
 
