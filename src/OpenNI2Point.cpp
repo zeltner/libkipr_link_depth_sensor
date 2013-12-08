@@ -79,3 +79,8 @@ void OpenNI2Point::setColor(const Color& color)
 {
   color_ = color;
 }
+
+Point* OpenNI2Point::clone() const
+{
+  return new OpenNI2Point(*this);
+}

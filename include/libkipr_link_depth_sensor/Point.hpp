@@ -73,6 +73,13 @@ namespace libkipr_link_depth_sensor
      * \param color The color of the point
      */
     virtual void setColor(const Color& color) = 0;
+    
+    /**
+     * Creates a clone of an point
+     *
+     * \return A pointer to the new point
+     */
+    virtual Point* clone() const = 0;
   };
 }
 
