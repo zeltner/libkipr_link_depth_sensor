@@ -28,10 +28,11 @@
 #ifndef _OCTREE_POINT_CLOUD_HPP_
 #define _OCTREE_POINT_CLOUD_HPP_
 
-#include <array>
+#include <vector>
 
 #include "octree/octree.h"
 #include "libkipr_link_depth_sensor/PointCloud.hpp"
+#include "libkipr_link_depth_sensor/DepthImageSize.hpp"
 
 namespace libkipr_link_depth_sensor
 {
@@ -44,32 +45,44 @@ namespace libkipr_link_depth_sensor
 	   * \param leave_size The leave size of the octree in mm
 	   * \param nodes_per_edge Number of nodes per edge of the world cube.
 	   *                       Must be a power of two
+	   * \param depth_image_size The size of the depth image in pixel
      */
-	  OctreePointCloud(uint32_t leave_size, uint32_t nodes_per_edge);
+    OctreePointCloud(uint32_t leave_size, uint32_t nodes_per_edge, DepthImageSize depth_image_size);
+
+    /* For memory handling */
+    OctreePointCloud(const OctreePointCloud& other);
+    OctreePointCloud(OctreePointCloud&& other);
+    ~OctreePointCloud();
+    OctreePointCloud& operator= (const OctreePointCloud& other);
+    OctreePointCloud& operator= (OctreePointCloud&& other);
     
     /**
      * Adds a point to the point cloud
      *
+     * \note: The memory ownership of point is transferred to this point
+     *        cloud and the point is deleted once the cloud is deleted
+     *
      * \param point Add this point to the cloud
      */
-    virtual void addPoint(std::shared_ptr<Point> point);
-
+    virtual void addPoint(Point* point);
+    
     /**
      * Gets a point specified by its depth coordinates
      *
-     * \param depth_x X coordinate of this point
-     * \param depth_y Y coordinate of this point
+     * \note: The returned pointer will point to an invalid location once the
+     *        cloud is deleted
      *
-     * \returns The point or a nullpointer if no point exists
+     * \param depth_coord Depth image coordinate of this point
+     * \returns The point or a nullptr if no point exists
      */
-    virtual std::shared_ptr<Point> getPointAtDepthCoordinate(uint32_t depth_x,
-                                                             uint32_t depth_y);
+    virtual Point* getPointAtDepthCoordinate(DepthImageCoordinate depth_coord);
     
   private:
-	uint32_t leave_size_;
-	uint32_t nodes_per_edge_;
-	Octree<std::shared_ptr<Point>> octree_;
-  std::array<std::array<std::shared_ptr<Point>, 640>, 480> points_2d_;
+	  uint32_t leave_size_;
+	  uint32_t nodes_per_edge_;
+	  Octree<Point*> octree_;
+    std::vector<Point*> points_2d_;
+    DepthImageSize depth_image_size_;
   };
 }
 

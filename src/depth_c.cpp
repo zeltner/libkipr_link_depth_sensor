@@ -247,7 +247,7 @@ int point_cloud_update()
 
 int get_point_color_red(int depth_x, int depth_y)
 {
-  std::shared_ptr<Point> point = _point_cloud->getPointAtDepthCoordinate(depth_x, depth_y);
+  Point* point = _point_cloud->getPointAtDepthCoordinate(DepthImageCoordinate(depth_x, depth_y));
 
   if(point)
   {
@@ -261,7 +261,7 @@ int get_point_color_red(int depth_x, int depth_y)
 
 int get_point_color_green(int depth_x, int depth_y)
 {
-  std::shared_ptr<Point> point = _point_cloud->getPointAtDepthCoordinate(depth_x, depth_y);
+  Point* point = _point_cloud->getPointAtDepthCoordinate(DepthImageCoordinate(depth_x, depth_y));
 
   if(point)
   {
@@ -275,7 +275,7 @@ int get_point_color_green(int depth_x, int depth_y)
 
 int get_point_color_blue(int depth_x, int depth_y)
 {
-  std::shared_ptr<Point> point = _point_cloud->getPointAtDepthCoordinate(depth_x, depth_y);
+  Point* point = _point_cloud->getPointAtDepthCoordinate(DepthImageCoordinate(depth_x, depth_y));
 
   if(point)
   {

@@ -54,7 +54,8 @@ std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) cons
   uint32_t leave_size = 8 /* mm */;
   uint32_t nodes_per_edge = 256;
 
-  std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud(leave_size, nodes_per_edge));
+  std::shared_ptr<PointCloud> point_cloud(new OctreePointCloud(leave_size, nodes_per_edge,
+    DepthImageSize(video_frame_ref_.getWidth(), video_frame_ref_.getHeight())));
   
   int depth_x, depth_y, depth_z;
   
@@ -70,7 +71,7 @@ std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) cons
       {
         if(filter(this, depth_coord, depth_z))
         {
-          point_cloud->addPoint(std::shared_ptr<Point>(new OpenNI2Point(depth_coord, video_frame_ref_, stream_)));
+          point_cloud->addPoint(new OpenNI2Point(depth_coord, video_frame_ref_, stream_));
         }
       }
     }

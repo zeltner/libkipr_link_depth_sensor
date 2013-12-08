@@ -28,8 +28,6 @@
 #ifndef _POINT_CLOUD_HPP_
 #define _POINT_CLOUD_HPP_
 
-#include <memory>
-
 #include <libkipr_link_depth_sensor/Point.hpp>
 
 namespace libkipr_link_depth_sensor
@@ -40,20 +38,23 @@ namespace libkipr_link_depth_sensor
     /**
      * Adds a point to the point cloud
      *
+     * \note: The memory ownership of point is transferred to this point
+     *        cloud and the point is deleted once the cloud is deleted
+     *
      * \param point Add this point to the cloud
      */
-    virtual void addPoint(std::shared_ptr<Point> point) = 0;
+    virtual void addPoint(Point* point) = 0;
 
     /**
      * Gets a point specified by its depth coordinates
      *
-     * \param depth_x X coordinate of this point
-     * \param depth_y Y coordinate of this point
+     * \note: The returned pointer will point to an invalid location once the
+     *        cloud is deleted
      *
-     * \returns The point or a nullpointer if no point exists
+     * \param depth_coord Depth image coordinate of this point
+     * \returns The point or a nullptr if no point exists
      */
-    virtual std::shared_ptr<Point> getPointAtDepthCoordinate(uint32_t depth_x,
-                                                             uint32_t depth_y) = 0;
+    virtual Point* getPointAtDepthCoordinate(DepthImageCoordinate depth_coord) = 0;
   };
 }
 

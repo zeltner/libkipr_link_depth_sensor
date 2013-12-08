@@ -19,20 +19,80 @@
 
 *******************************************************************************/
 
-#include <algorithm>
-
 #include "libkipr_link_depth_sensor/OctreePointCloud.hpp"
 
 using namespace libkipr_link_depth_sensor;
 
-OctreePointCloud::OctreePointCloud(uint32_t leave_size, uint32_t nodes_per_edge)
+OctreePointCloud::OctreePointCloud(uint32_t leave_size, uint32_t nodes_per_edge, DepthImageSize depth_image_size)
   : leave_size_(leave_size), nodes_per_edge_(nodes_per_edge),
-	  octree_(nodes_per_edge, std::shared_ptr<Point>())
+    octree_(nodes_per_edge, nullptr),
+    points_2d_((depth_image_size.width * depth_image_size.height), nullptr),
+    depth_image_size_(depth_image_size)
 {
 
 }
 
-void OctreePointCloud::addPoint(std::shared_ptr<Point> point)
+OctreePointCloud::OctreePointCloud(const OctreePointCloud& other)
+  : leave_size_(other.leave_size_), nodes_per_edge_(other.nodes_per_edge_),
+    octree_(nodes_per_edge_, nullptr),
+    points_2d_((other.depth_image_size_.width * other.depth_image_size_.height), nullptr),
+    depth_image_size_(other.depth_image_size_)
+{
+  std::for_each(other.points_2d_.begin(), other.points_2d_.end(), [this](Point* point)
+    {
+      addPoint(point->clone());
+    });
+}
+
+OctreePointCloud::OctreePointCloud(OctreePointCloud&& other)
+  : leave_size_(other.leave_size_), nodes_per_edge_(other.nodes_per_edge_),
+    octree_(other.octree_),
+    points_2d_(other.points_2d_),
+    depth_image_size_(other.depth_image_size_)
+{
+  other.octree_  = Octree<Point*>(nodes_per_edge_, nullptr);
+  other.points_2d_ = std::vector<Point*>();
+}
+
+OctreePointCloud::~OctreePointCloud()
+{
+  std::for_each(points_2d_.begin(), points_2d_.end(), [](Point* point)
+    {
+      delete point;
+    });
+}
+
+OctreePointCloud& OctreePointCloud::operator= (const OctreePointCloud& other)
+{
+  leave_size_ = other.leave_size_;
+  nodes_per_edge_ = other.nodes_per_edge_;
+  octree_ = Octree<Point*>(nodes_per_edge_, nullptr);
+  points_2d_ = std::vector<Point*>((other.depth_image_size_.width * other.depth_image_size_.height), nullptr);
+  depth_image_size_ = other.depth_image_size_;
+  
+  std::for_each(other.points_2d_.begin(), other.points_2d_.end(), [this](Point* point)
+    {
+      addPoint(point->clone());
+    });
+
+  return *this;
+}
+
+OctreePointCloud& OctreePointCloud::operator= (OctreePointCloud&& other)
+{
+  leave_size_ = other.leave_size_;
+  nodes_per_edge_ = other.nodes_per_edge_;
+  octree_ =  other.octree_;
+  points_2d_ =  other.points_2d_;
+  depth_image_size_ = other.depth_image_size_;
+  
+  other.octree_ = Octree<Point*>(nodes_per_edge_, nullptr);
+  other.points_2d_ = std::vector<Point*>();
+
+  return *this;
+}
+
+void OctreePointCloud::addPoint(Point* point)
 {
   int half_world_size = leave_size_ * nodes_per_edge_ / 2;
   WorldCoordinate world_coord = point->getWorldCoordinate();
@@ -64,11 +124,10 @@ void OctreePointCloud::addPoint(std::shared_ptr<Point> point)
     0xFF * tree_y / nodes_per_edge_,  0xFF * tree_z / nodes_per_edge_));
 
   octree_(tree_x, tree_y, tree_z) = point;
-  points_2d_[depth_coord.y][depth_coord.x] = point;
+  points_2d_[depth_coord.y * depth_image_size_.width + depth_coord.x] = point;
 }
 
-std::shared_ptr<Point> OctreePointCloud::getPointAtDepthCoordinate(uint32_t depth_x,
-                                                                   uint32_t depth_y)
+Point* OctreePointCloud::getPointAtDepthCoordinate(DepthImageCoordinate depth_coord)
 {
-  return points_2d_[depth_y][depth_x];
+  return points_2d_[depth_coord.y * depth_image_size_.width + depth_coord.x];
 }
