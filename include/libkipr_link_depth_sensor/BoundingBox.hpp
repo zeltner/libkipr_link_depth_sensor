@@ -20,50 +20,51 @@
 *******************************************************************************/
 
 /**
- * \file PointCloud.hpp
- * \brief The interface for a point cloud
+ * \file BoundingBox.hpp
+ * \brief This file describes the struct BoundingBox
  * \author Stefan Zeltner
  */
 
-#ifndef _POINT_CLOUD_HPP_
-#define _POINT_CLOUD_HPP_
+#ifndef _BOUNDING_BOX_HPP_
+#define _BOUNDING_BOX_HPP_
 
 #include <libkipr_link_depth_sensor/Point.hpp>
-#include <libkipr_link_depth_sensor/BoundingBox.hpp>
 
 namespace libkipr_link_depth_sensor
 {
-  class PointCloud
+  struct BoundingBox
   {
-  public:
-    /**
-     * Adds a point to the point cloud
-     *
-     * \note: The memory ownership of point is transferred to this point
-     *        cloud and the point is deleted once the cloud is deleted
-     *
-     * \param point Add this point to the cloud
-     */
-    virtual void addPoint(Point* point) = 0;
+    Point* min_;
+    Point* max_;
 
-    /**
-     * Gets a point specified by its depth coordinates
-     *
-     * \note: The returned pointer will point to an invalid location once the
-     *        cloud is deleted
-     *
-     * \param depth_coord Depth image coordinate of this point
-     * \returns The point or a nullptr if no point exists
-     */
-    virtual Point* getPointAtDepthCoordinate(DepthImageCoordinate depth_coord) = 0;
+    BoundingBox(Point* min, Point* max)
+      : min_(min), max_(max) {}
 
-    /**
-     * Gets the bounding box of the point cloud
-     *
-     * \returns The bounding box
-     */
-    virtual BoundingBox getBoundingBox() = 0;
+    inline bool contains(const Point* p)
+    {
+      if(max_ && min_)
+      {
+        return *p >= *min_ && *p <= *max_;
+      }
+      else
+      {
+        return false;
+      }
+    }
+
+    inline void add(Point* p)
+    {
+      if(!min_ || p < min_)
+      {
+        min_ = p;
+      }
+
+      if(!max_ || p > max_)
+      {
+        max_ = p;
+      }
+    }
   };
 }
 
-#endif /* _POINT_CLOUD_HPP_ */
+#endif /* _BOUNDING_BOX_HPP_ */

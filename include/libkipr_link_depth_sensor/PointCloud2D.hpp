@@ -72,10 +72,18 @@ namespace libkipr_link_depth_sensor
      * \returns The point or a nullptr if no point exists
      */
     virtual Point* getPointAtDepthCoordinate(DepthImageCoordinate depth_coord);
+
+    /**
+     * Gets the bounding box of the point cloud
+     *
+     * \returns The bounding box
+     */
+    virtual BoundingBox getBoundingBox();
     
   private:
     std::vector<Point*> points_2d_;
     DepthImageSize depth_image_size_;
+    BoundingBox bounding_box_;
   };
 }
 
