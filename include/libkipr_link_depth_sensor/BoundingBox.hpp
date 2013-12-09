@@ -34,34 +34,45 @@ namespace libkipr_link_depth_sensor
 {
   struct BoundingBox
   {
-    Point* min_;
-    Point* max_;
+    WorldCoordinate min_;
+    WorldCoordinate max_;
 
-    BoundingBox(Point* min, Point* max)
-      : min_(min), max_(max) {}
+    BoundingBox()
+      : min_(WorldCoordinate(0,0,0)), max_(WorldCoordinate(0,0,0)) {}
 
-    inline bool contains(const Point* p)
+    inline bool contains(const Point& p)
     {
-      if(max_ && min_)
-      {
-        return *p >= *min_ && *p <= *max_;
-      }
-      else
-      {
-        return false;
-      }
+      return p.getWorldCoordinate() >= min_ && p.getWorldCoordinate() <= max_;
     }
 
-    inline void add(Point* p)
+    inline void add(const Point& p)
     {
-      if(!min_ || p < min_)
-      {
-        min_ = p;
-      }
+      WorldCoordinate p_coord = p.getWorldCoordinate();
 
-      if(!max_ || p > max_)
+      if(min_.x > p_coord.x)
       {
-        max_ = p;
+        min_.x = p_coord.x;
+      }
+      if(min_.y > p_coord.y)
+      {
+        min_.y = p_coord.y;
+      }
+      if(min_.z > p_coord.z)
+      {
+        min_.z = p_coord.z;
+      }
+      
+      if(max_.x > p_coord.x)
+      {
+        max_.x = p_coord.x;
+      }
+      if(max_.y > p_coord.y)
+      {
+        max_.y = p_coord.y;
+      }
+      if(max_.z > p_coord.z)
+      {
+        max_.z = p_coord.z;
       }
     }
   };

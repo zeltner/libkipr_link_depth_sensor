@@ -40,6 +40,20 @@ namespace libkipr_link_depth_sensor
 
     WorldCoordinate(int32_t x, int32_t y, int32_t z)
       : x(x), y(y), z(z) {}
+
+    inline bool operator>=(const WorldCoordinate& rhs) const
+    {
+      return (x >= rhs.x)
+        && (y >= rhs.y)
+        && (z >= rhs.z);
+    }
+
+    inline bool operator<=(const WorldCoordinate& rhs) const
+    {
+      return (x <= rhs.x)
+        && (y <= rhs.y)
+        && (z <= rhs.z);
+    }
   };
 }
 
