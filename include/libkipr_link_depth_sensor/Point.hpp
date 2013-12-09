@@ -97,6 +97,20 @@ namespace libkipr_link_depth_sensor
       color_ = color;
     }
 
+    inline bool operator>=(const Point& rhs) const
+    {
+      return (world_coord_.x >= rhs.world_coord_.x)
+        && (world_coord_.y >= rhs.world_coord_.y)
+        && (world_coord_.z >= rhs.world_coord_.z);
+    }
+
+    inline bool operator<=(const Point& rhs) const
+    {
+      return (world_coord_.x <= rhs.world_coord_.x)
+        && (world_coord_.y <= rhs.world_coord_.y)
+        && (world_coord_.z <= rhs.world_coord_.z);
+    }
+
   private:
     DepthImageCoordinate depth_coord_;
     int32_t depth_;
