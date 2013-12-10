@@ -38,7 +38,8 @@ namespace libkipr_link_depth_sensor
     WorldCoordinate max_;
 
     BoundingBox()
-      : min_(WorldCoordinate(0,0,0)), max_(WorldCoordinate(0,0,0)) {}
+      : min_(WorldCoordinate(INT32_MAX,INT32_MAX,INT32_MAX)),
+        max_(WorldCoordinate(INT32_MIN, INT32_MIN, INT32_MIN)) {}
 
     inline bool contains(const Point& p)
     {
@@ -62,15 +63,15 @@ namespace libkipr_link_depth_sensor
         min_.z = p_coord.z;
       }
       
-      if(max_.x > p_coord.x)
+      if(max_.x < p_coord.x)
       {
         max_.x = p_coord.x;
       }
-      if(max_.y > p_coord.y)
+      if(max_.y < p_coord.y)
       {
         max_.y = p_coord.y;
       }
-      if(max_.z > p_coord.z)
+      if(max_.z < p_coord.z)
       {
         max_.z = p_coord.z;
       }
