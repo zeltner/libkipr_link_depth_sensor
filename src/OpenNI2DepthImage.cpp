@@ -36,7 +36,7 @@ OpenNI2DepthImage::OpenNI2DepthImage(openni::VideoFrameRef video_frame_ref,
 
 int32_t OpenNI2DepthImage::getDepthAt(const DepthImageCoordinate& coordinate) const
 {
-  return ((DepthPixel*)video_frame_ref_.getData())[coordinate.x + coordinate.y*size_.width];
+  return ((DepthPixel*)video_frame_ref_.getData())[(size_.width - coordinate.x) + coordinate.y*size_.width];
 }
 
 uint32_t OpenNI2DepthImage::getWidth() const
