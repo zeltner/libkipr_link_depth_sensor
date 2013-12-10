@@ -34,6 +34,8 @@
 #ifndef _DEPTH_H_
 #define _DEPTH_H_
 
+#include <stdint.h>
+
 #include <libkipr_link_depth_sensor/DepthCameraResolution.h>
 #include <libkipr_link_depth_sensor/Library.h>
 
@@ -226,6 +228,93 @@ LIBRARY_API int reset_point_cloud_update_filter();
  * \return 1 on success, 0 otherwise
  */
 LIBRARY_API int point_cloud_update();
+
+static const int INVALIDE_MIN = INT32_MIN;
+static const int INVALIDE_MAX = INT32_MAX;
+
+/**
+ * Get the point cloud bounding box
+ *
+ * \see get_cloud_min_x
+ * \see get_cloud_min_z
+ * \see get_cloud_max_x
+ * \see get_cloud_max_y
+ * \see get_cloud_max_z
+ *
+ * \return The minimum x coordinate of all points or INVALIDE_MIN
+ *         if an error occurs
+ */
+LIBRARY_API int get_cloud_min_x();
+
+/**
+ * Get the point cloud bounding box
+ *
+ * \see get_cloud_min_y
+ * \see get_cloud_min_z
+ * \see get_cloud_max_x
+ * \see get_cloud_max_y
+ * \see get_cloud_max_z
+ *
+ * \return The minimum y coordinate of all points or INVALIDE_MIN
+ *         if an error occurs
+ */
+LIBRARY_API int get_cloud_min_y();
+
+/**
+ * Get the point cloud bounding box
+ *
+ * \see get_cloud_min_x
+ * \see get_cloud_min_y
+ * \see get_cloud_max_x
+ * \see get_cloud_max_y
+ * \see get_cloud_max_z
+ *
+ * \return The minimum z coordinate of all points or INVALIDE_MIN
+ *         if an error occurs
+ */
+LIBRARY_API int get_cloud_min_z();
+
+/**
+ * Get the point cloud bounding box
+ *
+ * \see get_cloud_min_x
+ * \see get_cloud_min_y
+ * \see get_cloud_min_z
+ * \see get_cloud_max_y
+ * \see get_cloud_max_z
+ *
+ * \return The maximum x coordinate of all points or INVALIDE_MAX
+ *         if an error occurs
+ */
+LIBRARY_API int get_cloud_max_x();
+
+/**
+ * Get the point cloud bounding box
+ *
+ * \see get_cloud_min_x
+ * \see get_cloud_min_y
+ * \see get_cloud_min_z
+ * \see get_cloud_max_x
+ * \see get_cloud_max_z
+ *
+ * \return The maximum y coordinate of all points or INVALIDE_MAX
+ *         if an error occurs
+ */
+LIBRARY_API int get_cloud_max_y();
+
+/**
+ * Get the point cloud bounding box
+ *
+ * \see get_cloud_min_x
+ * \see get_cloud_min_y
+ * \see get_cloud_min_z
+ * \see get_cloud_max_x
+ * \see get_cloud_max_y
+ *
+ * \return The maximum z coordinate of all points or INVALIDE_MAX
+ *         if an error occurs
+ */
+LIBRARY_API int get_cloud_max_z();
 
 /**
   * Gets a point color from the point cloud specified by its depth coordinates

@@ -245,6 +245,102 @@ int point_cloud_update()
   catchAllAndReturn(0);
 }
 
+int get_cloud_min_x()
+{
+  try
+  {
+    if(_point_cloud)
+    {
+      return _point_cloud->getBoundingBox().min_.x;
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
+  }
+  catchAllAndReturn(INVALIDE_MIN);
+}
+
+int get_cloud_min_y()
+{
+  try
+  {
+    if(_point_cloud)
+    {
+      return _point_cloud->getBoundingBox().min_.y;
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
+  }
+  catchAllAndReturn(INVALIDE_MIN);
+}
+
+int get_cloud_min_z()
+{
+  try
+  {
+    if(_point_cloud)
+    {
+      return _point_cloud->getBoundingBox().min_.z;
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
+  }
+  catchAllAndReturn(INVALIDE_MIN);
+}
+
+int get_cloud_max_x()
+{
+  try
+  {
+    if(_point_cloud)
+    {
+      return _point_cloud->getBoundingBox().max_.x;
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
+  }
+  catchAllAndReturn(INVALIDE_MAX);
+}
+
+int get_cloud_max_y()
+{
+  try
+  {
+    if(_point_cloud)
+    {
+      return _point_cloud->getBoundingBox().max_.y;
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
+  }
+  catchAllAndReturn(INVALIDE_MAX);
+}
+
+int get_cloud_max_z()
+{
+  try
+  {
+    if(_point_cloud)
+    {
+      return _point_cloud->getBoundingBox().max_.z;
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
+  }
+  catchAllAndReturn(INVALIDE_MAX);
+}
+
 int get_point_color_red(int depth_x, int depth_y)
 {
   Point* point = _point_cloud->getPointAtDepthCoordinate(DepthImageCoordinate(depth_x, depth_y));

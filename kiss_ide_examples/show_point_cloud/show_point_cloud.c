@@ -54,7 +54,7 @@ int main(int argc, char** argv)
       // get point cloud
       if(point_cloud_update())
       {
-        for(int y = 0; y < depth_image_height; y++)
+/*        for(int y = 0; y < depth_image_height; y++)
         {
           for(int x = 0; x < depth_image_width; x++)
           {
@@ -65,6 +65,15 @@ int main(int argc, char** argv)
             graphics_pixel(x, y, red, green, blue);
           }
         }
+*/
+		  int min_x = get_cloud_min_x();
+		  int min_y = get_cloud_min_y();
+		  int min_z = get_cloud_min_z();
+		  int max_x = get_cloud_max_x();
+		  int max_y = get_cloud_max_y();
+		  int max_z = get_cloud_max_z();
+		  printf("Point cloud bounding box: (%d, %d, %d) <-> (%d, %d, %d)\n",
+			min_x, min_y, min_z, max_x, max_y, max_z);
       }
       else
       {
