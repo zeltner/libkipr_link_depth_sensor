@@ -128,7 +128,7 @@ int main(int argc, char** argv)
           }
 
           // color invalid depth pixel red
-          if(depth)
+          if(depth && last_max_depth)
           {
             int r;
             int g;
