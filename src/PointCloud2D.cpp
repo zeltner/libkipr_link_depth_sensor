@@ -105,3 +105,14 @@ BoundingBox PointCloud2D::getBoundingBox()
 {
   return bounding_box_;
 }
+
+void PointCloud2D::foreach(Callback callback)
+{
+  std::for_each(points_2d_.begin(), points_2d_.end(), [callback](Point* point)
+    {
+      if(point)
+      {
+        callback(point);
+      }
+    });
+}

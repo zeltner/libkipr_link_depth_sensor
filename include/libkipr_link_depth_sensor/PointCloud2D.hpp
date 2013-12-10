@@ -87,6 +87,13 @@ namespace libkipr_link_depth_sensor
      */
     virtual uint32_t numberOfPoints();
     
+    /**
+     * Calls callback for every point in the cloud
+     *
+     * \param The callback
+     */
+    virtual void foreach(Callback callback);
+    
   private:
     std::vector<Point*> points_2d_;
     uint32_t n_points_;

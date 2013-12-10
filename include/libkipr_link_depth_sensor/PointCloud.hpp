@@ -28,6 +28,8 @@
 #ifndef _POINT_CLOUD_HPP_
 #define _POINT_CLOUD_HPP_
 
+#include <functional>
+
 #include <libkipr_link_depth_sensor/Point.hpp>
 #include <libkipr_link_depth_sensor/BoundingBox.hpp>
 
@@ -36,6 +38,8 @@ namespace libkipr_link_depth_sensor
   class PointCloud
   {
   public:
+    typedef std::function<void (Point* p)> Callback;
+
     virtual ~PointCloud() {}
 
     /**
@@ -72,6 +76,13 @@ namespace libkipr_link_depth_sensor
      * \returns The bounding box
      */
     virtual BoundingBox getBoundingBox() = 0;
+    
+    /**
+     * Calls callback for every point in the cloud
+     *
+     * \param The callback
+     */
+    virtual void foreach(Callback callback) = 0;
   };
 }
 
