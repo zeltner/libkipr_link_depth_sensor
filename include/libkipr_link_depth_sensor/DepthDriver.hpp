@@ -40,6 +40,8 @@ namespace libkipr_link_depth_sensor
   public:
     static DepthDriver& instance();
 
+    virtual ~DepthDriver() {};
+
     /**
       * Opens the depth driver
       */
