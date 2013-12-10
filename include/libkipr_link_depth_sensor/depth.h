@@ -323,6 +323,23 @@ LIBRARY_API int get_cloud_max_y();
  */
 LIBRARY_API int get_cloud_max_z();
 
+
+typedef enum PointCloudColorMode_
+{
+  POINT_CLOUD_COLOR_MODE_GREY_SCALE,
+  POINT_CLOUD_COLOR_MODE_HUE_GRADIENT,
+  POINT_CLOUD_COLOR_MODE_RGB_GRADIENT
+} PointCloudColorMode;
+
+/**
+  * Color the points of the cloud
+  *
+  * \param mode How to color the cloud
+  *
+  * \return 1 on success, 0 otherwise
+  */
+LIBRARY_API int color_cloud(PointCloudColorMode mode);
+
 /**
   * Gets a point color from the point cloud specified by its depth coordinates
   *

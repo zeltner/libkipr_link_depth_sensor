@@ -357,6 +357,87 @@ int get_cloud_max_z()
   catchAllAndReturn(INVALIDE_MAX);
 }
 
+int color_cloud(PointCloudColorMode mode)
+{
+  try
+  {
+    if(_point_cloud)
+    {
+      BoundingBox boundingBox = _point_cloud->getBoundingBox();
+
+      switch(mode)
+      {
+      case POINT_CLOUD_COLOR_MODE_GREY_SCALE:
+        _point_cloud->foreach([boundingBox](Point* p)
+        {
+          uint8_t grey_scale = 0xFF * p->getDepth() / boundingBox.max_.z;
+          p->setColor(Color(grey_scale, grey_scale, grey_scale));
+        });
+
+        break;
+      case POINT_CLOUD_COLOR_MODE_HUE_GRADIENT:
+        _point_cloud->foreach([boundingBox](Point* p)
+        {
+          WorldCoordinate world_coord = p->getWorldCoordinate();
+
+          int32_t h = 6*0xFF*p->getDepth() / boundingBox.max_.z;
+          int32_t x = 0xFF - std::abs(h % (2*0xFF) - 0xFF);
+
+          if(h < (1*0xFF))
+          {
+            p->setColor(Color(0xFF, x, 0x00));
+          }
+          else if(h < (2*0xFF))
+          {
+            p->setColor(Color(x, 0xFF, 0x00));
+          }
+          else if(h < (3*0xFF))
+          {
+            p->setColor(Color(0x00, 0xFF, x));
+          }
+          else if(h < (4*0xFF))
+          {
+            p->setColor(Color(0x00, x, 0xFF));
+          }
+          else if(h < (5*0xFF))
+          {
+            p->setColor(Color(x, 0x00, 0xFF));
+          }
+          else
+          {
+            p->setColor(Color(0xFF, 0x00, x));
+          }
+        });
+
+        break;
+
+      case POINT_CLOUD_COLOR_MODE_RGB_GRADIENT:
+        _point_cloud->foreach([boundingBox](Point* p)
+        {
+          WorldCoordinate world_coord = p->getWorldCoordinate();
+
+          uint8_t r = 0xFF * std::abs(world_coord.x - boundingBox.min_.x) / std::abs((boundingBox.max_.x - boundingBox.min_.x));
+          uint8_t g = 0xFF * std::abs(world_coord.y - boundingBox.min_.y) / std::abs((boundingBox.max_.y - boundingBox.min_.y));
+          uint8_t b = 0xFF * std::abs(world_coord.z - boundingBox.min_.z) / std::abs((boundingBox.max_.z - boundingBox.min_.z));
+          p->setColor(Color(r, g, b));
+        });
+
+        break;
+        
+      default:
+        throw Exception("Invalid color mode");
+      }
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
+
+    return 1;
+  }
+  catchAllAndReturn(0);
+}
+
 int get_point_color_red(int depth_x, int depth_y)
 {
   Point* point = _point_cloud->getPointAtDepthCoordinate(DepthImageCoordinate(depth_x, depth_y));
