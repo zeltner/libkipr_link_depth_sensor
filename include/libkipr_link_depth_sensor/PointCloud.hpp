@@ -36,6 +36,8 @@ namespace libkipr_link_depth_sensor
   class PointCloud
   {
   public:
+    virtual ~PointCloud() {}
+
     /**
      * Adds a point to the point cloud
      *
