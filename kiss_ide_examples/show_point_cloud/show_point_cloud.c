@@ -19,6 +19,18 @@
 
 *******************************************************************************/
 
+void printPointCloudInfo()
+{
+  console_clear();
+  printf("Point cloud information\n");
+  printf("  - Size: %d\n", points_in_cloud());
+  printf("  - Bounding box:\n"
+         "    min world coordinate (%d, %d, %d)\n"
+       "    max world coordinate (%d, %d, %d)\n\n",
+  get_cloud_min_x(), get_cloud_min_y(), get_cloud_min_z(),
+  get_cloud_max_x(), get_cloud_max_y(), get_cloud_max_z());
+}
+
 int main(int argc, char** argv)
 {
   if(!depth_open())
@@ -54,6 +66,8 @@ int main(int argc, char** argv)
       // get point cloud
       if(point_cloud_update())
       {
+        printPointCloudInfo();
+        
 /*        for(int y = 0; y < depth_image_height; y++)
         {
           for(int x = 0; x < depth_image_width; x++)
@@ -66,21 +80,13 @@ int main(int argc, char** argv)
           }
         }
 */
-		  int min_x = get_cloud_min_x();
-		  int min_y = get_cloud_min_y();
-		  int min_z = get_cloud_min_z();
-		  int max_x = get_cloud_max_x();
-		  int max_y = get_cloud_max_y();
-		  int max_z = get_cloud_max_z();
-		  printf("Point cloud bounding box: (%d, %d, %d) <-> (%d, %d, %d)\n",
-			min_x, min_y, min_z, max_x, max_y, max_z);
       }
       else
       {
         printf("Could not get point cloud\n");
       }
-	  
-	  graphics_update();
+      
+      graphics_update();
     }
     else
     {

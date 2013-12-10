@@ -229,6 +229,13 @@ LIBRARY_API int reset_point_cloud_update_filter();
  */
 LIBRARY_API int point_cloud_update();
 
+/**
+  * Gets the number of points in the cloud
+  *
+  * \returns The number of points
+  */
+LIBRARY_API int points_in_cloud();
+
 static const int INVALIDE_MIN = INT32_MIN;
 static const int INVALIDE_MAX = INT32_MAX;
 

@@ -245,6 +245,22 @@ int point_cloud_update()
   catchAllAndReturn(0);
 }
 
+int points_in_cloud()
+{
+  try
+  {
+    if(_point_cloud)
+    {
+      return _point_cloud->numberOfPoints();
+    }
+    else
+    {
+        throw Exception("Point cloud is not valid");
+    }
+  }
+  catchAllAndReturn(0);
+}
+
 int get_cloud_min_x()
 {
   try

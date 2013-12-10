@@ -27,14 +27,14 @@ using namespace libkipr_link_depth_sensor;
 
 PointCloud2D::PointCloud2D(DepthImageSize depth_image_size)
   : points_2d_((depth_image_size.width * depth_image_size.height), nullptr),
-    depth_image_size_(depth_image_size), bounding_box_()
+    depth_image_size_(depth_image_size), bounding_box_(), n_points_(0)
 {
 
 }
 
 PointCloud2D::PointCloud2D(const PointCloud2D& other)
   : points_2d_((other.depth_image_size_.width * other.depth_image_size_.height), nullptr),
-    depth_image_size_(other.depth_image_size_), bounding_box_()
+    depth_image_size_(other.depth_image_size_), bounding_box_(), n_points_(0)
 {
   std::for_each(other.points_2d_.begin(), other.points_2d_.end(), [this](Point* point)
     {
@@ -87,11 +87,18 @@ void PointCloud2D::addPoint(Point* point)
   bounding_box_.add(*point);
 
   points_2d_[depth_coord.y * depth_image_size_.width + depth_coord.x] = point;
+
+  n_points_++;
 }
 
 Point* PointCloud2D::getPointAtDepthCoordinate(DepthImageCoordinate depth_coord)
 {
   return points_2d_[depth_coord.y * depth_image_size_.width + depth_coord.x];
+}
+
+uint32_t PointCloud2D::numberOfPoints()
+{
+  return n_points_;
 }
 
 BoundingBox PointCloud2D::getBoundingBox()

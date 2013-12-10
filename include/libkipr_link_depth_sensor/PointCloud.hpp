@@ -58,6 +58,13 @@ namespace libkipr_link_depth_sensor
     virtual Point* getPointAtDepthCoordinate(DepthImageCoordinate depth_coord) = 0;
 
     /**
+     * Gets the number of points in the cloud
+     *
+     * \returns The number of points
+     */
+    virtual uint32_t numberOfPoints() = 0;
+
+    /**
      * Gets the bounding box of the point cloud
      *
      * \returns The bounding box

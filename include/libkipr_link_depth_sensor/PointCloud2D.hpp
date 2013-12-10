@@ -79,9 +79,17 @@ namespace libkipr_link_depth_sensor
      * \returns The bounding box
      */
     virtual BoundingBox getBoundingBox();
+
+    /**
+     * Gets the number of points in the cloud
+     *
+     * \returns The number of points
+     */
+    virtual uint32_t numberOfPoints();
     
   private:
     std::vector<Point*> points_2d_;
+    uint32_t n_points_;
     DepthImageSize depth_image_size_;
     BoundingBox bounding_box_;
   };
