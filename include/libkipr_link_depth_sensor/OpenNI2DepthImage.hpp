@@ -77,7 +77,7 @@ namespace libkipr_link_depth_sensor
      *
      * \return A PointCloud object
      */
-    virtual std::shared_ptr<PointCloud> getPointCloud(Filter filter) const;
+    virtual PointCloud* getPointCloud(Filter filter) const;
   
   private:
     openni::VideoFrameRef video_frame_ref_;

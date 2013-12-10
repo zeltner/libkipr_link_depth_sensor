@@ -49,9 +49,9 @@ uint32_t OpenNI2DepthImage::getHeight() const
   return size_.height;
 }
 
-std::shared_ptr<PointCloud> OpenNI2DepthImage::getPointCloud(Filter filter) const
+PointCloud* OpenNI2DepthImage::getPointCloud(Filter filter) const
 {
-  std::shared_ptr<PointCloud> point_cloud(new PointCloud2D(size_));
+  PointCloud* point_cloud = new PointCloud2D(size_);
   
   int depth_x, depth_y, depth_z;
   float world_x, world_y, world_z;

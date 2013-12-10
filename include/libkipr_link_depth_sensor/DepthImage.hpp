@@ -43,6 +43,8 @@ namespace libkipr_link_depth_sensor
     typedef std::function<bool (const DepthImage* _this,
       const DepthImageCoordinate& depth_image_coordinate,
       int32_t& depth)> Filter;
+
+    virtual ~DepthImage() {};
     
     /**
      * Returns the height of the depth image in pixel
@@ -80,7 +82,7 @@ namespace libkipr_link_depth_sensor
      *
      * \return A PointCloud object
      */
-    virtual std::shared_ptr<PointCloud> getPointCloud(Filter filter) const = 0;
+    virtual PointCloud* getPointCloud(Filter filter) const = 0;
   };
 }
 

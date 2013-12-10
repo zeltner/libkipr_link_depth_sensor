@@ -32,7 +32,7 @@ namespace libkipr_link_depth_sensor
   namespace c_api
   {
     std::shared_ptr<DepthImage> _depth_image;
-    std::shared_ptr<PointCloud> _point_cloud;
+    std::unique_ptr<PointCloud> _point_cloud;
     
     struct MinMaxFilterValue
     {
@@ -228,12 +228,12 @@ int point_cloud_update()
   {
     if(_depth_image)
     {
-      _point_cloud = _depth_image->getPointCloud(
+      _point_cloud.reset(_depth_image->getPointCloud(
         [](const DepthImage* _this, const DepthImageCoordinate& depth_image_coordinate, int& depth) -> bool
         {
           return _filter_x.filter(depth_image_coordinate.x) && _filter_y.filter(depth_image_coordinate.y)
             && _filter_depth.filter(depth);
-        });
+        }));
 
       return _point_cloud ? 1 : 0;
     }
