@@ -33,6 +33,7 @@ namespace libkipr_link_depth_sensor
   {
     std::shared_ptr<DepthImage> _depth_image;
     std::unique_ptr<PointCloud> _point_cloud;
+    DepthCameraOrientation _orientation = DEPTH_CAMERA_ORIENTATION_DEFAULT;
     
     struct MinMaxFilterValue
     {
@@ -126,13 +127,41 @@ int set_depth_camera_resolution(DepthCameraResolution resolution)
   catchAllAndReturn(0);
 }
 
+int set_depth_camera_orientation(DepthCameraOrientation orientation)
+{
+  try
+  {
+    _orientation = orientation;
+
+    return 1;
+  }
+  catchAllAndReturn(0);
+}
+
+DepthCameraOrientation get_depth_camera_orientation()
+{
+  try
+  {
+    return _orientation;
+  }
+  catchAllAndReturn(DEPTH_CAMERA_INVALID_ORIENTATION);
+}
+
 int depth_update()
 {
   try
   {
     _depth_image = DepthDriver::instance().getDepthImage();
 
-    return _depth_image ? 1 : 0;
+    if(_depth_image)
+    {
+      _depth_image->setOrientation(_orientation);
+      return 1;
+    }
+    else
+    {
+      return 0;
+    }
   }
   catchAllAndReturn(0);
 }

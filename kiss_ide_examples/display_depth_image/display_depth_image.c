@@ -23,6 +23,9 @@
 
 #define SHOW_DEPTH_UNDER_MOUSE
 
+// Uncomment this if you mount the depth camera upside down
+// #define CAMERA_IS_UPSIDE_DOWN
+
 void HSVtoRGB(int hue, int* r, int* g, int* b)
 {
   // http://en.wikipedia.org/wiki/HSV_color_space#From_HSV
@@ -95,6 +98,14 @@ int main(int argc, char** argv)
     printf("Failed to set the depth camera resolution to 640 x 480\n");
     return 1;
   }
+  
+#ifdef CAMERA_IS_UPSIDE_DOWN
+  if(set_depth_camera_orientation(DEPTH_CAMERA_ORIENTATION_UPSIDE_DOWN) == 0)
+  {
+    printf("Failed to set the depth camera orientation\n");
+    return 1;
+  }
+#endif
 
   printf("Press 'Q' to stop\n");
 

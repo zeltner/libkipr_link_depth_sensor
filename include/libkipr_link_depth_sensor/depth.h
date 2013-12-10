@@ -37,6 +37,7 @@
 #include <stdint.h>
 
 #include <libkipr_link_depth_sensor/DepthCameraResolution.h>
+#include <libkipr_link_depth_sensor/DepthCameraOrientation.h>
 #include <libkipr_link_depth_sensor/Library.h>
 
 #ifdef __cplusplus
@@ -93,6 +94,29 @@ LIBRARY_API DepthCameraResolution get_depth_camera_resolution();
  * \see depth_update
  */
 LIBRARY_API int set_depth_camera_resolution(DepthCameraResolution resolution);
+
+/** \} */
+
+
+/** \name Camera orientation
+ */
+/** \{ */
+
+/**
+ * Sets the depth camera orientation
+ *
+ * \param orientation Depth camera orientation
+ *
+ * \return 1 on success, 0 otherwise
+ */
+LIBRARY_API int set_depth_camera_orientation(DepthCameraOrientation orientation);
+
+/**
+ * Gets the depth camera orientation
+ *
+ * \return Depth camera orientation or DEPTH_CAMERA_INVALID_ORIENTATION
+ */
+LIBRARY_API DepthCameraOrientation get_depth_camera_orientation();
 
 /** \} */
 

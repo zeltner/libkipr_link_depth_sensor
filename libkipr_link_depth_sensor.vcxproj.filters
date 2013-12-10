@@ -80,5 +80,8 @@
     <ClInclude Include="include\libkipr_link_depth_sensor\BoundingBox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\libkipr_link_depth_sensor\DepthCameraOrientation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

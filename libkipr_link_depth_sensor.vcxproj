@@ -89,6 +89,7 @@
     <ClInclude Include="include\libkipr_link_depth_sensor\BoundingBox.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\Color.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\depth.h" />
+    <ClInclude Include="include\libkipr_link_depth_sensor\DepthCameraOrientation.h" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthCameraResolution.h" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthDriver.hpp" />
     <ClInclude Include="include\libkipr_link_depth_sensor\DepthImage.hpp" />

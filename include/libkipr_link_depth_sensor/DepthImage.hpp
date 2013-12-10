@@ -32,6 +32,7 @@
 #include <functional>
 #include <memory>
 
+#include <libkipr_link_depth_sensor/DepthCameraOrientation.h>
 #include <libkipr_link_depth_sensor/DepthImageCoordinate.hpp>
 #include <libkipr_link_depth_sensor/PointCloud.hpp>
 
@@ -45,6 +46,20 @@ namespace libkipr_link_depth_sensor
       int32_t& depth)> Filter;
 
     virtual ~DepthImage() {};
+
+    /**
+     * Sets the depth camera orientation
+     *
+     * \param orientation Depth camera orientation
+     */
+    virtual void setOrientation(DepthCameraOrientation orientation) = 0;
+
+    /**
+     * Gets the depth camera orientation
+     *
+     * \return Depth camera orientation or DEPTH_CAMERA_INVALID_ORIENTATION
+     */
+    virtual DepthCameraOrientation getOrientation() = 0;
     
     /**
      * Returns the height of the depth image in pixel
