@@ -44,7 +44,7 @@ PointCloud2D::PointCloud2D(const PointCloud2D& other)
 
 PointCloud2D::PointCloud2D(PointCloud2D&& other)
   : points_2d_(other.points_2d_),
-    depth_image_size_(other.depth_image_size_), bounding_box_(nullptr, nullptr)
+    depth_image_size_(other.depth_image_size_), bounding_box_()
 {
   other.points_2d_ = std::vector<Point*>();
 }
