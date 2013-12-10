@@ -26,9 +26,9 @@ void printPointCloudInfo()
   printf("  - Size: %d\n", points_in_cloud());
   printf("  - Bounding box:\n"
          "    min world coordinate (%d, %d, %d)\n"
-       "    max world coordinate (%d, %d, %d)\n\n",
-  get_cloud_min_x(), get_cloud_min_y(), get_cloud_min_z(),
-  get_cloud_max_x(), get_cloud_max_y(), get_cloud_max_z());
+         "    max world coordinate (%d, %d, %d)\n\n",
+    get_cloud_min_x(), get_cloud_min_y(), get_cloud_min_z(),
+    get_cloud_max_x(), get_cloud_max_y(), get_cloud_max_z());
 }
 
 int main(int argc, char** argv)
@@ -67,19 +67,27 @@ int main(int argc, char** argv)
       if(point_cloud_update())
       {
         printPointCloudInfo();
-        
-/*        for(int y = 0; y < depth_image_height; y++)
+
+        // if(color_cloud(POINT_CLOUD_COLOR_MODE_GREY_SCALE))
+        // if(color_cloud(POINT_CLOUD_COLOR_MODE_RGB_GRADIENT))
+        if(color_cloud(POINT_CLOUD_COLOR_MODE_HUE_GRADIENT))
         {
-          for(int x = 0; x < depth_image_width; x++)
+          for(int y = 0; y < depth_image_height; y++)
           {
-            int red = get_point_color_red(x, y);
-            int green = get_point_color_green(x, y);
-            int blue = get_point_color_blue(x, y);
-            
-            graphics_pixel(x, y, red, green, blue);
+            for(int x = 0; x < depth_image_width; x++)
+            {
+              int red = get_point_color_red(x, y);
+              int green = get_point_color_green(x, y);
+              int blue = get_point_color_blue(x, y);
+              
+              graphics_pixel(x, y, red, green, blue);
+            }
           }
         }
-*/
+        else
+        {
+          printf("Could not color point cloud\n");
+        }
       }
       else
       {
