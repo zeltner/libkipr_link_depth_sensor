@@ -44,6 +44,8 @@ int main(int argc, char** argv)
   
   int depth_image_height = -1;
   int depth_image_width = -1;
+  int area_width = 0;
+  int area_height = 0;
   
   if(set_depth_camera_resolution(DEPTH_CAMERA_RESOLUTION_640_480) == 0)
   {
@@ -72,7 +74,29 @@ int main(int argc, char** argv)
         depth_image_width = depth_image_get_width();
         
         graphics_open(depth_image_width, depth_image_height);
+        
+        area_width = depth_image_width / 2;
+        area_height = depth_image_height / 2;
       }
+      
+      // Apply a filter:
+      // Divide the image in 4 areas (2x2). If the mouse pointer is over one
+      // area, create a filter such that only points within this area are
+      // created and displayed.
+      
+      int mouse_x, mouse_y;
+      get_mouse_position(&mouse_x, &mouse_y);
+      
+      int area_width_offset = (mouse_x / area_width) * area_width;
+      int area_height_offset = (mouse_y / area_height) * area_height;
+      
+      reset_point_cloud_update_filter();
+      add_point_cloud_update_filter(POINT_CLOUD_FILTER_MIN_X, area_width_offset);
+      add_point_cloud_update_filter(POINT_CLOUD_FILTER_MAX_X,
+        area_width_offset + area_width);
+      add_point_cloud_update_filter(POINT_CLOUD_FILTER_MIN_Y, area_height_offset);
+      add_point_cloud_update_filter(POINT_CLOUD_FILTER_MAX_Y,
+        area_height_offset + area_height);
       
       // get point cloud
       if(point_cloud_update())
