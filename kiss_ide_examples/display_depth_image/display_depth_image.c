@@ -139,7 +139,7 @@ int main(int argc, char** argv)
           }
 
           // color invalid depth pixel red
-          if(depth && last_max_depth)
+          if((depth != INVALID_COORDINATE) && last_max_depth)
           {
             int r;
             int g;
@@ -158,7 +158,14 @@ int main(int argc, char** argv)
             if(mouse_x == x && mouse_y == y)
             {
               console_clear();
-              printf("depth at (%d, %d) is %d mm\n", x, y, depth);
+              if(depth != INVALID_COORDINATE)
+              {
+                printf("(%d, %d): Depth: %d mm; World coordinate: (%d, %d, %d)\n", x, y, depth, get_world_x(x, y), get_world_y(x, y), get_world_z(x, y));
+              }
+              else
+              {
+                printf("(%d, %d): No information available\n", x, y);
+              }
             }
           #endif
         }

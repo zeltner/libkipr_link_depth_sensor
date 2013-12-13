@@ -204,14 +204,94 @@ int get_depth_value(int x, int y)
   {
     if(_depth_image)
     {
-      return _depth_image->getDepthAt(DepthImageCoordinate(x, y));
+      int value = _depth_image->getDepthAt(DepthImageCoordinate(x, y));
+      if(value == 0)
+      {
+        return INVALID_COORDINATE;
+      }
+      else
+      {
+        return value;
+      }
     }
     else
     {
         throw Exception("Depth image is not valid");
     }
   }
-  catchAllAndReturn(0);
+  catchAllAndReturn(INVALID_COORDINATE);
+}
+
+int get_world_x(int x, int y)
+{
+  try
+  {
+    if(_depth_image)
+    {
+      std::unique_ptr<Point> p(_depth_image->getPointAt(DepthImageCoordinate(x, y)));
+      if(p)
+      {
+        return p->getWorldCoordinate().x;
+      }
+      else
+      {
+        return INVALID_COORDINATE;
+      }
+    }
+    else
+    {
+        throw Exception("Depth image is not valid");
+    }
+  }
+  catchAllAndReturn(INVALID_COORDINATE);
+}
+
+int get_world_y(int x, int y)
+{
+  try
+  {
+    if(_depth_image)
+    {
+      std::unique_ptr<Point> p(_depth_image->getPointAt(DepthImageCoordinate(x, y)));
+      if(p)
+      {
+        return p->getWorldCoordinate().y;
+      }
+      else
+      {
+        return INVALID_COORDINATE;
+      }
+    }
+    else
+    {
+        throw Exception("Depth image is not valid");
+    }
+  }
+  catchAllAndReturn(INVALID_COORDINATE);
+}
+
+int get_world_z(int x, int y)
+{
+  try
+  {
+    if(_depth_image)
+    {
+      std::unique_ptr<Point> p(_depth_image->getPointAt(DepthImageCoordinate(x, y)));
+      if(p)
+      {
+        return p->getWorldCoordinate().z;
+      }
+      else
+      {
+        return INVALID_COORDINATE;
+      }
+    }
+    else
+    {
+        throw Exception("Depth image is not valid");
+    }
+  }
+  catchAllAndReturn(INVALID_COORDINATE);
 }
 
 int add_point_cloud_update_filter(PointCloudUpdateFilter filter, int value)
@@ -303,7 +383,7 @@ int get_cloud_min_x()
         throw Exception("Point cloud is not valid");
     }
   }
-  catchAllAndReturn(INVALIDE_MIN);
+  catchAllAndReturn(INVALID_MIN);
 }
 
 int get_cloud_min_y()
@@ -319,7 +399,7 @@ int get_cloud_min_y()
         throw Exception("Point cloud is not valid");
     }
   }
-  catchAllAndReturn(INVALIDE_MIN);
+  catchAllAndReturn(INVALID_MIN);
 }
 
 int get_cloud_min_z()
@@ -335,7 +415,7 @@ int get_cloud_min_z()
         throw Exception("Point cloud is not valid");
     }
   }
-  catchAllAndReturn(INVALIDE_MIN);
+  catchAllAndReturn(INVALID_MIN);
 }
 
 int get_cloud_max_x()
@@ -351,7 +431,7 @@ int get_cloud_max_x()
         throw Exception("Point cloud is not valid");
     }
   }
-  catchAllAndReturn(INVALIDE_MAX);
+  catchAllAndReturn(INVALID_MAX);
 }
 
 int get_cloud_max_y()
@@ -367,7 +447,7 @@ int get_cloud_max_y()
         throw Exception("Point cloud is not valid");
     }
   }
-  catchAllAndReturn(INVALIDE_MAX);
+  catchAllAndReturn(INVALID_MAX);
 }
 
 int get_cloud_max_z()
@@ -383,7 +463,7 @@ int get_cloud_max_z()
         throw Exception("Point cloud is not valid");
     }
   }
-  catchAllAndReturn(INVALIDE_MAX);
+  catchAllAndReturn(INVALID_MAX);
 }
 
 int color_cloud(PointCloudColorMode mode)

@@ -69,6 +69,30 @@ uint32_t OpenNI2DepthImage::getHeight() const
   return size_.height;
 }
 
+Point* OpenNI2DepthImage::getPointAt(const DepthImageCoordinate& coordinate) const
+{
+  int depth_value = getDepthAt(coordinate);
+  float world_x, world_y, world_z;
+      
+  if(depth_value != 0)
+  {
+    Status rc = CoordinateConverter::convertDepthToWorld(stream_, 
+      coordinate.x, coordinate.y, depth_value, &world_x, &world_y, &world_z);
+    if(rc != STATUS_OK)
+    {
+      throw Exception(std::string("Coordinate conversion failed with ")
+        + OpenNI::getExtendedError());
+    }
+    
+    return new Point(WorldCoordinate((int32_t) world_x, (int32_t) world_y,
+      (int32_t) world_z), coordinate, depth_value);
+  }
+  else
+  {
+    return nullptr;
+  }
+}
+
 PointCloud* OpenNI2DepthImage::getPointCloud(Filter filter) const
 {
   PointCloud* point_cloud = new PointCloud2D(size_);

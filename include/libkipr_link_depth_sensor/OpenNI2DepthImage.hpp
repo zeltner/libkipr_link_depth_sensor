@@ -76,6 +76,14 @@ namespace libkipr_link_depth_sensor
      * \return The depth value
      */
     virtual int32_t getDepthAt(const DepthImageCoordinate& coordinate) const;
+
+    /**
+     * Returns the specified point.
+     *
+     * \param coordinate The coordinate of the point
+     * \return The point or nullptr if there no point at this coordinate
+     */
+    virtual Point* getPointAt(const DepthImageCoordinate& coordinate) const;
     
     /**
      * Returns a PointCloud object of this depth image

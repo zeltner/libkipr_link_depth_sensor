@@ -171,6 +171,9 @@ LIBRARY_API int depth_image_get_height();
  */
 LIBRARY_API int depth_image_get_width();
 
+
+static const int INVALID_COORDINATE = INT32_MIN;
+
 /**
  * Returns the depth value of the specified point.
  *
@@ -179,10 +182,53 @@ LIBRARY_API int depth_image_get_width();
  *
  * \param x X coordinate of the depth value (depth coordinate system)
  * \param y Y coordinate of the depth value (depth coordinate system)
- * \return The depth value in millimeters or 0 if no depth image was saved or if
- *         the depth value of (x, y) is not visible by the depth sensor
+ * \return The depth value in millimeters or INVALID_COORDINATE if no depth
+ *         image was saved or if the depth value of (x, y) is not visible
+ *         by the depth sensor
  */
 LIBRARY_API int get_depth_value(int x, int y);
+
+/**
+ * Returns the x coordinate of the specified point.
+ *
+ * \see get_world_y
+ * \see get_world_z
+ *
+ * \param x X coordinate of the point (depth coordinate system)
+ * \param y Y coordinate of the point (depth coordinate system)
+ * \return The x value (world coordinate system) in millimeters or INVALID_COORDINATE
+*          if no depth image was saved or if the depth value of (x, y) is not visible
+*          by the depth sensor
+ */
+LIBRARY_API int get_world_x(int x, int y);
+
+/**
+ * Returns the y coordinate of the specified point.
+ *
+ * \see get_world_x
+ * \see get_world_z
+ *
+ * \param x X coordinate of the point (depth coordinate system)
+ * \param y Y coordinate of the point (depth coordinate system)
+ * \return The y value (world coordinate system) in millimeters or INVALID_COORDINATE
+*          if no depth image was saved or if the depth value of (x, y) is not visible
+*          by the depth sensor
+ */
+LIBRARY_API int get_world_y(int x, int y);
+
+/**
+ * Returns the z coordinate of the specified point.
+ *
+ * \see get_world_x
+ * \see get_world_y
+ *
+ * \param x X coordinate of the point (depth coordinate system)
+ * \param y Y coordinate of the point (depth coordinate system)
+ * \return The z value (world coordinate system) in millimeters or INVALID_COORDINATE
+*          if no depth image was saved or if the depth value of (x, y) is not visible
+*          by the depth sensor
+ */
+LIBRARY_API int get_world_z(int x, int y);
 
 /** \} */
 
@@ -260,8 +306,8 @@ LIBRARY_API int point_cloud_update();
   */
 LIBRARY_API int points_in_cloud();
 
-static const int INVALIDE_MIN = INT32_MIN;
-static const int INVALIDE_MAX = INT32_MAX;
+static const int INVALID_MIN = INT32_MIN;
+static const int INVALID_MAX = INT32_MAX;
 
 /**
  * Get the point cloud bounding box
@@ -272,7 +318,7 @@ static const int INVALIDE_MAX = INT32_MAX;
  * \see get_cloud_max_y
  * \see get_cloud_max_z
  *
- * \return The minimum x coordinate of all points or INVALIDE_MIN
+ * \return The minimum x coordinate of all points or INVALID_MIN
  *         if an error occurs
  */
 LIBRARY_API int get_cloud_min_x();
@@ -286,7 +332,7 @@ LIBRARY_API int get_cloud_min_x();
  * \see get_cloud_max_y
  * \see get_cloud_max_z
  *
- * \return The minimum y coordinate of all points or INVALIDE_MIN
+ * \return The minimum y coordinate of all points or INVALID_MIN
  *         if an error occurs
  */
 LIBRARY_API int get_cloud_min_y();
@@ -300,7 +346,7 @@ LIBRARY_API int get_cloud_min_y();
  * \see get_cloud_max_y
  * \see get_cloud_max_z
  *
- * \return The minimum z coordinate of all points or INVALIDE_MIN
+ * \return The minimum z coordinate of all points or INVALID_MIN
  *         if an error occurs
  */
 LIBRARY_API int get_cloud_min_z();
@@ -314,7 +360,7 @@ LIBRARY_API int get_cloud_min_z();
  * \see get_cloud_max_y
  * \see get_cloud_max_z
  *
- * \return The maximum x coordinate of all points or INVALIDE_MAX
+ * \return The maximum x coordinate of all points or INVALID_MAX
  *         if an error occurs
  */
 LIBRARY_API int get_cloud_max_x();
@@ -328,7 +374,7 @@ LIBRARY_API int get_cloud_max_x();
  * \see get_cloud_max_x
  * \see get_cloud_max_z
  *
- * \return The maximum y coordinate of all points or INVALIDE_MAX
+ * \return The maximum y coordinate of all points or INVALID_MAX
  *         if an error occurs
  */
 LIBRARY_API int get_cloud_max_y();
@@ -342,7 +388,7 @@ LIBRARY_API int get_cloud_max_y();
  * \see get_cloud_max_x
  * \see get_cloud_max_y
  *
- * \return The maximum z coordinate of all points or INVALIDE_MAX
+ * \return The maximum z coordinate of all points or INVALID_MAX
  *         if an error occurs
  */
 LIBRARY_API int get_cloud_max_z();
