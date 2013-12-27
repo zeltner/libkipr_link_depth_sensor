@@ -98,10 +98,10 @@ namespace libkipr_link_depth_sensor
     }
 
   private:
+    WorldCoordinate world_coord_;
+
     DepthImageCoordinate depth_coord_;
     int32_t depth_;
-
-    WorldCoordinate world_coord_;
 
     Color color_;
   };

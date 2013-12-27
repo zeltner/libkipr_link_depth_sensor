@@ -28,6 +28,8 @@
 #ifndef _BOUNDING_BOX_HPP_
 #define _BOUNDING_BOX_HPP_
 
+#include <limits.h>
+
 #include <libkipr_link_depth_sensor/Point.hpp>
 
 namespace libkipr_link_depth_sensor
@@ -38,8 +40,8 @@ namespace libkipr_link_depth_sensor
     WorldCoordinate max_;
 
     BoundingBox()
-      : min_(WorldCoordinate(INT32_MAX,INT32_MAX,INT32_MAX)),
-        max_(WorldCoordinate(INT32_MIN, INT32_MIN, INT32_MIN)) {}
+      : min_(WorldCoordinate(INT_MAX,INT_MAX,INT_MAX)),
+        max_(WorldCoordinate(INT_MIN, INT_MIN, INT_MIN)) {}
 
     inline bool contains(const Point& p)
     {

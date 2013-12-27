@@ -89,7 +89,7 @@ Point* OpenNI2DepthImage::getPointAt(const DepthImageCoordinate& coordinate) con
   }
   else
   {
-    return nullptr;
+    return 0;
   }
 }
 

@@ -96,9 +96,9 @@ namespace libkipr_link_depth_sensor
     
   private:
     std::vector<Point*> points_2d_;
-    uint32_t n_points_;
     DepthImageSize depth_image_size_;
     BoundingBox bounding_box_;
+    uint32_t n_points_;
   };
 }
 
